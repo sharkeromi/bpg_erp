@@ -27,8 +27,8 @@ class CustomButton extends StatelessWidget {
             gradient: LinearGradient(colors: [
               Color(0xFF60CCD9),
               Color(0xFF0096b5),
-            ], begin: Alignment.bottomLeft, end: Alignment.topRight),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+            borderRadius: BorderRadius.all(Radius.circular(25))),
         height: height,
         width: width,
         child: Center(child: widget),

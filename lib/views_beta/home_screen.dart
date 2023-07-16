@@ -1,8 +1,10 @@
 import 'package:bpg_erp/utils/color_util.dart';
+import 'package:bpg_erp/views_beta/card_scan_screen.dart';
 import 'package:bpg_erp/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -45,8 +47,26 @@ class HomeScreen extends StatelessWidget {
                 child: CustomButton(
                   height: 180,
                   width: 180,
-                  widget: Text('asd'),
-                  navigation: null,
+                  widget: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      Icon(
+                        Icons.document_scanner_rounded,
+                        size: 60,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Visiting Card Scan",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  navigation: () {
+                    Get.to(const CardScanScreen());
+                  },
                 ),
               ),
               Padding(
@@ -54,7 +74,23 @@ class HomeScreen extends StatelessWidget {
                 child: CustomButton(
                   height: 180,
                   width: 180,
-                  widget: Text('sdf'),
+                  widget: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      Icon(
+                        Icons.dry_cleaning_rounded,
+                        size: 60,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Hangar Scan",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ],
+                  ),
                   navigation: null,
                 ),
               ),
