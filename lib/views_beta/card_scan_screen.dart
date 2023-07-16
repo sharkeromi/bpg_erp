@@ -28,7 +28,7 @@ class CardScanScreen extends StatelessWidget {
           Get.snackbar(
             "Success",
             "Data send",
-            duration: Duration(microseconds: 1500),
+            duration: Duration(milliseconds: 1500),
             backgroundColor: Colors.green,
             colorText: Colors.white,
             maxWidth: 400,
