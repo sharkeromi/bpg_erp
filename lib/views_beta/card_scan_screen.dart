@@ -28,99 +28,111 @@ class CardScanScreen extends StatelessWidget {
       ),
       backgroundColor: Color(ColorUtil.instance.hexColor("#e7f0f9")),
       resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const Center(
-                child: Text(
-                  "Card To Text",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF0096b5),
+      body: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                const Center(
+                  child: Text(
+                    "Card To Text",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF0096b5),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomButton(
-                height: 100,
-                width: 100,
-                widget: const Padding(
-                  padding: EdgeInsets.only(bottom: 6.0, right: 4),
-                  child: Icon(
-                    Icons.add_a_photo_rounded,
-                    color: Colors.white,
-                    size: 60,
-                  ),
+                const SizedBox(
+                  height: 20,
                 ),
-                navigation: () {
-                  showCustomDialog(context);
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              if (homeController.imageFile != null)
-                Obx(() => Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Colors.white,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      //height: 40,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            const Text(
-                              'Uploaded Image',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Image.file(File(homeController.imageFile!.path)),
-                          ],
-                        ),
-                      ),
-                    )),
-              const SizedBox(
-                height: 20,
-              ),
-              Obx(
-                () => Container(
+                CustomButton(
+                  height: 100,
+                  width: 100,
+                  widget: const Padding(
+                    padding: EdgeInsets.only(bottom: 6.0, right: 4),
+                    child: Icon(
+                      Icons.add_a_photo_rounded,
+                      color: Colors.white,
+                      size: 60,
+                    ),
+                  ),
+                  navigation: () {
+                    showCustomDialog(context);
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     color: Colors.white,
                   ),
                   width: MediaQuery.of(context).size.width,
+                  //height: 40,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Result',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        if (homeController.scannedText.value != '')
-                          Text(
-                            homeController.scannedText.value,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        // Extracted Text
-                      ],
+                    child: Obx(
+                      () => Column(
+                        children: [
+                          homeController.scannedText.value != ''
+                              ? const Text(
+                                  'Uploaded Image',
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              : const Text(
+                                  'Upload Image',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                          if (homeController.scannedText.value != '')
+                            Image.file(File(homeController.imageFile!.path))
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 100,
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Obx(
+                  () => Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          homeController.scannedText.value != ''?
+                          const Text(
+                            'No',
+                            style: TextStyle(fontSize: 20),
+                          ):
+                          const Text(
+                            'No',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          if (homeController.scannedText.value != '')
+                            Text(
+                              homeController.scannedText.value,
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          // Extracted Text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 100,
+                )
+              ],
+            ),
           ),
         ),
       ),
