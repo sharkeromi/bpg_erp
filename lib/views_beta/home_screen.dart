@@ -1,10 +1,9 @@
+import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/views_beta/card_scan_screen.dart';
 import 'package:bpg_erp/views_beta/hanger_scan_screen.dart';
 import 'package:bpg_erp/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -44,10 +43,10 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16, right: 8),
                 child: CustomButton(
                   height: 180,
-                  width: 180,
+                  width: (MediaQuery.of(context).size.width / 2) - 24,
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
@@ -66,15 +65,16 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   navigation: () {
-                    Get.to(CardScanScreen());
+                    Get.find<HomeController>().resetData();
+                    Get.to(() => CardScanScreen());
                   },
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8, right: 16),
                 child: CustomButton(
                   height: 180,
-                  width: 180,
+                  width: (MediaQuery.of(context).size.width / 2) - 24,
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
@@ -93,7 +93,8 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   navigation: () {
-                    Get.to(const HangerScanScreen(),);
+                    Get.find<HomeController>().resetData();
+                    Get.to(() => HangerScanScreen());
                   },
                 ),
               ),
