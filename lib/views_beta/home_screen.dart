@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   navigation: () {
-                    Get.to(const CardScanScreen());
+                    Get.to(CardScanScreen());
                   },
                 ),
               ),

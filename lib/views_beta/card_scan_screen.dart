@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/widgets/custom_button.dart';
+import 'package:bpg_erp/widgets/custom_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardScanScreen extends StatelessWidget {
-  const CardScanScreen({super.key});
+  CardScanScreen({super.key});
+
+  final HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,59 +49,71 @@ class CardScanScreen extends StatelessWidget {
               CustomButton(
                 height: 100,
                 width: 100,
-                widget: Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0, right: 4),
-                  child: const Icon(
+                widget: const Padding(
+                  padding: EdgeInsets.only(bottom: 6.0, right: 4),
+                  child: Icon(
                     Icons.add_a_photo_rounded,
                     color: Colors.white,
                     size: 60,
                   ),
                 ),
                 navigation: () {
-                  //POP UP
+                  showCustomDialog(context);
                 },
               ),
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Colors.white,
-                ),
-                width: MediaQuery.of(context).size.width,
-                //height: 40,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: const [
-                      Text(
-                        'Uploaded Image',
-                        style: TextStyle(fontSize: 20),
+              if (homeController.imageFile != null)
+                Obx(() => Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                      width: MediaQuery.of(context).size.width,
+                      //height: 40,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Uploaded Image',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.file(File(homeController.imageFile!.path)),
+                          ],
+                        ),
+                      ),
+                    )),
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Colors.white,
-                ),
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: const [
-                      Text(
-                        'Result',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      // Extracted Text
-                    ],
+              Obx(
+                () => Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: Colors.white,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Result',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        if (homeController.scannedText.value != '')
+                          Text(
+                            homeController.scannedText.value,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        // Extracted Text
+                      ],
+                    ),
                   ),
                 ),
               ),
