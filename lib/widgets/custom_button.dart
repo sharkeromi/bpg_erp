@@ -1,3 +1,4 @@
+import 'package:bpg_erp/utils/color_util.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -23,7 +24,19 @@ class CustomButton extends StatelessWidget {
       ),
       onPressed: navigation,
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Color(ColorUtil.instance.hexColor("#dde1e4")),
+                  spreadRadius: 1,
+                  blurRadius: 4,
+                  offset: Offset(5, 5)),
+              BoxShadow(
+                  color: Colors.white,
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(-1, -1))
+            ],
             gradient: LinearGradient(colors: [
               Color(0xFF60CCD9),
               Color(0xFF0096b5),

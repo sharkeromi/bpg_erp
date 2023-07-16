@@ -22,6 +22,7 @@ void main() {
 class Scanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      defaultTransition: Transition.noTransition,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: LogInScreen(),

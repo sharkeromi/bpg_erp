@@ -1,5 +1,6 @@
 import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/views_beta/card_scan_screen.dart';
+import 'package:bpg_erp/views_beta/hanger_scan_screen.dart';
 import 'package:bpg_erp/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -91,7 +92,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  navigation: null,
+                  navigation: () {
+                    Get.to(const HangerScanScreen(),);
+                  },
                 ),
               ),
             ],

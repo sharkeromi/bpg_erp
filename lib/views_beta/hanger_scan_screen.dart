@@ -2,8 +2,8 @@ import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
-class CardScanScreen extends StatelessWidget {
-  const CardScanScreen({super.key});
+class HangerScanScreen extends StatelessWidget {
+  const HangerScanScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CardScanScreen extends StatelessWidget {
         height: 65,
         width: 250,
         widget: const Text(
-          'SEND TO \nMERCHENDISER',
+          'SEND TO \nBUYER',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
