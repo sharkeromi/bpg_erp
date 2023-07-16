@@ -33,6 +33,7 @@ void showCustomDialog(BuildContext context) {
                     onPressed: () async {
                       //show loading
                       Navigator.of(context).pop();
+                      Get.find<HomeController>().isLoading.value = true;
                       await homeController.getImage(ImageSource.camera);
                     },
                   ),
@@ -40,6 +41,7 @@ void showCustomDialog(BuildContext context) {
                     icon: Icon(Icons.photo_library),
                     onPressed: () async {
                       Navigator.of(context).pop();
+                      Get.find<HomeController>().isLoading.value = true;
                       await homeController.getImage(ImageSource.gallery);
                     },
                   ),

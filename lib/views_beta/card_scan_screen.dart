@@ -20,7 +20,7 @@ class CardScanScreen extends StatelessWidget {
         height: 65,
         width: 250,
         widget: const Text(
-          'SEND TO \nMERCHENDISER',
+          'Send to \nmerchandiser',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
@@ -32,12 +32,12 @@ class CardScanScreen extends StatelessWidget {
         top: false,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
             child: Column(
               children: [
                 const Center(
                   child: Text(
-                    "Card To Text",
+                    "Card to text",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -64,65 +64,121 @@ class CardScanScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: Colors.white,
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  //height: 40,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Obx(
-                      () => Column(
-                        children: [
-                          homeController.scannedText.value != ''
-                              ? const Text(
-                                  'Uploaded Image',
-                                  style: TextStyle(fontSize: 20),
-                                )
-                              : const Text(
-                                  'Upload Image',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                          if (homeController.scannedText.value != '')
-                            Image.file(File(homeController.imageFile!.path))
-                        ],
-                      ),
-                    ),
-                  ),
+                const Text(
+                  'Click here to upload image',
+                  style: TextStyle(fontSize: 16),
+                ),
+                Divider(
+                  color: Colors.black,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
+                // for (int i = 0; i < homeController.imageList.length; i++)
                 Obx(
                   () => Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: Colors.white,
-                    ),
-                    width: MediaQuery.of(context).size.width,
+                    decoration: homeController.isImageUploaded.value
+                        ? BoxDecoration(
+                            color: Colors.black12,
+                          )
+                        : null,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16),
                       child: Column(
                         children: [
-                          homeController.scannedText.value != ''?
-                          const Text(
-                            'No',
-                            style: TextStyle(fontSize: 20),
-                          ):
-                          const Text(
-                            'No',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          if (homeController.scannedText.value != '')
+                          if (homeController.isImageUploaded.value)
                             Text(
-                              homeController.scannedText.value,
-                              style: const TextStyle(fontSize: 20),
+                              'Item' + (0 + 1).toString(),
+                              style: TextStyle(fontSize: 20),
                             ),
-                          // Extracted Text
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Obx(
+                            () => homeController.isLoading.value
+                                ? CircularProgressIndicator()
+                                : Container(
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15)),
+                                      color: Colors.white,
+                                    ),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        children: [
+                                          homeController.scannedText.value != ''
+                                              ? const Text(
+                                                  'Result',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                )
+                                              : const Text(
+                                                  'No text to show',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                          if (homeController
+                                                  .scannedText.value !=
+                                              '')
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                          if (homeController
+                                                  .scannedText.value !=
+                                              '')
+                                            Text(
+                                              homeController.scannedText.value,
+                                              style:
+                                                  const TextStyle(fontSize: 20),
+                                            ),
+                                          // Extracted Text
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                              color: Colors.white,
+                            ),
+                            width: MediaQuery.of(context).size.width,
+                            //height: 40,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Obx(
+                                () => Column(
+                                  children: [
+                                    homeController.isImageUploaded.value
+                                        ? const Text(
+                                            'Uploaded image',
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        : const Text(
+                                            'No image uploaded yet',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                    if (homeController.isImageUploaded.value)
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                    if (homeController.isImageUploaded.value)
+                                      Image.file(
+                                          File(homeController.imageFile!.path))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
