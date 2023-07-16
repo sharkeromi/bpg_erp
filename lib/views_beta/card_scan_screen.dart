@@ -24,7 +24,17 @@ class CardScanScreen extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
-        navigation: () {},
+        navigation: () {
+          Get.snackbar(
+            "Success",
+            "Data send",
+            duration: Duration(microseconds: 1500),
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            maxWidth: 400,
+            snackPosition: SnackPosition.TOP,
+          );
+        },
       ),
       backgroundColor: Color(ColorUtil.instance.hexColor("#e7f0f9")),
       resizeToAvoidBottomInset: false,
@@ -85,8 +95,7 @@ class CardScanScreen extends StatelessWidget {
                           )
                         : null,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                       child: Column(
                         children: [
                           if (homeController.isImageUploaded.value)
@@ -102,8 +111,7 @@ class CardScanScreen extends StatelessWidget {
                                 ? CircularProgressIndicator()
                                 : Container(
                                     decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
+                                      borderRadius: BorderRadius.all(Radius.circular(15)),
                                       color: Colors.white,
                                     ),
                                     width: MediaQuery.of(context).size.width,
@@ -114,27 +122,20 @@ class CardScanScreen extends StatelessWidget {
                                           homeController.scannedText.value != ''
                                               ? const Text(
                                                   'Result',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
+                                                  style: TextStyle(fontSize: 20),
                                                 )
                                               : const Text(
                                                   'No text to show',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
+                                                  style: TextStyle(fontSize: 20),
                                                 ),
-                                          if (homeController
-                                                  .scannedText.value !=
-                                              '')
+                                          if (homeController.scannedText.value != '')
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                          if (homeController
-                                                  .scannedText.value !=
-                                              '')
+                                          if (homeController.scannedText.value != '')
                                             Text(
                                               homeController.scannedText.value,
-                                              style:
-                                                  const TextStyle(fontSize: 20),
+                                              style: const TextStyle(fontSize: 20),
                                             ),
                                           // Extracted Text
                                         ],
@@ -147,8 +148,7 @@ class CardScanScreen extends StatelessWidget {
                           ),
                           Container(
                             decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
+                              borderRadius: BorderRadius.all(Radius.circular(15)),
                               color: Colors.white,
                             ),
                             width: MediaQuery.of(context).size.width,
@@ -171,9 +171,7 @@ class CardScanScreen extends StatelessWidget {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                    if (homeController.isImageUploaded.value)
-                                      Image.file(
-                                          File(homeController.imageFile!.path))
+                                    if (homeController.isImageUploaded.value) Image.file(File(homeController.imageFile!.path))
                                   ],
                                 ),
                               ),

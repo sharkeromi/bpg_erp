@@ -21,12 +21,12 @@ class HomeScreen extends StatelessWidget {
           'Dashboard Activity',
           style: TextStyle(color: Colors.white),
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 12.0),
-            child: Icon(Icons.logout),
-          )
-        ],
+        // actions: const [
+        //   Padding(
+        //     padding: EdgeInsets.only(right: 12.0),
+        //     child: Icon(Icons.logout),
+        //   )
+        // ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
