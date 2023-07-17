@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,11 @@ class HomeController extends GetxController {
   RxString scannedText = RxString('');
   final RxBool isImageUploaded = RxBool(false);
   final RxBool isLoading = RxBool(false);
+  final TextEditingController textEditor = TextEditingController();
+  final RxBool isEditingMode = RxBool(false);
   final RxList imageList = RxList([]);
+
+  final FocusNode textFocusNode = FocusNode();
 
   resetData() {
     isImageUploaded.value = false;
@@ -73,4 +78,16 @@ class HomeController extends GetxController {
     isLoading.value = false;
     log(imageList.toString());
   }
+
+  toggleEditingMode() {
+    if (isEditingMode.value == true) {
+      scannedText.value = textEditor.text;
+    } else {
+      textEditor.text = scannedText.value;
+      textFocusNode.requestFocus();
+    }
+    isEditingMode.value = !isEditingMode.value;
+  }
+
+  
 }
