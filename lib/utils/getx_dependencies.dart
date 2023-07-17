@@ -4,6 +4,6 @@ import 'package:get/get.dart';
 class AllControllerBinder implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController());
+    Get.put<HomeController>(HomeController());
   }
 }

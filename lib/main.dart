@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 void main() {
-  AllControllerBinder().dependencies();
   WidgetsFlutterBinding.ensureInitialized();
+  AllControllerBinder().dependencies();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)

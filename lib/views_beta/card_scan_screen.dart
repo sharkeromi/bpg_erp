@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/color_util.dart';
-import 'package:bpg_erp/widgets/custom_appbar.dart';
-import 'package:bpg_erp/widgets/custom_button.dart';
-import 'package:bpg_erp/widgets/custom_item_content.dart';
-import 'package:bpg_erp/widgets/custom_popup.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_appbar.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_item_content.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -68,7 +68,8 @@ class CardScanScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      showCustomDialog(context);
+                      homeController.showCustomDialog(
+                          context, homeController.imageList.length);
                     },
                     child: Container(
                       child: Column(
@@ -95,7 +96,8 @@ class CardScanScreen extends StatelessWidget {
                               ),
                             ),
                             navigation: () {
-                              showCustomDialog(context);
+                              homeController.showCustomDialog(
+                                  context, homeController.imageList.length);
                             },
                           ),
                           const SizedBox(
@@ -120,34 +122,19 @@ class CardScanScreen extends StatelessWidget {
                     height: 10,
                   ),
                   // for (int i = 0; i < homeController.imageList.length; i++)
+                  if (homeController.isEmptyLoading.value)
+                    const SizedBox(
+                      height: 150,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  for (int i = homeController.imageList.length - 1; i >= 0; i--)
+                    CustomItemContent(
+                      itemType: "Card ",
+                      index: i,
+                    ),
 
-                  CustomItemContent(
-                    itemType: "Card ",
-                  ),
-
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  homeController.isImageUploaded.value
-                      ? CustomButton(
-                          gradient: const LinearGradient(
-                              colors: [
-                                Color(0xFF60CCD9),
-                                Color(0xFF0096b5),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter),
-                          widget: const Text(
-                            "Add New",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                          height: 45,
-                          width: 130,
-                          navigation: () {
-                            showCustomDialog(context);
-                          },
-                        )
-                      : const SizedBox(),
                   const SizedBox(
                     height: 80,
                   )

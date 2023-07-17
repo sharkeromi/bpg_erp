@@ -1,14 +1,19 @@
 import 'dart:io';
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/widgets/custom_popup.dart';
-import 'package:bpg_erp/widgets/custom_textfield1.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_popup.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_textfield1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomItemContent extends StatelessWidget {
   final String itemType;
+  final int index;
 
-  CustomItemContent({super.key, required this.itemType});
+  CustomItemContent({
+    super.key,
+    required this.itemType,
+    required this.index,
+  });
 
   final HomeController homeController = Get.find<HomeController>();
 
@@ -16,7 +21,7 @@ class CustomItemContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        decoration: homeController.isImageUploaded.value
+        decoration: homeController.isImageUploadedList[index].value
             ? const BoxDecoration(
                 color: Colors.black12,
               )
@@ -25,15 +30,15 @@ class CustomItemContent extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: Column(
             children: [
-              if (homeController.isImageUploaded.value)
+              if (homeController.isImageUploadedList[index].value)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Text(
-                        itemType + (0 + 1).toString(),
-                        style: TextStyle(
+                        itemType + (index + 1).toString(),
+                        style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -43,8 +48,8 @@ class CustomItemContent extends StatelessWidget {
                 height: 10,
               ),
               Obx(
-                () => homeController.isLoading.value
-                    ? CircularProgressIndicator()
+                () => homeController.isLoadingList[index].value
+                    ? const CircularProgressIndicator()
                     : Stack(
                         children: [
                           Container(
@@ -83,7 +88,7 @@ class CustomItemContent extends StatelessWidget {
                                   if (homeController.scannedText.value != '' &&
                                       !homeController.isEditingMode.value)
                                     Text(
-                                      homeController.scannedText.value,
+                                      homeController.imageList[index]['text'],
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                 ],
@@ -125,7 +130,7 @@ class CustomItemContent extends StatelessWidget {
                   child: Obx(
                     () => Column(
                       children: [
-                        homeController.isImageUploaded.value
+                        homeController.isImageUploadedList[index].value
                             ? const Text(
                                 'Uploaded image',
                                 style: TextStyle(
@@ -135,18 +140,18 @@ class CustomItemContent extends StatelessWidget {
                                 'No image uploaded yet',
                                 style: TextStyle(fontSize: 20),
                               ),
-                        if (homeController.isImageUploaded.value)
+                        if (homeController.isImageUploadedList[index].value)
                           const SizedBox(
                             height: 10,
                           ),
-                        if (homeController.isImageUploaded.value)
+                        if (homeController.isImageUploadedList[index].value)
                           Image.file(File(homeController.imageFile!.path))
                       ],
                     ),
                   ),
                 ),
               ),
-              homeController.isImageUploaded.value
+              homeController.isImageUploadedList[index].value
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 12),
                       child: InkWell(
@@ -156,9 +161,9 @@ class CustomItemContent extends StatelessWidget {
                         child: const Text(
                           'Delete',
                           style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 20,
                               color: Colors.red,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     )

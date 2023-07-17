@@ -3,8 +3,8 @@ import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/views_beta/card_scan_screen.dart';
 import 'package:bpg_erp/views_beta/hanger_scan_screen.dart';
 import 'package:bpg_erp/views_beta/login_screen.dart';
-import 'package:bpg_erp/widgets/custom_appbar.dart';
-import 'package:bpg_erp/widgets/custom_button.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_appbar.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,9 +17,15 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Color(ColorUtil.instance.hexColor("#e7f0f9")),
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
-        child:  CustomAppBar(
+        child: CustomAppBar(
           title: 'DashBoard Activity',
-          prefixWidget: Icon(Icons.logout_rounded, color: Colors.white,), prefixWidgetAction: () { Get.offAll(LogInScreen()); },
+          prefixWidget: Icon(
+            Icons.logout_rounded,
+            color: Colors.white,
+          ),
+          prefixWidgetAction: () {
+            Get.offAll(LogInScreen());
+          },
         ),
       ),
       body: Column(
@@ -41,9 +47,9 @@ class HomeScreen extends StatelessWidget {
                 child: CustomButton(
                   height: 180,
                   gradient: const LinearGradient(colors: [
-            Color(0xFF60CCD9),
-            Color(0xFF0096b5),
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                    Color(0xFF60CCD9),
+                    Color(0xFF0096b5),
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
                   width: (MediaQuery.of(context).size.width / 2) - 24,
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -72,9 +78,9 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8, right: 16),
                 child: CustomButton(
                   gradient: const LinearGradient(colors: [
-            Color(0xFF60CCD9),
-            Color(0xFF0096b5),
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                    Color(0xFF60CCD9),
+                    Color(0xFF0096b5),
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
                   height: 180,
                   width: (MediaQuery.of(context).size.width / 2) - 24,
                   widget: Column(

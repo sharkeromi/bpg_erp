@@ -1,8 +1,8 @@
 import 'package:bpg_erp/controller/auth_controller.dart';
 import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/views_beta/home_screen.dart';
-import 'package:bpg_erp/widgets/custom_button.dart';
-import 'package:bpg_erp/widgets/custom_textfield.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
+import 'package:bpg_erp/views_beta/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
