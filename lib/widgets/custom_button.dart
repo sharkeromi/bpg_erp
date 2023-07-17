@@ -1,18 +1,21 @@
-import 'package:bpg_erp/utils/color_util.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final double height;
   final double width;
   final Widget widget;
-  var navigation;
+  final VoidCallback? navigation;
+  Color? color;
+  var gradient;
 
   CustomButton(
       {super.key,
       required this.widget,
       required this.height,
       required this.width,
-      required this.navigation});
+      required this.navigation,
+      this.color,
+      this.gradient});
 
   @override
   Widget build(BuildContext context) {
@@ -21,27 +24,31 @@ class CustomButton extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: EdgeInsets.zero,
         minimumSize: Size.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25), // <-- Radius
+        ),
       ),
       onPressed: navigation,
       child: Container(
         decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  color: Color(ColorUtil.instance.hexColor("#dde1e4")),
-                  spreadRadius: 1,
-                  blurRadius: 4,
-                  offset: Offset(5, 5)),
-              BoxShadow(
-                  color: Colors.white,
-                  spreadRadius: 1,
-                  blurRadius: 8,
-                  offset: Offset(-1, -1))
-            ],
-            gradient: LinearGradient(colors: [
-              Color(0xFF60CCD9),
-              Color(0xFF0096b5),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            borderRadius: BorderRadius.all(Radius.circular(25))),
+          color: color,
+          // boxShadow: [
+          //   BoxShadow(
+          //       color: Color(ColorUtil.instance.hexColor("#dde1e4")),
+          //       spreadRadius: 1,
+          //       blurRadius: 4,
+          //       offset: Offset(5, 5)),
+          //   BoxShadow(
+          //       color: Colors.white,
+          //       spreadRadius: 1,
+          //       blurRadius: 8,
+          //       offset: Offset(-1, -1))
+          // ],
+          gradient: gradient,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(25),
+          ),
+        ),
         height: height,
         width: width,
         child: Center(child: widget),
