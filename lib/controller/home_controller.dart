@@ -12,14 +12,10 @@ import 'package:image_picker/image_picker.dart';
 class HomeController extends GetxController {
   RxBool textScanning = RxBool(false);
   XFile? imageFile;
-  // final  RxString scannedText = RxString('');
   final RxList<RxString> scannedTextList = RxList([''.obs]);
   final RxBool isImageUploaded = RxBool(false);
   final RxBool isEmptyLoading = RxBool(false);
-  // final TextEditingController textEditor = TextEditingController();
-  final RxList<TextEditingController> textEditorList =
-      RxList([TextEditingController()]);
-  // final RxBool isEditingMode = RxBool(false);
+  final RxList<TextEditingController> textEditorList = RxList([TextEditingController()]);
   final RxList<RxBool> isEditingModeList = RxList([false.obs]);
   final RxList imageList = RxList([]);
 
@@ -108,8 +104,7 @@ class HomeController extends GetxController {
     final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
     final inputImage = InputImage.fromFilePath(image.path);
     final textRecognizer = GoogleMlKit.vision.textRecognizer();
-    final RecognizedText recognisedText =
-        await textRecognizer.processImage(inputImage);
+    final RecognizedText recognisedText = await textRecognizer.processImage(inputImage);
     await textRecognizer.close();
     // List<String> textRows = [];
     String scanText = "";
@@ -147,6 +142,7 @@ class HomeController extends GetxController {
   toggleEditingMode(index) {
     if (isEditingModeList[index].value == true) {
       scannedTextList[index].value = textEditorList[index].text;
+      imageList[index]['text'] = textEditorList[index].text;
     } else {
       textEditorList[index].text = scannedTextList[index].value;
       textFocusNode.requestFocus();
@@ -214,18 +210,14 @@ class HomeController extends GetxController {
                       child: TextButton(
                         onPressed: () async {
                           Get.back();
-                          Get.find<HomeController>().isEmptyLoading.value =
-                              true;
+                          Get.find<HomeController>().isEmptyLoading.value = true;
                           await getImage(ImageSource.camera, index);
                         },
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(backgroundColor),
-                          foregroundColor:
-                              MaterialStateProperty.all(blackColor),
+                          backgroundColor: MaterialStateProperty.all(backgroundColor),
+                          foregroundColor: MaterialStateProperty.all(blackColor),
                           padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           )),
                         ),
@@ -240,9 +232,7 @@ class HomeController extends GetxController {
                               onPressed: () async {
                                 //show loading
                                 Get.back();
-                                Get.find<HomeController>()
-                                    .isEmptyLoading
-                                    .value = true;
+                                Get.find<HomeController>().isEmptyLoading.value = true;
                                 await getImage(ImageSource.camera, index);
                               },
                             ),
@@ -259,20 +249,16 @@ class HomeController extends GetxController {
                       height: 100,
                       child: TextButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(backgroundColor),
-                          foregroundColor:
-                              MaterialStateProperty.all(blackColor),
+                          backgroundColor: MaterialStateProperty.all(backgroundColor),
+                          foregroundColor: MaterialStateProperty.all(blackColor),
                           padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           )),
                         ),
                         onPressed: () async {
                           Get.back();
-                          Get.find<HomeController>().isEmptyLoading.value =
-                              true;
+                          Get.find<HomeController>().isEmptyLoading.value = true;
                           await getImage(ImageSource.gallery, index);
                         },
                         child: Column(
@@ -285,9 +271,7 @@ class HomeController extends GetxController {
                               ),
                               onPressed: () async {
                                 Get.back();
-                                Get.find<HomeController>()
-                                    .isEmptyLoading
-                                    .value = true;
+                                Get.find<HomeController>().isEmptyLoading.value = true;
                                 await getImage(ImageSource.gallery, index);
                               },
                             ),
