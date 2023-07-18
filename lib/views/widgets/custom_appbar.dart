@@ -1,3 +1,4 @@
+import 'package:bpg_erp/utils/const/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,11 +9,7 @@ class CustomAppBar extends StatelessWidget {
 
   final VoidCallback prefixWidgetAction;
 
-  const CustomAppBar(
-      {super.key,
-      required this.title,
-      required this.prefixWidget,
-      required this.prefixWidgetAction});
+  const CustomAppBar({super.key, required this.title, required this.prefixWidget, required this.prefixWidgetAction});
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +20,12 @@ class CustomAppBar extends StatelessWidget {
           },
           icon: const Icon(Icons.arrow_back_ios_new_rounded)),
       elevation: 0.0,
-      //automaticallyImplyLeading: false,
       centerTitle: true,
-
-      backgroundColor: const Color(0xFF0096b5),
+      backgroundColor: kCDefaultColor2,
       title: Text(
         title,
         style: const TextStyle(
-          color: Colors.white,
+          color: whiteColor,
         ),
       ),
       actions: [
@@ -41,8 +36,7 @@ class CustomAppBar extends StatelessWidget {
             minimumSize: Size.zero,
           ),
           onPressed: prefixWidgetAction,
-          child: Padding(
-              padding: const EdgeInsets.only(right: 16.0), child: prefixWidget),
+          child: Padding(padding: const EdgeInsets.only(right: 16.0), child: prefixWidget),
         ),
       ],
     );

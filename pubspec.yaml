@@ -76,6 +76,7 @@ flutter:
     - assets/tessdata_config.json
     - assets/images/bgplogo.png
     - assets/images/sky.png
+    - assets/images/sky2.png
     - assets/images/leaves.png
     - assets/images/item1.png
     - assets/images/search.png

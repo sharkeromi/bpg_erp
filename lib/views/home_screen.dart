@@ -1,10 +1,10 @@
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/utils/color_util.dart';
-import 'package:bpg_erp/views_beta/card_scan_screen.dart';
-import 'package:bpg_erp/views_beta/hanger_scan_screen.dart';
-import 'package:bpg_erp/views_beta/login_screen.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_appbar.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
+import 'package:bpg_erp/utils/const/color.dart';
+import 'package:bpg_erp/views/card_scan_screen.dart';
+import 'package:bpg_erp/views/hanger_scan_screen.dart';
+import 'package:bpg_erp/views/login_screen.dart';
+import 'package:bpg_erp/views/widgets/custom_appbar.dart';
+import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(ColorUtil.instance.hexColor("#e7f0f9")),
+      backgroundColor: backgroundColor,
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
         child: CustomAppBar(
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             color: Colors.white,
           ),
           prefixWidgetAction: () {
-            Get.offAll(LogInScreen());
+            Get.offAll(() => LogInScreen());
           },
         ),
       ),
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(
-            "assets/images/sky.png",
+            "assets/images/sky2.png",
             fit: BoxFit.cover,
           ),
           Image.asset("assets/images/leaves.png"),
@@ -46,10 +46,7 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16, right: 8),
                 child: CustomButton(
                   height: 180,
-                  gradient: const LinearGradient(colors: [
-                    Color(0xFF60CCD9),
-                    Color(0xFF0096b5),
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  gradient: kGDefaultGradient,
                   width: (MediaQuery.of(context).size.width / 2) - 24,
                   widget: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,10 +74,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 16),
                 child: CustomButton(
-                  gradient: const LinearGradient(colors: [
-                    Color(0xFF60CCD9),
-                    Color(0xFF0096b5),
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  gradient: kGDefaultGradient,
                   height: 180,
                   width: (MediaQuery.of(context).size.width / 2) - 24,
                   widget: Column(
@@ -101,8 +95,6 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   navigation: () {
-                    HomeController homeController = Get.find<HomeController>();
-                    print(homeController.imageList);
                     Get.find<HomeController>().resetData();
                     Get.to(() => HangerScanScreen());
                   },

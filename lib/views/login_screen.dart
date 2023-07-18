@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:bpg_erp/controller/auth_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
-import 'package:bpg_erp/views_beta/home_screen.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_textfield.dart';
+import 'package:bpg_erp/views/home_screen.dart';
+import 'package:bpg_erp/views/widgets/custom_button.dart';
+import 'package:bpg_erp/views/widgets/custom_textfield.dart';
 
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
