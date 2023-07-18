@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-void showDeleteDialog(BuildContext context) {
+void showDeleteDialog(BuildContext context, index) {
   HomeController homeController = Get.find<HomeController>();
   showDialog(
     context: context,
@@ -45,7 +45,7 @@ void showDeleteDialog(BuildContext context) {
                       width: MediaQuery.of(context).size.width / 3,
                       navigation: () {
                         //homeController.resetData();
-                        //homeController.deleteData(index);
+                        homeController.deleteData(index);
                         Get.back();
                       }),
                 ],
