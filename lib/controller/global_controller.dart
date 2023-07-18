@@ -6,8 +6,12 @@ class GlobalController extends GetxController {
   final SharedPreference sharedPreference = SharedPreference();
 
   saveDataSP(value) async {
-    await sharedPreference.saveImageData(value);
-    showSnackBar("Success!", "Data send successfully.", Colors.green);
+    if (value == null) {
+      showSnackBar("Warning!", "Data send successfully.", Colors.green);
+    } else {
+      await sharedPreference.saveImageData(value);
+      showSnackBar("Success!", "Data send successfully.", Colors.green);
+    }
   }
 
   showSnackBar(String title, String message, Color color) {

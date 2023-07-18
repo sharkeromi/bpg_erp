@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bpg_erp/controller/global_controller.dart';
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/views_beta/widgets/custom_appbar.dart';
@@ -13,6 +14,7 @@ class CardScanScreen extends StatelessWidget {
   CardScanScreen({super.key});
 
   final HomeController homeController = Get.find<HomeController>();
+  final GlobalController globalController = Get.find<GlobalController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +33,7 @@ class CardScanScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
         navigation: () {
-          Get.snackbar(
-            "Success",
-            "Data send",
-            duration: Duration(milliseconds: 1500),
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-            maxWidth: 400,
-            snackPosition: SnackPosition.TOP,
-          );
+          globalController.saveDataSP(homeController.imageList);
         },
       ),
       backgroundColor: Color(ColorUtil.instance.hexColor("#e7f0f9")),
@@ -54,6 +48,7 @@ class CardScanScreen extends StatelessWidget {
           ),
           prefixWidgetAction: () {
             //Reset Data
+            globalController.resetSharedPreference();
             homeController.resetData();
           },
         ),
