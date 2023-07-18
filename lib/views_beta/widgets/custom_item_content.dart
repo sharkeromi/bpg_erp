@@ -145,7 +145,8 @@ class CustomItemContent extends StatelessWidget {
                             height: 10,
                           ),
                         if (homeController.isImageUploadedList[index].value)
-                          Image.file(File(homeController.imageFile!.path))
+                          Image.file(
+                              File(homeController.imageList[index]['image']))
                       ],
                     ),
                   ),
@@ -156,7 +157,7 @@ class CustomItemContent extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 20.0, bottom: 12),
                       child: InkWell(
                         onTap: () {
-                          showDeleteDialog(context);
+                          showDeleteDialog(context, index);
                         },
                         child: const Text(
                           'Delete',
