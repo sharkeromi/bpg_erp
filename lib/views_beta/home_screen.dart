@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
         child: CustomAppBar(
           title: 'DashBoard Activity',
-          prefixWidget: Icon(
+          prefixWidget:const  Icon(
             Icons.logout_rounded,
             color: Colors.white,
           ),

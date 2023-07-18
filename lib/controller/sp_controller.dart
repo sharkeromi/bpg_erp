@@ -9,6 +9,7 @@ class SharedPreference {
   Future<void> saveImageData(value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String encodedData = json.encode(value);
+    print(encodedData);
     await preferences.setString(kImageDataKey, encodedData);
   }
 
