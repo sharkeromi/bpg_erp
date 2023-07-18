@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/utils/const/value.dart';
@@ -67,8 +64,8 @@ class HomeController extends GetxController {
 
   Future<void> getImage(source, index) async {
     try {
-      // resetData();dx
-      log('index' + index.toString());
+      // resetData();
+      // log('index' + index.toString());
       final pickedImage = await ImagePicker().pickImage(source: source);
       isLoadingList[index].value = true;
       isEmptyLoading.value = true;
@@ -108,9 +105,9 @@ class HomeController extends GetxController {
     final RecognizedText recognisedText =
         await textRecognizer.processImage(inputImage);
     await textRecognizer.close();
-    List<String> textRows = [];
+    // List<String> textRows = [];
     String scanText = "";
-    print(recognisedText.text);
+    //  print(recognisedText.text);
     //scannedText.value = '';
     for (TextBlock block in recognisedText.blocks) {
       // print(block.lines.length);
@@ -128,10 +125,10 @@ class HomeController extends GetxController {
     isImageUploadedList.add(false.obs);
     textScanning.value = false;
     isLoadingList[index].value = false;
+  }
 
-    log('message' + isLoadingList.toString());
-    log('message' + isImageUploadedList.toString());
-    log('message' + imageList.toString());
+  deleteData(index) {
+    imageList.removeAt(index);
   }
 
   toggleEditingMode() {
@@ -166,7 +163,7 @@ class HomeController extends GetxController {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(
                           'Select Image Source',
                           style: TextStyle(
@@ -183,8 +180,6 @@ class HomeController extends GetxController {
                         onTap: () {
                           Get.back();
                         },
-                        // highlightColor: Colors.transparent,
-                        // splashColor: Colors.transparent,
                         child: const Icon(
                           Icons.close,
                           color: blackColor,
