@@ -96,6 +96,7 @@ class CardScanScreen extends StatelessWidget {
                               ),
                             ),
                             navigation: () {
+                              //homeController.isEditingModeList[index].value = false;
                               homeController.showCustomDialog(
                                   context, homeController.imageList.length);
                             },
