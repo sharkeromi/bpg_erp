@@ -1,4 +1,4 @@
-import 'package:bpg_erp/utils/getx_dependencies.dart';
+import 'package:bpg_erp/controller/binder/getx_dependencies.dart';
 import 'package:bpg_erp/views_beta/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,11 +14,14 @@ void main() {
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(Scanner());
+    runApp(const Scanner());
   });
 }
 
 class Scanner extends StatelessWidget {
+  const Scanner({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.noTransition,
