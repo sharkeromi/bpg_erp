@@ -33,8 +33,9 @@ class HangerScanScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: kSDefaultStyle,
                 ),
-                navigation: () {
-                  globalController.saveDataSP(homeController.imageList);
+                navigation: () async {
+                  globalController.shareImageAndText('hanger');
+                  await globalController.saveDataSP(homeController.imageList);
                 },
               ),
         appBar: PreferredSize(
@@ -78,7 +79,9 @@ class HangerScanScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    for (int i = homeController.imageList.length - 1; i >= 0; i--)
+                    for (int i = homeController.imageList.length - 1;
+                        i >= 0;
+                        i--)
                       CustomItemContent(
                         itemType: "Hanger ",
                         index: i,

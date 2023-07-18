@@ -34,8 +34,9 @@ class CardScanScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: kSDefaultStyle,
                 ),
-                navigation: () {
-                  globalController.saveDataSP(homeController.imageList);
+                navigation: ()async {
+                  globalController.shareImageAndText('card');
+                  await globalController.saveDataSP(homeController.imageList);
                 },
               ),
         appBar: PreferredSize(

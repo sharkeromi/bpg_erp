@@ -36,22 +36,30 @@ class GlobalController extends GetxController {
     await sharedPreference.removeCache();
   }
 
-  void shareImageAndTextCard(index) async {
-    final String imagePath = homeController.imageList[index]['image'];
-    final String text = homeController.imageList[index]['text'];
-    await Share.shareXFiles([XFile(imagePath)],
-        text: text, subject: kCardEmailSubject);
-    // Share.share(text)
+   shareImageAndText( type) async {
+    var serverList;
+    for (int i = homeController.imageList.length - 1; i >= 0; i--) {
+      final String imagePath = homeController.imageList[i]['image'];
+      serverList.add(XFile(imagePath));
+    }
+    var cardInfo = stringAdder();
+    if (type == 'card') {
+      final String text = cardEmailBody + cardInfo;
+      await Share.shareXFiles(serverList,
+          text: text, subject: kCardEmailSubject);
+    } else {
+      final String text = buyerEmailBody + cardInfo;
+      await Share.shareXFiles(serverList,
+          text: text, subject: kBuyerEmailSubject);
+    }
   }
 
-  void shareImageAndTextHanger(index) async {
+  shareImageAndTextHanger(index) async {
     final String imagePath = homeController.imageList[index]['image'];
-    final String body = '';
     var cardInfo = stringAdder();
     final String text = buyerEmailBody + cardInfo;
     await Share.shareXFiles([XFile(imagePath)],
         text: text, subject: kBuyerEmailSubject);
-    // Share.share(text)
   }
 
   stringAdder() {
@@ -61,19 +69,18 @@ class GlobalController extends GetxController {
     return text.value;
   }
 
+//* send through url launcher
+//   void sendEmailWithRecipient(String subject, String body) async {
+//   final Uri params = Uri(
+//     scheme: 'mailto',
+//     path: recipientEmail,
+//     query: 'subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}',
+//   );
 
-  void sendEmailWithRecipient(String subject, String body) async {
-  final Uri params = Uri(
-    scheme: 'mailto',
-    path: recipientEmail,
-    query: 'subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}',
-  );
-
-  if (await canLaunchUrl(params)) {
-    await launchUrl(params);
-  } else {
-    throw 'Could not launch email client.';
-  }
-}
-
+//   if (await canLaunchUrl(params)) {
+//     await launchUrl(params);
+//   } else {
+//     throw 'Could not launch email client.';
+//   }
+// }
 }
