@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
         child: CustomAppBar(
           title: 'DashBoard Activity',
-          prefixWidget:const  Icon(
+          prefixWidget: const Icon(
             Icons.logout_rounded,
             color: Colors.white,
           ),
@@ -101,6 +101,8 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   navigation: () {
+                    HomeController homeController = Get.find<HomeController>();
+                    print(homeController.imageList);
                     Get.find<HomeController>().resetData();
                     Get.to(() => HangerScanScreen());
                   },

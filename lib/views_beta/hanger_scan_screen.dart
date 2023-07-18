@@ -17,58 +17,74 @@ class HangerScanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      backgroundColor: backgroundColor,
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: CustomButton(
-        height: 65,
-        width: 250,
-        gradient: kGDefaultGradient,
-        widget: const Text('Send to buyer',
-            textAlign: TextAlign.center, style: kSDefaultStyle),
-        navigation: () {
-          globalController.saveDataSP(homeController.imageList);
-        },
-      ),
-      appBar: PreferredSize(
-        preferredSize: Size(MediaQuery.of(context).size.width, 50),
-        child: CustomAppBar(
-          title: 'Hanger Scan',
-          prefixWidget: const Text(
-            'Reset',
-            style: kSDefaultStyle,
+    return Obx(
+      () => Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        backgroundColor: backgroundColor,
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: homeController.imageList.isEmpty
+            ? const SizedBox()
+            : CustomButton(
+                height: 65,
+                width: 250,
+                gradient: kGDefaultGradient,
+                widget: const Text('Send to buyer',
+                    textAlign: TextAlign.center, style: kSDefaultStyle),
+                navigation: () {
+                  globalController.saveDataSP(homeController.imageList);
+                },
+              ),
+        appBar: PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width, 50),
+          child: CustomAppBar(
+            title: 'Hanger Scan',
+            prefixWidget: const Text(
+              'Reset',
+              style: popUpHeaderStyle,
+            ),
+            prefixWidgetAction: () {
+              homeController.resetData();
+              globalController.resetSharedPreference();
+            },
           ),
-          prefixWidgetAction: () {
-            homeController.resetData();
-            globalController.resetSharedPreference();
-          },
         ),
-      ),
-      body: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 24.0),
-            child: Obx(
-              () => Column(
-                children: [
-                  CommonTapablePanel(),
-                  kSizedBox10,
-                  if (homeController.isEmptyLoading.value)
-                    const SizedBox(
-                      height: 150,
-                      child: Center(
-                        child: CircularProgressIndicator(),
+        body: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24.0),
+              child: Obx(
+                () => Column(
+                  children: [
+                    CommonTapablePanel(),
+                    kSizedBox10,
+                    if (homeController.isEmptyLoading.value)
+                      const SizedBox(
+                        height: 150,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
-                    ),
-                  for (int i = homeController.imageList.length - 1; i >= 0; i--)
-                    CustomItemContent(
-                      itemType: "Hanger ",
-                      index: i,
-                    ),
-                  kSizedBox80
-                ],
+                    if (homeController.imageList.isEmpty)
+                      Container(
+                        height: 300,
+                        child: const Center(
+                          child: Text(
+                            "No image uploaded yet",
+                            style: textStyle,
+                          ),
+                        ),
+                      ),
+                    for (int i = homeController.imageList.length - 1;
+                        i >= 0;
+                        i--)
+                      CustomItemContent(
+                        itemType: "Hanger ",
+                        index: i,
+                      ),
+                    kSizedBox80
+                  ],
+                ),
               ),
             ),
           ),

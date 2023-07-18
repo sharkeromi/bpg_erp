@@ -2,14 +2,14 @@ import 'package:bpg_erp/utils/const/color.dart';
 import 'package:flutter/material.dart';
 
 //* Text Styles
-// const appBarTitleStyle = 
-const popUpHeaderStyle =
-    TextStyle(fontSize: 18, color: whiteColor);
+// const appBarTitleStyle =
+const popUpHeaderStyle = TextStyle(fontSize: 18, color: whiteColor);
 const logInScreenHeaderStyle =
     TextStyle(fontSize: 40, color: Colors.black38, fontWeight: FontWeight.bold);
 const textStyle =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black);
 const boldTextStyle = TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
+const kSAppBarPrefix = TextStyle(color: Colors.white, fontSize: 16);
 const kSDefaultStyle = TextStyle(color: Colors.white, fontSize: 20);
 
 //* Sized Boxes

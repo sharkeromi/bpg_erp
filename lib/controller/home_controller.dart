@@ -5,7 +5,7 @@ import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/utils/const/value.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -78,8 +78,6 @@ class HomeController extends GetxController {
 
   Future<void> getImage(source, index) async {
     try {
-      // resetData();
-      // log('index' + index.toString());
       final pickedImage = await ImagePicker().pickImage(source: source);
       isLoadingList[index].value = true;
       isEmptyLoading.value = true;
@@ -113,9 +111,10 @@ class HomeController extends GetxController {
   }
 
   getRecognisedText(XFile image, index) async {
-    final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
+    // final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
     final inputImage = InputImage.fromFilePath(image.path);
-    final textRecognizer = GoogleMlKit.vision.textRecognizer();
+    // final textRecognizer = GoogleMlKit.vision.textRecognizer();
+    final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
     final RecognizedText recognisedText =
         await textRecognizer.processImage(inputImage);
     await textRecognizer.close();
