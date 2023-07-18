@@ -4,12 +4,9 @@ import 'package:bpg_erp/utils/const/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class GlobalController extends GetxController {
   final SharedPreference sharedPreference = SharedPreference();
-  HomeController homeController = Get.find<HomeController>();
-  RxString text = RxString('');
 
   saveDataSP(value) async {
     if (value == null) {
@@ -36,51 +33,31 @@ class GlobalController extends GetxController {
     await sharedPreference.removeCache();
   }
 
-   shareImageAndText( type) async {
-    var serverList;
+  shareImageAndText(type) async {
+    HomeController homeController = Get.find<HomeController>();
+    List<XFile> serverList = [];
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
       final String imagePath = homeController.imageList[i]['image'];
       serverList.add(XFile(imagePath));
     }
     var cardInfo = stringAdder();
     if (type == 'card') {
-      final String text = cardEmailBody + cardInfo;
-      await Share.shareXFiles(serverList,
-          text: text, subject: kCardEmailSubject);
+      final String text = cardEmailBody + '\n' + cardInfo;
+      await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
     } else {
-      final String text = buyerEmailBody + cardInfo;
-      await Share.shareXFiles(serverList,
-          text: text, subject: kBuyerEmailSubject);
+      final String text = buyerEmailBody + '\n' + cardInfo;
+      await Share.shareXFiles(serverList, text: text, subject: kBuyerEmailSubject);
     }
-  }
-
-  shareImageAndTextHanger(index) async {
-    final String imagePath = homeController.imageList[index]['image'];
-    var cardInfo = stringAdder();
-    final String text = buyerEmailBody + cardInfo;
-    await Share.shareXFiles([XFile(imagePath)],
-        text: text, subject: kBuyerEmailSubject);
   }
 
   stringAdder() {
+    String text = '';
+    HomeController homeController = Get.find<HomeController>();
+    int j = 0;
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
-      text.value = homeController.imageList[i]['text'] + dottedLines;
+      text += ("------ Result ${j + 1} ------\n\n" + homeController.imageList[i]['text'] + '\n\n');
+      j++;
     }
-    return text.value;
+    return text;
   }
-
-//* send through url launcher
-//   void sendEmailWithRecipient(String subject, String body) async {
-//   final Uri params = Uri(
-//     scheme: 'mailto',
-//     path: recipientEmail,
-//     query: 'subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}',
-//   );
-
-//   if (await canLaunchUrl(params)) {
-//     await launchUrl(params);
-//   } else {
-//     throw 'Could not launch email client.';
-//   }
-// }
 }

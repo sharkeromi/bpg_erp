@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 class AllControllerBinder implements Bindings {
   @override
   void dependencies() {
-    Get.put<GlobalController>(GlobalController());
-    Get.put<AuthController>(AuthController());
     Get.put<HomeController>(HomeController());
+    Get.put<AuthController>(AuthController());
+    Get.put<GlobalController>(GlobalController());
   }
 }
