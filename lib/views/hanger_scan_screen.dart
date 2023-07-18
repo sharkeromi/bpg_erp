@@ -2,10 +2,10 @@ import 'package:bpg_erp/controller/global_controller.dart';
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
-import 'package:bpg_erp/views_beta/widgets/common_tapable_panel.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_appbar.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_item_content.dart';
+import 'package:bpg_erp/views/widgets/common_tapable_panel.dart';
+import 'package:bpg_erp/views/widgets/custom_appbar.dart';
+import 'package:bpg_erp/views/widgets/custom_button.dart';
+import 'package:bpg_erp/views/widgets/custom_item_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,8 +28,11 @@ class HangerScanScreen extends StatelessWidget {
                 height: 65,
                 width: 250,
                 gradient: kGDefaultGradient,
-                widget: const Text('Send to buyer',
-                    textAlign: TextAlign.center, style: kSDefaultStyle),
+                widget: const Text(
+                  'Send to buyer',
+                  textAlign: TextAlign.center,
+                  style: kSDefaultStyle,
+                ),
                 navigation: () {
                   globalController.saveDataSP(homeController.imageList);
                 },
@@ -42,9 +45,9 @@ class HangerScanScreen extends StatelessWidget {
               'Reset',
               style: popUpHeaderStyle,
             ),
-            prefixWidgetAction: () {
+            prefixWidgetAction: () async {
               homeController.resetData();
-              globalController.resetSharedPreference();
+              await globalController.resetSharedPreference();
             },
           ),
         ),
@@ -66,18 +69,16 @@ class HangerScanScreen extends StatelessWidget {
                         ),
                       ),
                     if (homeController.imageList.isEmpty)
-                      Container(
+                      const SizedBox(
                         height: 300,
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             "No image uploaded yet",
                             style: textStyle,
                           ),
                         ),
                       ),
-                    for (int i = homeController.imageList.length - 1;
-                        i >= 0;
-                        i--)
+                    for (int i = homeController.imageList.length - 1; i >= 0; i--)
                       CustomItemContent(
                         itemType: "Hanger ",
                         index: i,

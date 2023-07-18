@@ -1,8 +1,7 @@
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/views_beta/widgets/custom_button.dart';
+import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 void showDeleteDialog(BuildContext context, index) {
   HomeController homeController = Get.find<HomeController>();

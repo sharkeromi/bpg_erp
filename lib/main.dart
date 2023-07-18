@@ -1,5 +1,5 @@
 import 'package:bpg_erp/controller/binder/getx_dependencies.dart';
-import 'package:bpg_erp/views_beta/login_screen.dart';
+import 'package:bpg_erp/views/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

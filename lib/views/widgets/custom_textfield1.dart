@@ -19,6 +19,7 @@ class CustomTextField1 extends StatelessWidget {
       textInputAction: TextInputAction.newline,
       controller: controller,
       keyboardType: TextInputType.multiline,
+      minLines: 1,
       maxLines: 10,
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(12, 6, 10, 12),
