@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
 
-  final AuthController authController = Get.put(AuthController());
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {

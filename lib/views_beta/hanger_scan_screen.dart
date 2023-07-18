@@ -68,7 +68,8 @@ class HangerScanScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      homeController.showCustomDialog(context);
+                      homeController.showCustomDialog(
+                          context, homeController.imageList.length);
                     },
                     child: Container(
                       child: Column(
@@ -95,7 +96,8 @@ class HangerScanScreen extends StatelessWidget {
                               ),
                             ),
                             navigation: () {
-                              homeController.showCustomDialog(context);
+                              homeController.showCustomDialog(
+                                  context, homeController.imageList.length);
                             },
                           ),
                           const SizedBox(
@@ -119,12 +121,18 @@ class HangerScanScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  // for (int i = 0; i < homeController.imageList.length; i++)
-                  CustomItemContent(
-                    itemType: "Hanger ",
-                    index: 0,
-                  ),
-
+                  if (homeController.isEmptyLoading.value)
+                    const SizedBox(
+                      height: 150,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  for (int i = homeController.imageList.length - 1; i >= 0; i--)
+                    CustomItemContent(
+                      itemType: "Hanger ",
+                      index: i,
+                    ),
                   const SizedBox(
                     height: 80,
                   )

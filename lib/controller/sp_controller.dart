@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:bpg_erp/utils/const/strings.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreference extends GetxController {
+class SharedPreference {
   // save data
 
   Future<void> saveImageData(value) async {
