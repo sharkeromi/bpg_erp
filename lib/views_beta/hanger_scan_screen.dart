@@ -28,7 +28,7 @@ class HangerScanScreen extends StatelessWidget {
         widget: const Text('Send to buyer',
             textAlign: TextAlign.center, style: kSDefaultStyle),
         navigation: () {
-          globalController.saveDataSP(homeController.imageList.value);
+          globalController.saveDataSP(homeController.imageList);
         },
       ),
       appBar: PreferredSize(
