@@ -15,7 +15,7 @@ class CustomTextField1 extends StatelessWidget {
       onSubmitted: (value) {
         homeController.scannedTextList[index].value = value;
       },
-      focusNode: homeController.textFocusNode,
+      focusNode: homeController.textFocusNodeList[index],
       textInputAction: TextInputAction.done,
       controller: controller,
       keyboardType: TextInputType.multiline,
