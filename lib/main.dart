@@ -14,11 +14,14 @@ void main() {
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(Scanner());
+    runApp(const Scanner());
   });
 }
 
 class Scanner extends StatelessWidget {
+  const Scanner({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.noTransition,
