@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:bpg_erp/controller/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/image_picker_ad.dart';
 import 'package:bpg_erp/views/widgets/reset_confirm_popup.dart';
@@ -95,12 +97,18 @@ class HomeController extends GetxController {
     String scanText = "";
     for (TextBlock block in recognizedText.blocks) {
       for (TextLine line in block.lines) {
-        scanText += '${line.text}\n';
-        scannedTextList[index].value = scanText.trim();
+        if (line.text.contains('Technical Info:') ||
+            line.text.contains('DIA')) {
+          scanText += '${line.text}\n';
+        } else {
+          scanText += '${line.text}';
+        }
+        log("Line : " + line.text);
       }
     }
     resetEdit();
-    scannedTextList[index].value = scanText.trim();
+    var returnData = Get.find<GlobalController>().stringManipulation(scanText);
+    scannedTextList[index].value = returnData;
     isEmptyLoading.value = false;
     imageList.add({'image': image.path, 'text': scannedTextList[index].value});
     scannedTextList.add(''.obs);
