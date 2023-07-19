@@ -20,7 +20,7 @@ class CardScanScreen extends StatelessWidget {
     return Obx(
       () => Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        backgroundColor: backgroundColor,
+        backgroundColor: kCBackgroundColor,
         resizeToAvoidBottomInset: false,
         floatingActionButton: homeController.imageList.isEmpty
             ? const SizedBox()
@@ -31,9 +31,9 @@ class CardScanScreen extends StatelessWidget {
                 widget: const Text(
                   'Send to merchandiser',
                   textAlign: TextAlign.center,
-                  style: kSDefaultStyle,
+                  style: kTSDefaultStyle2,
                 ),
-                navigation: ()async {
+                navigation: () async {
                   globalController.shareImageAndText('card');
                   await globalController.saveDataSP(homeController.imageList);
                 },
@@ -44,7 +44,7 @@ class CardScanScreen extends StatelessWidget {
             title: 'Visiting Card Scan',
             prefixWidget: const Text(
               'Reset',
-              style: popUpHeaderStyle,
+              style: kTSPopUpHeader,
             ),
             prefixWidgetAction: () async {
               homeController.showResetConfirmDialog(context);
@@ -75,11 +75,13 @@ class CardScanScreen extends StatelessWidget {
                         child: Center(
                           child: Text(
                             "No image uploaded yet",
-                            style: textStyle,
+                            style: kTSDefault1,
                           ),
                         ),
                       ),
-                    for (int i = homeController.imageList.length - 1; i >= 0; i--)
+                    for (int i = homeController.imageList.length - 1;
+                        i >= 0;
+                        i--)
                       CustomItemContent(
                         itemType: "Card ",
                         index: i,

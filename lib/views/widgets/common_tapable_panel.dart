@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CommonTapablePanel extends StatelessWidget {
-   CommonTapablePanel({
+  CommonTapablePanel({
     super.key,
   });
 
@@ -30,7 +30,7 @@ class CommonTapablePanel extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 6.0, right: 4),
               child: Icon(
                 Icons.add_a_photo_rounded,
-                color: whiteColor,
+                color: kCWhite,
                 size: 60,
               ),
             ),
@@ -44,7 +44,7 @@ class CommonTapablePanel extends StatelessWidget {
           kSizedBox10,
           Divider(
             height: 1,
-            color: blackColor,
+            color: kCBlack,
           ),
         ],
       ),

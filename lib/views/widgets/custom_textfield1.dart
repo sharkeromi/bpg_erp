@@ -13,7 +13,7 @@ class CustomTextField1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: extractedTextStyle,
+      style: kTSExtractedText,
       onSubmitted: (value) {
         homeController.scannedTextList[index].value = value;
       },
@@ -26,7 +26,7 @@ class CustomTextField1 extends StatelessWidget {
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(12, 6, 10, 12),
         border: InputBorder.none,
-        fillColor: blackColor,
+        fillColor: kCBlack,
       ),
     );
   }

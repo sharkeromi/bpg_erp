@@ -18,7 +18,7 @@ class ImagePickerAD extends StatelessWidget {
     return Container(
       height: 180,
       decoration: BoxDecoration(
-        color: whiteColor,
+        color: kCWhite,
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(12.0),
@@ -32,7 +32,7 @@ class ImagePickerAD extends StatelessWidget {
                 children: [
                   Text(
                     'Select Image Source',
-                    style: textStyle.copyWith(fontWeight: FontWeight.bold),
+                    style: kTSDefault1.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -47,7 +47,7 @@ class ImagePickerAD extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.close,
-                    color: blackColor,
+                    color: kCBlack,
                     size: closeIconSize,
                   ),
                 ),
@@ -76,7 +76,7 @@ class ImagePickerAD extends StatelessWidget {
                       ),
                       Text(
                         'Camera',
-                        style: textStyle,
+                        style: kTSDefault1,
                       ),
                     ],
                   ),
@@ -100,7 +100,7 @@ class ImagePickerAD extends StatelessWidget {
                       ),
                       Text(
                         'Gallery',
-                        style: textStyle,
+                        style: kTSDefault1,
                       ),
                     ],
                   ),

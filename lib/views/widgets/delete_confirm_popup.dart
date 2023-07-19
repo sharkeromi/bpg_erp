@@ -1,4 +1,5 @@
 import 'package:bpg_erp/controller/home_controller.dart';
+import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,11 @@ class DeleteConfirmPopUp extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
                 child: Text('Are you sure you want to delete?',
-                    textAlign: TextAlign.center, style: kSPopUpMessage),
+                    textAlign: TextAlign.center, style: kTSPopUpMessage),
               ),
               kSizedBox10,
               CustomButton(
-                  color: Colors.redAccent,
+                  color: kCRedAccent,
                   widget: const Text(
                     "Confirm",
                     style: TextStyle(color: Colors.white),

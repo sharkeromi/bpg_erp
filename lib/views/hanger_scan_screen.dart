@@ -20,7 +20,7 @@ class HangerScanScreen extends StatelessWidget {
     return Obx(
       () => Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        backgroundColor: backgroundColor,
+        backgroundColor: kCBackgroundColor,
         resizeToAvoidBottomInset: false,
         floatingActionButton: homeController.imageList.isEmpty
             ? const SizedBox()
@@ -31,7 +31,7 @@ class HangerScanScreen extends StatelessWidget {
                 widget: const Text(
                   'Send to buyer',
                   textAlign: TextAlign.center,
-                  style: kSDefaultStyle,
+                  style: kTSDefaultStyle2,
                 ),
                 navigation: () async {
                   globalController.shareImageAndText('hanger');
@@ -44,7 +44,7 @@ class HangerScanScreen extends StatelessWidget {
             title: 'Hanger Scan',
             prefixWidget: const Text(
               'Reset',
-              style: popUpHeaderStyle,
+              style: kTSPopUpHeader,
             ),
             prefixWidgetAction: () async {
               homeController.showResetConfirmDialog(context);
@@ -75,7 +75,7 @@ class HangerScanScreen extends StatelessWidget {
                         child: Center(
                           child: Text(
                             "No image uploaded yet",
-                            style: textStyle,
+                            style: kTSDefault1,
                           ),
                         ),
                       ),

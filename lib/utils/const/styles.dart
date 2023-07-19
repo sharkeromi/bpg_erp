@@ -2,16 +2,16 @@ import 'package:bpg_erp/utils/const/color.dart';
 import 'package:flutter/material.dart';
 
 //* Text Styles
-const extractedTextStyle = TextStyle(fontSize: 20);
-const popUpHeaderStyle = TextStyle(fontSize: 18, color: whiteColor);
-const logInScreenHeaderStyle =
+const kTSExtractedText = TextStyle(fontSize: 20);
+const kTSPopUpHeader = TextStyle(fontSize: 18, color: kCWhite);
+const kTSLogInScreenHeader =
     TextStyle(fontSize: 40, color: Colors.black38, fontWeight: FontWeight.bold);
-const textStyle =
+const kTSDefault1 =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black);
-const boldTextStyle = TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
-const kSAppBarPrefix = TextStyle(color: Colors.white, fontSize: 16);
-const kSPopUpMessage = TextStyle(fontWeight: FontWeight.w400, fontSize: 16);
-const kSDefaultStyle = TextStyle(color: Colors.white, fontSize: 20);
+const kTSDefaultBold = TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
+const kTSAppBarPrefix = TextStyle(color: Colors.white, fontSize: 16);
+const kTSPopUpMessage = TextStyle(fontWeight: FontWeight.w400, fontSize: 16);
+const kTSDefaultStyle2 = TextStyle(color: Colors.white, fontSize: 20);
 
 //* Sized Boxes
 const kSizedBox10 = SizedBox(height: 10);
@@ -22,8 +22,8 @@ const kSizedBox80 = SizedBox(height: 80);
 
 //* text button style
 final ButtonStyle kTextButtonStyle = ButtonStyle(
-  backgroundColor: MaterialStateProperty.all(backgroundColor),
-  foregroundColor: MaterialStateProperty.all(blackColor),
+  backgroundColor: MaterialStateProperty.all(kCBackgroundColor),
+  foregroundColor: MaterialStateProperty.all(kCBlack),
   padding: MaterialStateProperty.all(EdgeInsets.zero),
   shape: MaterialStateProperty.all(
     RoundedRectangleBorder(

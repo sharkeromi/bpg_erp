@@ -62,12 +62,12 @@ class CustomItemContent extends StatelessWidget {
                                         ''
                                     ? Text(
                                         'Result',
-                                        style: extractedTextStyle.copyWith(
+                                        style: kTSExtractedText.copyWith(
                                             fontWeight: FontWeight.w700),
                                       )
                                     : const Text(
                                         'No text to show',
-                                        style: extractedTextStyle,
+                                        style: kTSExtractedText,
                                       ),
                                 if (homeController
                                         .scannedTextList[index].value !=
@@ -96,7 +96,7 @@ class CustomItemContent extends StatelessWidget {
                                 !homeController.isEditingModeList[index].value)
                               Text(
                                 homeController.imageList[index]['text'],
-                                style: extractedTextStyle,
+                                style: kTSExtractedText,
                                 textAlign: TextAlign.left,
                               ),
                           ],
@@ -139,7 +139,7 @@ class CustomItemContent extends StatelessWidget {
                       children: [
                         Text(
                           'Uploaded image',
-                          style: extractedTextStyle.copyWith(
+                          style: kTSExtractedText.copyWith(
                               fontWeight: FontWeight.w700),
                         ),
                         kSizedBox10,
@@ -161,7 +161,8 @@ class CustomItemContent extends StatelessWidget {
                   },
                   child: Text(
                     'Delete',
-                    style: textStyle.copyWith(color: Colors.red, fontSize: 20),
+                    style:
+                        kTSDefault1.copyWith(color: Colors.red, fontSize: 20),
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:bpg_erp/controller/home_controller.dart';
+import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,12 @@ class ResetConfirmPopUp extends StatelessWidget {
                 child: Text(
                   'Are you sure you want to reset all data?',
                   textAlign: TextAlign.center,
-                  style: kSPopUpMessage,
+                  style: kTSPopUpMessage,
                 ),
               ),
               kSizedBox10,
               CustomButton(
-                  color: Colors.redAccent,
+                  color: kCRedAccent,
                   widget: const Text(
                     "Confirm",
                     style: TextStyle(color: Colors.white),

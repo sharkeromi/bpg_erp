@@ -17,7 +17,7 @@ class LogInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: backgroundColor,
+      backgroundColor: kCBackgroundColor,
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
@@ -34,7 +34,7 @@ class LogInScreen extends StatelessWidget {
                 ),
                 const Text(
                   'User Login',
-                  style: logInScreenHeaderStyle,
+                  style: kTSLogInScreenHeader,
                 ),
                 kSizedBox50,
                 CustomTextField(
@@ -61,7 +61,7 @@ class LogInScreen extends StatelessWidget {
                   },
                   widget: const Text(
                     'Log In',
-                    style: kSDefaultStyle,
+                    style: kTSDefaultStyle2,
                   ),
                 )
               ],

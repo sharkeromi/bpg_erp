@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: kCBackgroundColor,
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
         child: CustomAppBar(
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                       kSizedBox10,
                       Text(
                         "Hangar Scan",
-                        style: popUpHeaderStyle,
+                        style: kTSPopUpHeader,
                       ),
                     ],
                   ),

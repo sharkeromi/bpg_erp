@@ -119,6 +119,10 @@ class HomeController extends GetxController {
 
   deleteData(index) {
     imageList.removeAt(index);
+    scannedTextList.removeAt(index);
+    textEditorList.removeAt(index);
+    isEditingModeList.removeAt(index);
+    textFocusNodeList.removeAt(index);
   }
 
   toggleEditingMode(index) {
