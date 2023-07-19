@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
 const String kImageDataKey = 'kImageDataKey';
-
 const kCardEmailSubject = 'Buyer visiting card information:';
 const cardEmailBody = 'Dear Merchandiser,\nhere is the buyer visiting card information:\n';
 const kBuyerEmailSubject = 'Thank you for visiting our Blue Planet Group';

@@ -1,4 +1,8 @@
 {
   "editor.wordWrapColumn": 160,
-  "cSpell.words": ["appbar", "Tapable"]
+  "cSpell.words": [
+    "appbar",
+    "getx",
+    "Tapable"
+  ]
 }
