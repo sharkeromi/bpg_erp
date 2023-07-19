@@ -1,3 +1,4 @@
+import 'package:bpg_erp/utils/const/url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bpg_erp/controller/auth_controller.dart';
@@ -27,7 +28,7 @@ class LogInScreen extends StatelessWidget {
               children: [
                 kSizedBox20,
                 Image.asset(
-                  "assets/images/bgplogo.png",
+                  logo,
                   height: 150,
                   width: 200,
                 ),

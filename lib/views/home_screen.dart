@@ -1,5 +1,6 @@
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
+import 'package:bpg_erp/utils/const/url.dart';
 import 'package:bpg_erp/views/card_scan_screen.dart';
 import 'package:bpg_erp/views/hanger_scan_screen.dart';
 import 'package:bpg_erp/views/login_screen.dart';
@@ -32,10 +33,10 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(
-            "assets/images/sky2.png",
+            homePageSky,
             fit: BoxFit.cover,
           ),
-          Image.asset("assets/images/leaves.png"),
+          Image.asset(homePageLeaves),
           const SizedBox(
             height: 20,
           ),
