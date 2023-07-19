@@ -1,6 +1,5 @@
 import 'package:bpg_erp/controller/global_controller.dart';
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/utils/color_util.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/views/widgets/common_tapable_panel.dart';
@@ -62,9 +61,7 @@ class CardScanScreen extends StatelessWidget {
                 () => Column(
                   children: [
                     CommonTapablePanel(),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    kSizedBox10,
                     if (homeController.isEmptyLoading.value)
                       const SizedBox(
                         height: 150,
@@ -87,9 +84,7 @@ class CardScanScreen extends StatelessWidget {
                         itemType: "Card ",
                         index: i,
                       ),
-                    const SizedBox(
-                      height: 80,
-                    )
+                    kSizedBox80
                   ],
                 ),
               ),

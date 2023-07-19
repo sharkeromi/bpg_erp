@@ -1,4 +1,6 @@
 import 'package:bpg_erp/controller/home_controller.dart';
+import 'package:bpg_erp/utils/const/color.dart';
+import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +13,7 @@ class CustomTextField1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: const TextStyle(fontSize: 20),
+      style: extractedTextStyle,
       onSubmitted: (value) {
         homeController.scannedTextList[index].value = value;
       },
@@ -24,7 +26,7 @@ class CustomTextField1 extends StatelessWidget {
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(12, 6, 10, 12),
         border: InputBorder.none,
-        fillColor: Colors.black,
+        fillColor: blackColor,
       ),
     );
   }

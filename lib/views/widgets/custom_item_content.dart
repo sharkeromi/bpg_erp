@@ -1,20 +1,19 @@
 import 'dart:io';
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
+import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/views/widgets/custom_textfield1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomItemContent extends StatelessWidget {
-  final String itemType;
-  final int index;
-
   CustomItemContent({
     super.key,
     required this.itemType,
     required this.index,
   });
 
+  final String itemType;
+  final int index;
   final HomeController homeController = Get.find<HomeController>();
 
   @override
@@ -36,21 +35,20 @@ class CustomItemContent extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       itemType + (index + 1).toString(),
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              kSizedBox10,
               Stack(
                 children: [
                   Obx(
                     () => Container(
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
                         color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
@@ -60,16 +58,20 @@ class CustomItemContent extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                homeController.scannedTextList[index].value != ''
-                                    ? const Text(
+                                homeController.scannedTextList[index].value !=
+                                        ''
+                                    ? Text(
                                         'Result',
-                                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                                        style: extractedTextStyle.copyWith(
+                                            fontWeight: FontWeight.w700),
                                       )
                                     : const Text(
                                         'No text to show',
-                                        style: TextStyle(fontSize: 20),
+                                        style: extractedTextStyle,
                                       ),
-                                if (homeController.scannedTextList[index].value != '')
+                                if (homeController
+                                        .scannedTextList[index].value !=
+                                    '')
                                   const Divider(
                                     indent: 100,
                                     endIndent: 100,
@@ -78,16 +80,23 @@ class CustomItemContent extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            if (homeController.scannedTextList[index].value != '') const SizedBox(height: 15),
-                            if (homeController.scannedTextList[index].value != '' && homeController.isEditingModeList[index].value)
+                            if (homeController.scannedTextList[index].value !=
+                                '')
+                              const SizedBox(height: 15),
+                            if (homeController.scannedTextList[index].value !=
+                                    '' &&
+                                homeController.isEditingModeList[index].value)
                               CustomTextField1(
-                                controller: homeController.textEditorList[index],
+                                controller:
+                                    homeController.textEditorList[index],
                                 index: index,
                               ),
-                            if (homeController.scannedTextList[index].value != '' && !homeController.isEditingModeList[index].value)
+                            if (homeController.scannedTextList[index].value !=
+                                    '' &&
+                                !homeController.isEditingModeList[index].value)
                               Text(
                                 homeController.imageList[index]['text'],
-                                style: const TextStyle(fontSize: 20),
+                                style: extractedTextStyle,
                                 textAlign: TextAlign.left,
                               ),
                           ],
@@ -104,20 +113,23 @@ class CustomItemContent extends StatelessWidget {
                               onPressed: () {
                                 homeController.toggleEditingMode(index);
                               },
-                              icon: homeController.isEditingModeList[index].value ? const Icon(Icons.check_circle_rounded) : const Icon(Icons.edit_square),
+                              icon:
+                                  homeController.isEditingModeList[index].value
+                                      ? const Icon(Icons.check_circle_rounded)
+                                      : const Icon(Icons.edit_square),
                             ),
                           ),
                         )
                       : const SizedBox(),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              kSizedBox10,
               Container(
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
                   color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
                 ),
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -125,14 +137,17 @@ class CustomItemContent extends StatelessWidget {
                   child: Obx(
                     () => Column(
                       children: [
-                        const Text(
+                        Text(
                           'Uploaded image',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                          style: extractedTextStyle.copyWith(
+                              fontWeight: FontWeight.w700),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Image.file(File(homeController.imageList[index]['image']))
+                        kSizedBox10,
+                        Image.file(
+                          File(
+                            homeController.imageList[index]['image'],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -144,9 +159,9 @@ class CustomItemContent extends StatelessWidget {
                   onTap: () {
                     homeController.showDeleteDialog(context, index);
                   },
-                  child: const Text(
+                  child: Text(
                     'Delete',
-                    style: TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.w500),
+                    style: textStyle.copyWith(color: Colors.red, fontSize: 20),
                   ),
                 ),
               ),

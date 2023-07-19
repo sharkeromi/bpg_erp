@@ -1,5 +1,6 @@
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
+import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/utils/const/url.dart';
 import 'package:bpg_erp/views/card_scan_screen.dart';
 import 'package:bpg_erp/views/hanger_scan_screen.dart';
@@ -37,9 +38,7 @@ class HomeScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Image.asset(homePageLeaves),
-          const SizedBox(
-            height: 20,
-          ),
+          kSizedBox20,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -57,9 +56,7 @@ class HomeScreen extends StatelessWidget {
                         size: 60,
                         color: Colors.white,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      kSizedBox10,
                       Text(
                         "Visiting Card Scan",
                         style: TextStyle(color: Colors.white, fontSize: 18),
@@ -86,12 +83,10 @@ class HomeScreen extends StatelessWidget {
                         size: 60,
                         color: Colors.white,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      kSizedBox10,
                       Text(
                         "Hangar Scan",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: popUpHeaderStyle,
                       ),
                     ],
                   ),

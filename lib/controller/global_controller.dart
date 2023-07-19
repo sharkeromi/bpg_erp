@@ -8,6 +8,8 @@ import 'package:share_plus/share_plus.dart';
 class GlobalController extends GetxController {
   final SharedPreference sharedPreference = SharedPreference();
 
+  //* SharedPreference Helper Fuctions
+
   saveDataSP(value) async {
     if (value == null) {
       showSnackBar("Warning!", "Data send successfully.", Colors.green);
@@ -32,6 +34,8 @@ class GlobalController extends GetxController {
   resetSharedPreference() async {
     await sharedPreference.removeCache();
   }
+
+  //* Share Image & Text through Email
 
   shareImageAndText(type) async {
     HomeController homeController = Get.find<HomeController>();

@@ -1,3 +1,4 @@
+import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -20,27 +21,23 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: EdgeInsets.zero,
-        minimumSize: Size.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // <-- Radius
-        ),
-      ),
-      onPressed: navigation,
-      child: Container(
-        decoration: BoxDecoration(
-          color: color,
-          gradient: gradient,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(25),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(25),
+      child: TextButton(
+        style: kTextButtonStyleDefault,
+        onPressed: navigation,
+        child: Container(
+          decoration: BoxDecoration(
+            color: color,
+            gradient: gradient,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(25),
+            ),
           ),
+          height: height,
+          width: width,
+          child: Center(child: widget),
         ),
-        height: height,
-        width: width,
-        child: Center(child: widget),
       ),
     );
   }

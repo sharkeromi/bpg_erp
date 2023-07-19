@@ -7,16 +7,16 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerAD extends StatelessWidget {
-  final int index;
-  final HomeController homeController;
-
   const ImagePickerAD(
       {super.key, required this.index, required this.homeController});
+
+  final int index;
+  final HomeController homeController;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 180,
       decoration: BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.circular(12),
@@ -29,13 +29,10 @@ class ImagePickerAD extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'Select Image Source',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: textStyle.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -57,9 +54,7 @@ class ImagePickerAD extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          kSizedBox20,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
