@@ -10,7 +10,8 @@ class ImagePickerAD extends StatelessWidget {
   final int index;
   final HomeController homeController;
 
-  const ImagePickerAD({super.key, required this.index, required this.homeController});
+  const ImagePickerAD(
+      {super.key, required this.index, required this.homeController});
 
   @override
   Widget build(BuildContext context) {

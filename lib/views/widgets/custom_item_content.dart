@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/views/widgets/custom_popup.dart';
+import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/custom_textfield1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -142,7 +142,7 @@ class CustomItemContent extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20.0, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                    showDeleteDialog(context, index);
+                    homeController.showDeleteDialog(context, index);
                   },
                   child: const Text(
                     'Delete',

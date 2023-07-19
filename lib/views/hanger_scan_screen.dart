@@ -47,7 +47,7 @@ class HangerScanScreen extends StatelessWidget {
               style: popUpHeaderStyle,
             ),
             prefixWidgetAction: () async {
-              homeController.resetData();
+              homeController.showResetConfirmDialog(context);
               await globalController.resetSharedPreference();
             },
           ),

@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/image_picker_ad.dart';
+import 'package:bpg_erp/views/widgets/reset_confirm_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
@@ -10,7 +12,8 @@ class HomeController extends GetxController {
   XFile? imageFile;
   final RxList<RxString> scannedTextList = RxList([''.obs]);
   final RxBool isEmptyLoading = RxBool(false);
-  final RxList<TextEditingController> textEditorList = RxList([TextEditingController()]);
+  final RxList<TextEditingController> textEditorList =
+      RxList([TextEditingController()]);
   final RxList<RxBool> isEditingModeList = RxList([false.obs]);
   final RxList imageList = RxList([]);
   final RxList<FocusNode> textFocusNodeList = RxList([FocusNode()]);
@@ -86,7 +89,8 @@ class HomeController extends GetxController {
   getRecognizedText(XFile image, int index) async {
     final InputImage inputImage = InputImage.fromFilePath(image.path);
     final TextRecognizer textRecognizer = TextRecognizer();
-    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+    final RecognizedText recognizedText =
+        await textRecognizer.processImage(inputImage);
     await textRecognizer.close();
     String scanText = "";
     for (TextBlock block in recognizedText.blocks) {
@@ -95,6 +99,7 @@ class HomeController extends GetxController {
         scannedTextList[index].value = scanText.trim();
       }
     }
+    resetEdit();
     scannedTextList[index].value = scanText.trim();
     isEmptyLoading.value = false;
     imageList.add({'image': image.path, 'text': scannedTextList[index].value});
@@ -102,6 +107,14 @@ class HomeController extends GetxController {
     textEditorList.add(TextEditingController());
     textFocusNodeList.add(FocusNode());
     isEditingModeList.add(false.obs);
+  }
+
+  resetEdit() {
+    for (int i = imageList.length - 1; i >= 0; i--) {
+      scannedTextList[i].value = textEditorList[i].text;
+      imageList[i]['text'] = textEditorList[i].text;
+      isEditingModeList[i].value = false;
+    }
   }
 
   deleteData(index) {
@@ -119,6 +132,7 @@ class HomeController extends GetxController {
     isEditingModeList[index].value = !isEditingModeList[index].value;
   }
 
+  //* Popup Functions
   void showCustomDialog(BuildContext context, [index]) {
     showDialog(
       barrierDismissible: false,
@@ -132,6 +146,37 @@ class HomeController extends GetxController {
             index: index,
             homeController: Get.find<HomeController>(),
           ),
+        );
+      },
+    );
+  }
+
+  void showDeleteDialog(BuildContext context, index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: DeleteConfirmPopUp(
+            index: index,
+          ),
+        );
+      },
+    );
+  }
+
+  void showResetConfirmDialog(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: ResetConfirmPopUp(),
         );
       },
     );
