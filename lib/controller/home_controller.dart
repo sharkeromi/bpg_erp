@@ -103,12 +103,12 @@ class HomeController extends GetxController {
         } else {
           scanText += '${line.text}';
         }
-        log("Line : " + line.text);
+        // log("Line : " + line.text);
       }
     }
-    resetEdit();
     var returnData = Get.find<GlobalController>().stringManipulation(scanText);
     scannedTextList[index].value = returnData;
+    resetEdit();
     isEmptyLoading.value = false;
     imageList.add({'image': image.path, 'text': scannedTextList[index].value});
     scannedTextList.add(''.obs);
@@ -119,9 +119,12 @@ class HomeController extends GetxController {
 
   resetEdit() {
     for (int i = imageList.length - 1; i >= 0; i--) {
-      scannedTextList[i].value = textEditorList[i].text;
-      imageList[i]['text'] = textEditorList[i].text;
-      isEditingModeList[i].value = false;
+      log(i.toString() + " " + textEditorList[i].text);
+      if (isEditingModeList[i].value) {
+        scannedTextList[i].value = textEditorList[i].text;
+        imageList[i]['text'] = textEditorList[i].text;
+        isEditingModeList[i].value = false;
+      }
     }
   }
 
