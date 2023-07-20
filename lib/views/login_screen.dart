@@ -37,19 +37,33 @@ class LogInScreen extends StatelessWidget {
                   style: kTSLogInScreenHeader,
                 ),
                 kSizedBox50,
-                CustomTextField(
-                  controller: authController.url,
-                  hintText: 'URL (Optional)',
+                Container(
+                  height: 45,
+                  decoration: kTextFieldDecoration,
+                  child: CustomTextField(
+                    controller: authController.url,
+                    hintText: 'URL (Optional)',
+                  ),
                 ),
                 kSizedBox20,
-                CustomTextField(
-                  controller: authController.bpg,
-                  hintText: 'BPG',
+                Container(
+                  height: 45,
+                  decoration: kTextFieldDecoration,
+                  child: CustomTextField(
+                    controller: authController.userName,
+                    hintText: 'User name',
+                  ),
                 ),
                 kSizedBox20,
-                CustomTextField(
-                  controller: authController.password,
-                  hintText: 'Password',
+                Container(
+                  height: 45,
+                  decoration: kTextFieldDecoration,
+                  child: CustomTextField(
+                    controller: authController.password,
+                    hintText: 'Password',
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                  ),
                 ),
                 kSizedBox40,
                 CustomButton(
@@ -61,7 +75,7 @@ class LogInScreen extends StatelessWidget {
                   },
                   widget: const Text(
                     'Log In',
-                    style: kTSDefaultStyle2,
+                    style: kTSDefaultStyle,
                   ),
                 )
               ],

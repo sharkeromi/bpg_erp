@@ -1,40 +1,50 @@
+import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
 
-  final String hintText;
+  final String? hintText;
+  final bool? obscureText;
+  final TextInputAction? textInputAction;
+  final TextInputType? keyboardType;
 
-  const CustomTextField(
-      {super.key, required this.hintText, required this.controller});
+  final Function(String)? onSubmitted;
+  final FocusNode? focusNode;
+
+  final int? maxLine, minLine;
+
+  const CustomTextField({
+    super.key,
+    this.hintText,
+    required this.controller,
+    this.obscureText,
+    this.textInputAction,
+    this.onSubmitted,
+    this.focusNode,
+    this.maxLine = 1,
+    this.minLine = 1,
+    this.keyboardType,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45,
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: Colors.grey.shade400, width: 1, style: BorderStyle.solid),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: TextField(
-        obscureText: hintText == "Password" ? true : false,
-        onChanged: (value) {},
-        textInputAction: hintText == "Password"
-            ? TextInputAction.done
-            : TextInputAction.next,
-        controller: controller,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 12),
-          hintText: hintText,
-          hintStyle: hintText == 'URL (Optional)'
-              ? const TextStyle(
-                  fontFamily: 'Euclid Regular', color: Colors.black54)
-              : const TextStyle(
-                  fontFamily: 'Euclid Regular', color: Colors.black),
-          border: InputBorder.none,
-          fillColor: Colors.black,
-        ),
+    return TextField(
+      style: kTSExtractedText,
+      focusNode: focusNode,
+      onSubmitted: onSubmitted,
+      obscureText: obscureText ?? false,
+      minLines: minLine,
+      maxLines: maxLine,
+      onChanged: (value) {},
+      textInputAction: textInputAction ?? TextInputAction.next,
+      keyboardType: keyboardType,
+      controller: controller,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 12),
+        hintText: hintText,
+        hintStyle: kTSTextField,
+        border: InputBorder.none,
       ),
     );
   }

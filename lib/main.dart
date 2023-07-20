@@ -12,8 +12,7 @@ void main() {
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
     statusBarBrightness: Brightness.light,
   ));
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
     runApp(const Scanner());
   });
 }
@@ -23,11 +22,18 @@ class Scanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      defaultTransition: Transition.noTransition,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: LogInScreen(),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+          FocusManager.instance.primaryFocus!.unfocus();
+        }
+      },
+      child: GetMaterialApp(
+        defaultTransition: Transition.noTransition,
+        debugShowCheckedModeBanner: false,
+        home: LogInScreen(),
+      ),
     );
   }
 }

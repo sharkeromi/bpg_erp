@@ -31,7 +31,7 @@ class CardScanScreen extends StatelessWidget {
                 widget: const Text(
                   'Send to merchandiser',
                   textAlign: TextAlign.center,
-                  style: kTSDefaultStyle2,
+                  style: kTSDefaultStyle,
                 ),
                 navigation: () async {
                   globalController.shareImageAndText('card');
@@ -40,16 +40,20 @@ class CardScanScreen extends StatelessWidget {
               ),
         appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 50),
-          child: CustomAppBar(
-            title: 'Visiting Card Scan',
-            prefixWidget: const Text(
-              'Reset',
-              style: kTSPopUpHeader,
+          child: Obx(
+            () => CustomAppBar(
+              title: 'Visiting Card Scan',
+              prefixWidget: homeController.imageList.isEmpty
+                  ? null
+                  : const Text(
+                      'Reset',
+                      style: kTSPopUpHeader,
+                    ),
+              prefixWidgetAction: () async {
+                homeController.showResetConfirmDialog(context);
+                await globalController.resetSharedPreference();
+              },
             ),
-            prefixWidgetAction: () async {
-              homeController.showResetConfirmDialog(context);
-              await globalController.resetSharedPreference();
-            },
           ),
         ),
         body: SafeArea(
@@ -79,9 +83,7 @@ class CardScanScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    for (int i = homeController.imageList.length - 1;
-                        i >= 0;
-                        i--)
+                    for (int i = homeController.imageList.length - 1; i >= 0; i--)
                       CustomItemContent(
                         itemType: "Card ",
                         index: i,

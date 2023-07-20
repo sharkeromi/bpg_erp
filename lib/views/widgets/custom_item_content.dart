@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
-import 'package:bpg_erp/views/widgets/custom_textfield1.dart';
+import 'package:bpg_erp/views/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,8 +35,7 @@ class CustomItemContent extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       itemType + (index + 1).toString(),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w700),
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ],
@@ -58,20 +57,16 @@ class CustomItemContent extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                homeController.scannedTextList[index].value !=
-                                        ''
+                                homeController.scannedTextList[index].value != ''
                                     ? Text(
                                         'Result',
-                                        style: kTSExtractedText.copyWith(
-                                            fontWeight: FontWeight.w700),
+                                        style: kTSExtractedText.copyWith(fontWeight: FontWeight.w700),
                                       )
                                     : const Text(
                                         'No text to show',
                                         style: kTSExtractedText,
                                       ),
-                                if (homeController
-                                        .scannedTextList[index].value !=
-                                    '')
+                                if (homeController.scannedTextList[index].value != '')
                                   const Divider(
                                     indent: 100,
                                     endIndent: 100,
@@ -80,20 +75,20 @@ class CustomItemContent extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            if (homeController.scannedTextList[index].value !=
-                                '')
-                              const SizedBox(height: 15),
-                            if (homeController.scannedTextList[index].value !=
-                                    '' &&
-                                homeController.isEditingModeList[index].value)
-                              CustomTextField1(
-                                controller:
-                                    homeController.textEditorList[index],
-                                index: index,
+                            if (homeController.scannedTextList[index].value != '') const SizedBox(height: 15),
+                            if (homeController.scannedTextList[index].value != '' && homeController.isEditingModeList[index].value)
+                              CustomTextField(
+                                controller: homeController.textEditorList[index],
+                                onSubmitted: (value) {
+                                  homeController.scannedTextList[index].value = homeController.textEditorList[index].text;
+                                },
+                                focusNode: homeController.textFocusNodeList[index],
+                                minLine: 1,
+                                maxLine: 10,
+                                textInputAction: TextInputAction.newline,
+                                keyboardType: TextInputType.multiline,
                               ),
-                            if (homeController.scannedTextList[index].value !=
-                                    '' &&
-                                !homeController.isEditingModeList[index].value)
+                            if (homeController.scannedTextList[index].value != '' && !homeController.isEditingModeList[index].value)
                               Text(
                                 homeController.imageList[index]['text'],
                                 style: kTSExtractedText,
@@ -113,10 +108,7 @@ class CustomItemContent extends StatelessWidget {
                               onPressed: () {
                                 homeController.toggleEditingMode(index);
                               },
-                              icon:
-                                  homeController.isEditingModeList[index].value
-                                      ? const Icon(Icons.check_circle_rounded)
-                                      : const Icon(Icons.edit_square),
+                              icon: homeController.isEditingModeList[index].value ? const Icon(Icons.check_circle_rounded) : const Icon(Icons.edit_square),
                             ),
                           ),
                         )
@@ -139,8 +131,7 @@ class CustomItemContent extends StatelessWidget {
                       children: [
                         Text(
                           'Uploaded image',
-                          style: kTSExtractedText.copyWith(
-                              fontWeight: FontWeight.w700),
+                          style: kTSExtractedText.copyWith(fontWeight: FontWeight.w700),
                         ),
                         kSizedBox10,
                         Image.file(
@@ -161,8 +152,7 @@ class CustomItemContent extends StatelessWidget {
                   },
                   child: Text(
                     'Delete',
-                    style:
-                        kTSDefault1.copyWith(color: Colors.red, fontSize: 20),
+                    style: kTSDefault1.copyWith(color: Colors.red, fontSize: 20),
                   ),
                 ),
               ),
