@@ -100,7 +100,7 @@ class HomeController extends GetxController {
         if (line.text.contains('Technical Info:') || line.text.contains('DIA') || origin.value == "card" || origin.value == "") {
           scanText += '${line.text}\n';
         } else {
-          scanText += '${line.text}';
+          scanText += line.text;
         }
         // log("Line : " + line.text);
       }
@@ -118,7 +118,6 @@ class HomeController extends GetxController {
 
   resetEdit() {
     for (int i = imageList.length - 1; i >= 0; i--) {
-      log(i.toString() + " " + textEditorList[i].text);
       if (isEditingModeList[i].value) {
         scannedTextList[i].value = textEditorList[i].text;
         imageList[i]['text'] = textEditorList[i].text;

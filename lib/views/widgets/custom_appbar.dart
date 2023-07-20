@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar(
-      {super.key,
-      required this.title,
-      required this.prefixWidget,
-      required this.prefixWidgetAction});
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    this.prefixWidget,
+    required this.prefixWidgetAction,
+  });
 
   final String title;
-  final Widget prefixWidget;
+  final Widget? prefixWidget;
   final VoidCallback prefixWidgetAction;
 
   @override
@@ -35,8 +36,7 @@ class CustomAppBar extends StatelessWidget {
         TextButton(
           style: kTextButtonStyleDefault,
           onPressed: prefixWidgetAction,
-          child: Padding(
-              padding: const EdgeInsets.only(right: 16.0), child: prefixWidget),
+          child: Padding(padding: const EdgeInsets.only(right: 16.0), child: prefixWidget ?? const SizedBox()),
         ),
       ],
     );

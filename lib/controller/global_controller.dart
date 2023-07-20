@@ -8,14 +8,13 @@ import 'package:share_plus/share_plus.dart';
 class GlobalController extends GetxController {
   final SharedPreference sharedPreference = SharedPreference();
 
-  //* SharedPreference Helper Fuctions
-
+  //* SharedPreference Helper Functions
   saveDataSP(value) async {
     if (value == null) {
-      showSnackBar("Warning!", "Data send successfully.", Colors.green);
+      showSnackBar("Warning", "Data not saved.", Colors.amber[600]!);
     } else {
       await sharedPreference.saveImageData(value);
-      showSnackBar("Success!", "Data send successfully.", Colors.green);
+      showSnackBar("Success", "Data saved successfully.", Colors.green);
     }
   }
 
@@ -46,13 +45,11 @@ class GlobalController extends GetxController {
     }
     var cardInfo = stringAdder();
     if (type == 'card') {
-      final String text = cardEmailBody + '\n' + cardInfo;
-      await Share.shareXFiles(serverList,
-          text: text, subject: kCardEmailSubject);
+      final String text = '$cardEmailBody\n$cardInfo';
+      await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
     } else {
-      final String text = buyerEmailBody + '\n' + cardInfo;
-      await Share.shareXFiles(serverList,
-          text: text, subject: kBuyerEmailSubject);
+      final String text = '$buyerEmailBody\n$cardInfo';
+      await Share.shareXFiles(serverList, text: text, subject: kBuyerEmailSubject);
     }
   }
 
@@ -61,96 +58,104 @@ class GlobalController extends GetxController {
     HomeController homeController = Get.find<HomeController>();
     int j = 0;
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
-      text += ("------ Result ${j + 1} ------\n\n" +
-          homeController.imageList[i]['text'] +
-          '\n\n');
+      text += ("------ Result ${j + 1} ------\n\n${homeController.imageList[i]['text']}\n\n");
       j++;
     }
     return text;
   }
 
   stringManipulation(value) {
-    var split1 = value.split('#');
-    var temp = '';
-    String con = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      if ((!split1[i].toString().contains('Reference') &&
-              !split1[i].toString().contains('Referençe')) &&
-          i == 1) {
-        temp += (split1[i] + 'Reference #');
+    // # splitting
+    List<String> splitValue = value.split('#');
+    String temporaryString = '';
+    String modifiedValue = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      if ((!splitValue[i].toString().contains('Reference') && !splitValue[i].toString().contains('Referençe')) && i == 1) {
+        temporaryString += ('${splitValue[i]}Reference #');
       } else {
-        temp += (split1[i] + ' #');
+        temporaryString += ('${splitValue[i]} #');
       }
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('Reference');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += (split1[i] + '\nReference');
+    // Reference Splitting
+    splitValue = modifiedValue.split('Reference');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += ('${splitValue[i]}\nReference');
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('Referençe');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += split1[i] + '\nReferençe';
+    // Referençe splitting
+    splitValue = modifiedValue.split('Referençe');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += '${splitValue[i]}\nReferençe';
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('Fabrication');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += split1[i] + '\nFabrication';
+    // Fabrication splitting
+    splitValue = modifiedValue.split('Fabrication');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += '${splitValue[i]}\nFabrication';
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('Composition');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += split1[i] + '\nComposition';
+    // Composition splitting
+    splitValue = modifiedValue.split('Composition');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += '${splitValue[i]}\nComposition';
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('GSM');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += split1[i] + '\nGSM';
+    // GSM splitting
+    splitValue = modifiedValue.split('GSM');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += '${splitValue[i]}\nGSM';
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('DIA');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += split1[i] + '\nDIA';
+    // DIA splitting
+    splitValue = modifiedValue.split('DIA');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += '${splitValue[i]}\nDIA';
     }
-    temp += split1[split1.length - 1];
-    con = temp;
+    temporaryString += splitValue[splitValue.length - 1];
+    modifiedValue = temporaryString;
 
-    split1 = con.split('Technical Info');
-    temp = '';
-    for (int i = 0; i < split1.length - 1; i++) {
-      temp += split1[i] + '\nTechnical Info ';
+    // Technical Info splitting
+    splitValue = modifiedValue.split('Technical Info');
+    temporaryString = '';
+    for (int i = 0; i < splitValue.length - 1; i++) {
+      temporaryString += '${splitValue[i]}\nTechnical Info ';
     }
 
-    if (split1[split1.length - 1].toString().contains('DIA')) {
-      var newSplit = split1[split1.length - 1].toString().split('DIA');
-      var smallSplit = newSplit[1].toString().split('\n');
-      var added = "DIA" + smallSplit[0];
-      var newCon = temp.split('Technical Info');
-      temp = newCon[0] + added + "\nTechnical Info" + newCon[1];
-      var tempSplit = split1[split1.length - 1].toString().split(added);
-      temp += (tempSplit[0] + tempSplit[1].substring(1));
+    if (splitValue[splitValue.length - 1].toString().contains('DIA')) {
+      temporaryString += modifyExtractedText(splitValue, temporaryString);
     } else {
-      temp += split1[split1.length - 1];
+      temporaryString += splitValue[splitValue.length - 1];
     }
-    con = temp;
-    return con;
+    modifiedValue = temporaryString;
+    return modifiedValue;
+  }
+
+  modifyExtractedText(splitValue, temporaryString) {
+    List<String> splitWithDIA = splitValue[splitValue.length - 1].toString().split('DIA');
+    List<String> splitWithNewLine = splitWithDIA[1].toString().split('\n');
+    String extractedValue = "DIA${splitWithNewLine[0]}";
+    List<String> mainStringSplit = temporaryString.split('Technical Info');
+    temporaryString = "${mainStringSplit[0]}$extractedValue\nTechnical Info${mainStringSplit[1]}";
+    List<String> withoutDuplicate = splitValue[splitValue.length - 1].toString().split(extractedValue);
+    return (withoutDuplicate[0] + withoutDuplicate[1].substring(1));
   }
 }
