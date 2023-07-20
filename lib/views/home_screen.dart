@@ -65,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   navigation: () {
                     Get.find<HomeController>().resetData();
+                    Get.find<HomeController>().origin.value = 'card';
                     Get.to(() => CardScanScreen());
                   },
                 ),
@@ -92,6 +93,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   navigation: () {
                     Get.find<HomeController>().resetData();
+                    Get.find<HomeController>().origin.value = 'hanger';
                     Get.to(() => HangerScanScreen());
                   },
                 ),
