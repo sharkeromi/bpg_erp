@@ -14,11 +14,12 @@ class HomeController extends GetxController {
   XFile? imageFile;
   final RxList<RxString> scannedTextList = RxList([''.obs]);
   final RxBool isEmptyLoading = RxBool(false);
-  final RxList<TextEditingController> textEditorList =
-      RxList([TextEditingController()]);
+  final RxList<TextEditingController> textEditorList = RxList([TextEditingController()]);
   final RxList<RxBool> isEditingModeList = RxList([false.obs]);
   final RxList imageList = RxList([]);
   final RxList<FocusNode> textFocusNodeList = RxList([FocusNode()]);
+
+  final RxString origin = RxString('');
 
   resetData() {
     imageFile = null;
@@ -91,14 +92,12 @@ class HomeController extends GetxController {
   getRecognizedText(XFile image, int index) async {
     final InputImage inputImage = InputImage.fromFilePath(image.path);
     final TextRecognizer textRecognizer = TextRecognizer();
-    final RecognizedText recognizedText =
-        await textRecognizer.processImage(inputImage);
+    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
     await textRecognizer.close();
     String scanText = "";
     for (TextBlock block in recognizedText.blocks) {
       for (TextLine line in block.lines) {
-        if (line.text.contains('Technical Info:') ||
-            line.text.contains('DIA')) {
+        if (line.text.contains('Technical Info:') || line.text.contains('DIA') || origin.value == "card" || origin.value == "") {
           scanText += '${line.text}\n';
         } else {
           scanText += '${line.text}';
