@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/controller/sp_controller.dart';
 import 'package:bpg_erp/utils/const/strings.dart';
@@ -141,7 +143,7 @@ class GlobalController extends GetxController {
     }
 
     if (splitValue[splitValue.length - 1].toString().contains('DIA')) {
-      temporaryString += modifyExtractedText(splitValue, temporaryString);
+      temporaryString = modifyExtractedText(splitValue, temporaryString);
     } else {
       temporaryString += splitValue[splitValue.length - 1];
     }
@@ -156,6 +158,6 @@ class GlobalController extends GetxController {
     List<String> mainStringSplit = temporaryString.split('Technical Info');
     temporaryString = "${mainStringSplit[0]}$extractedValue\nTechnical Info${mainStringSplit[1]}";
     List<String> withoutDuplicate = splitValue[splitValue.length - 1].toString().split(extractedValue);
-    return (withoutDuplicate[0] + withoutDuplicate[1].substring(1));
+    return (temporaryString + (withoutDuplicate[0] + withoutDuplicate[1].substring(1)));
   }
 }
