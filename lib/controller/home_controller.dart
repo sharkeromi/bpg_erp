@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bpg_erp/controller/global_controller.dart';
@@ -64,11 +65,14 @@ class HomeController extends GetxController {
     }
   }
 
+  final RxString base64Image = RxString('');
   Future<void> getImage(source, index) async {
     try {
       final XFile? pickedImage = await ImagePicker().pickImage(source: source);
       isEmptyLoading.value = true;
       if (pickedImage != null) {
+        final List<int> imageBytes = await pickedImage.readAsBytes();
+        base64Image.value = 'data:image/png;base64,${base64Encode(imageBytes)}';
         final XFile? croppedImage = await cropImage(pickedImage.path);
         if (croppedImage != null) {
           imageFile = croppedImage;
@@ -109,7 +113,7 @@ class HomeController extends GetxController {
     scannedTextList[index].value = returnData;
     resetEdit();
     isEmptyLoading.value = false;
-    imageList.add({'image': image.path, 'text': scannedTextList[index].value});
+    imageList.add({'image': image.path, 'text': scannedTextList[index].value, 'base64Image': base64Image.value.toString()});
     scannedTextList.add(''.obs);
     textEditorList.add(TextEditingController());
     textFocusNodeList.add(FocusNode());
