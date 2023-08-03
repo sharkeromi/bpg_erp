@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback? navigation;
   final Color? color;
   final Gradient? gradient;
+  final bool? isButtonDisabled;
 
   const CustomButton({
     super.key,
@@ -17,6 +18,7 @@ class CustomButton extends StatelessWidget {
     required this.navigation,
     this.color,
     this.gradient,
+    this.isButtonDisabled
   });
 
   @override

@@ -82,6 +82,10 @@ class CustomItemContent extends StatelessWidget {
                                 onSubmitted: (value) {
                                   homeController.scannedTextList[index].value = homeController.textEditorList[index].text;
                                 },
+                                onChanged: (v){
+                                  homeController.isCardPageButtonEnabled.value=false;
+                                  homeController.isHangerPageButtonEnabled.value = false;
+                                },
                                 focusNode: homeController.textFocusNodeList[index],
                                 minLine: 1,
                                 maxLine: 10,

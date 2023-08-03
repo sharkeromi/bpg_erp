@@ -6,6 +6,7 @@ import 'package:bpg_erp/views/widgets/common_tapable_panel.dart';
 import 'package:bpg_erp/views/widgets/custom_appbar.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/custom_item_content.dart';
+import 'package:bpg_erp/views/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,19 +25,47 @@ class CardScanScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         floatingActionButton: homeController.imageList.isEmpty
             ? const SizedBox()
-            : CustomButton(
-                height: 65,
-                width: 260,
-                gradient: kGDefaultGradient,
-                widget: const Text(
-                  'Send to merchandiser',
-                  textAlign: TextAlign.center,
-                  style: kTSDefaultStyle,
-                ),
-                navigation: () async {
-                  globalController.shareImageAndText('card');
-                  await globalController.saveDataSP(homeController.imageList);
-                },
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0, right: 5),
+                    child: CustomButton(
+                      height: 65,
+                      width: (MediaQuery.of(context).size.width / 2) - 20,
+                      gradient: homeController.isSaveButtonEnabled.value ? kGDefaultGradient : kGGreyGradient,
+                      widget: const Text(
+                        'Save',
+                        textAlign: TextAlign.center,
+                        style: kTSDefaultStyle,
+                      ),
+                      navigation: homeController.isSaveButtonEnabled.value ?() async {
+                        await globalController.saveDataSP(homeController.imageList);
+                        homeController.isCardPageButtonEnabled.value = true;
+                      }:null,
+                    ),
+                  ),
+                  Obx(
+                    () => Padding(
+                      padding: const EdgeInsets.only(left: 5.0, right: 10),
+                      child: CustomButton(
+                        height: 65,
+                        width: (MediaQuery.of(context).size.width / 2) - 20,
+                        gradient: homeController.isCardPageButtonEnabled.value ? kGDefaultGradient : kGGreyGradient,
+                        widget: const Text(
+                          'Send to merchandiser',
+                          textAlign: TextAlign.center,
+                          style: kTSDefaultStyle,
+                        ),
+                        navigation: homeController.isCardPageButtonEnabled.value
+                            ? () {
+                                globalController.shareImageAndText('card');
+                              }
+                            : null,
+                      ),
+                    ),
+                  ),
+                ],
               ),
         appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 50),
@@ -66,6 +95,35 @@ class CardScanScreen extends StatelessWidget {
                   children: [
                     CommonTapablePanel(),
                     kSizedBox10,
+                    Container(
+                      height: 40,
+                      width: MediaQuery.of(context).size.width - 50,
+                      decoration: kTextFieldDecoration.copyWith(color: kCWhite, borderRadius: BorderRadius.circular(15)),
+                      child: CustomTextField(
+                        hintText: 'Name',
+                        onChanged: (v) {
+                          homeController.nameEmailValidation();
+                        },
+                        hintTextStyle: kTSTextField2,
+                        controller: homeController.nameEditingController,
+                      ),
+                    ),
+                    kSizedBox10,
+                    Container(
+                      height: 40,
+                      width: MediaQuery.of(context).size.width - 50,
+                      decoration: kTextFieldDecoration.copyWith(color: kCWhite, borderRadius: BorderRadius.circular(15)),
+                      child: CustomTextField(
+                        hintText: 'Email',
+                        onChanged: (v) {
+                          homeController.nameEmailValidation();
+                        },
+                        hintTextStyle: kTSTextField2,
+                        textInputAction: TextInputAction.done,
+                        controller: homeController.emailEditingController,
+                      ),
+                    ),
+                    kSizedBox10,
                     if (homeController.isEmptyLoading.value)
                       const SizedBox(
                         height: 150,
@@ -75,7 +133,7 @@ class CardScanScreen extends StatelessWidget {
                       ),
                     if (homeController.imageList.isEmpty)
                       const SizedBox(
-                        height: 300,
+                        height: 200,
                         child: Center(
                           child: Text(
                             "No image uploaded yet",
