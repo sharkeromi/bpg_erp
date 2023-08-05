@@ -15,6 +15,7 @@ class GlobalController extends GetxController {
     if (value == null) {
       showSnackBar("Warning", "Data not saved.", Colors.amber[600]!);
     } else {
+      log(value.toString());
       await sharedPreference.saveImageData(value);
       showSnackBar("Success", "Data saved successfully.", Colors.green);
     }
@@ -56,8 +57,8 @@ class GlobalController extends GetxController {
   }
 
   stringAdder() {
-    String text = '';
     HomeController homeController = Get.find<HomeController>();
+    String text = 'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
     int j = 0;
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
       text += ("------ Result ${j + 1} ------\n\n${homeController.imageList[i]['text']}\n\n");

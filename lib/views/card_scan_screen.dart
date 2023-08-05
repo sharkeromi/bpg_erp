@@ -40,7 +40,8 @@ class CardScanScreen extends StatelessWidget {
                         style: kTSDefaultStyle,
                       ),
                       navigation: homeController.isSaveButtonEnabled.value ?() async {
-                        await globalController.saveDataSP(homeController.imageList);
+                        var tempMap = {'email':homeController.emailEditingController.text.trim(), 'name': homeController.nameEditingController.text.trim(), 'imageData':homeController.imageList};
+                        await globalController.saveDataSP(tempMap);
                         homeController.isCardPageButtonEnabled.value = true;
                       }:null,
                     ),

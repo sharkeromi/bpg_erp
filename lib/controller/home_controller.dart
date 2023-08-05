@@ -151,8 +151,8 @@ class HomeController extends GetxController {
     resetEdit();
     isEmptyLoading.value = false;
     imageList.add({
-      'name': nameEditingController.text.trim(),
-      'email': emailEditingController.text.trim(),
+      // 'name': nameEditingController.text.trim(),
+      // 'email': emailEditingController.text.trim(),
       'image': image.path,
       'text': scannedTextList[index].value,
       'base64Image': base64Image.value.toString()
