@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
       leading: IconButton(
           onPressed: () {
             Get.back();
-            homeController.resetData();
+            // homeController.resetData();
           },
           icon: const Icon(Icons.arrow_back_ios_new_rounded)),
       elevation: 0.0,

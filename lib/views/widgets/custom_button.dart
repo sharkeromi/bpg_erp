@@ -10,21 +10,13 @@ class CustomButton extends StatelessWidget {
   final Gradient? gradient;
   final bool? isButtonDisabled;
 
-  const CustomButton({
-    super.key,
-    required this.widget,
-    required this.height,
-    this.width,
-    required this.navigation,
-    this.color,
-    this.gradient,
-    this.isButtonDisabled
-  });
+  const CustomButton(
+      {super.key, required this.widget, required this.height, this.width, required this.navigation, this.color, this.gradient, this.isButtonDisabled});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(15),
       child: TextButton(
         style: kTextButtonStyleDefault,
         onPressed: navigation,
@@ -33,7 +25,7 @@ class CustomButton extends StatelessWidget {
             color: color,
             gradient: gradient,
             borderRadius: const BorderRadius.all(
-              Radius.circular(25),
+              Radius.circular(15),
             ),
           ),
           height: height,

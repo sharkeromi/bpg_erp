@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeleteConfirmPopUp extends StatelessWidget {
-  DeleteConfirmPopUp({super.key, required this.index});
+  DeleteConfirmPopUp({super.key, required this.index, this.onDelete});
 
   final int index;
   final HomeController homeController = Get.find<HomeController>();
+  final Function()? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +25,22 @@ class DeleteConfirmPopUp extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
-                child: Text('Are you sure you want to delete?',
-                    textAlign: TextAlign.center, style: kTSPopUpMessage),
+                child: Text('Are you sure you want to delete?', textAlign: TextAlign.center, style: kTSPopUpMessage),
               ),
               kSizedBox10,
               CustomButton(
-                  color: kCRedAccent,
-                  widget: const Text(
-                    "Confirm",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  height: 35,
-                  width: MediaQuery.of(context).size.width / 4,
-                  navigation: () {
-                    homeController.deleteData(index);
-                    Get.back();
-                  }),
+                color: kCRedAccent,
+                widget: const Text(
+                  "Confirm",
+                  style: TextStyle(color: Colors.white),
+                ),
+                height: 35,
+                width: MediaQuery.of(context).size.width / 4,
+                navigation: onDelete??() {
+                  homeController.deleteData(index);
+                  Get.back();
+                },
+              ),
             ],
           ),
         ),

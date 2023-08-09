@@ -1,10 +1,13 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/controller/sp_controller.dart';
 import 'package:bpg_erp/utils/const/strings.dart';
+import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:share_plus/share_plus.dart';
 
 class GlobalController extends GetxController {
@@ -58,11 +61,15 @@ class GlobalController extends GetxController {
 
   stringAdder() {
     HomeController homeController = Get.find<HomeController>();
+    GlobalController globalController = Get.find<GlobalController>();
     String text = 'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
-    int j = 0;
+    int k = 0;
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
-      text += ("------ Result ${j + 1} ------\n\n${homeController.imageList[i]['text']}\n\n");
-      j++;
+      text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
+    }
+    for (int i = globalController.dataList.length - 1; i >= 0; i--) {
+      text += ("------ QR Result ${k + 1} ------\n\n${globalController.dataList[i]['text']}\n\n");
+      k++;
     }
     return text;
   }
@@ -160,5 +167,104 @@ class GlobalController extends GetxController {
     temporaryString = "${mainStringSplit[0]}$extractedValue\nTechnical Info${mainStringSplit[1]}";
     List<String> withoutDuplicate = splitValue[splitValue.length - 1].toString().split(extractedValue);
     return (temporaryString + (withoutDuplicate[0] + withoutDuplicate[1].substring(1)));
+  }
+
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  final RxString qrResult = RxString("");
+  QRViewController? gQrController;
+  RxBool isScanning = RxBool(false);
+  final RxList<RxString> qrTextList = RxList([''.obs]);
+  final RxList<RxBool> isQREditingModeList = RxList([false.obs]);
+  final RxList<TextEditingController> qrTextEditorList = RxList([TextEditingController()]);
+  final RxList<FocusNode> qrTextFocusNodeList = RxList([FocusNode()]);
+  final RxList dataList = RxList([]);
+  final RxBool isEmptyLoading = RxBool(false);
+  RxBool isSaveButtonEnabled = RxBool(false);
+  RxBool isMerchandiserButtonEnabled = RxBool(false);
+  RxBool isBuyerButtonEnabled = RxBool(false);
+
+  resetQRData() {
+    dataList.clear();
+    qrTextList.clear();
+    isSaveButtonEnabled.value = false;
+    isMerchandiserButtonEnabled.value = false;
+    isBuyerButtonEnabled.value = false;
+    qrTextList.add(''.obs);
+  }
+
+  void onQRViewCreated(QRViewController qrController) async {
+    isEmptyLoading.value = true;
+    gQrController = qrController;
+    if (Platform.isAndroid) {
+      await gQrController!.resumeCamera();
+    }
+    gQrController!.scannedDataStream.listen((scanData) async {
+      qrResult.value = scanData.code.toString();
+      setQRText(qrResult.value, qrTextList.length - 1);
+      log(qrResult.value.toString());
+      await gQrController!.pauseCamera();
+      isScanning.value = false;
+      isEmptyLoading.value = false;
+      isSaveButtonEnabled.value = true;
+      isMerchandiserButtonEnabled.value = false;
+      isBuyerButtonEnabled.value = false;
+    });
+  }
+
+  void onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    if (!p) {}
+  }
+
+  setQRText(String text, index) {
+    isEmptyLoading.value = true;
+    HomeController homeController = Get.find<HomeController>();
+    qrTextList[index].value = text;
+    homeController.isEmptyLoading.value = false;
+    dataList.add({
+      'text': qrTextList[index].value,
+    });
+    qrTextList.add(''.obs);
+    qrTextEditorList.add(TextEditingController());
+    qrTextFocusNodeList.add(FocusNode());
+    isQREditingModeList.add(false.obs);
+  }
+
+  toggleEditingMode(index) {
+    if (isQREditingModeList[index].value == true) {
+      qrTextList[index].value = qrTextEditorList[index].text;
+      dataList[index]['text'] = qrTextEditorList[index].text;
+    } else {
+      qrTextEditorList[index].text = qrTextList[index].value;
+      qrTextFocusNodeList[index].requestFocus();
+    }
+    isQREditingModeList[index].value = !isQREditingModeList[index].value;
+  }
+
+  deleteQRData(index) {
+    dataList.removeAt(index);
+    qrTextList.removeAt(index);
+    isMerchandiserButtonEnabled.value = false;
+    isBuyerButtonEnabled.value = false;
+    // textEditorList.removeAt(index);
+  }
+
+  void showDeleteDialog(BuildContext context, index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: DeleteConfirmPopUp(
+            index: index,
+            onDelete: () {
+              deleteQRData(index);
+              Get.back();
+            },
+          ),
+        );
+      },
+    );
   }
 }

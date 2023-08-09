@@ -42,8 +42,8 @@ class ResetConfirmPopUp extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 4,
                   navigation: () {
                     homeController.resetData();
-                    homeController.isCardPageButtonEnabled.value = false;
-                    homeController.isHangerPageButtonEnabled.value = false;
+                    // homeController.isCardPageButtonEnabled.value = false;
+                    // homeController.isHangerPageButtonEnabled.value = false;
                     Get.back();
                   }),
             ],

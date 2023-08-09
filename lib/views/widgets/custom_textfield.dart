@@ -9,7 +9,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
   final TextStyle? hintTextStyle;
-  final Function(String)? onSubmitted,onChanged;
+  final Function(String)? onSubmitted, onChanged;
   final FocusNode? focusNode;
 
   final int? maxLine, minLine;
@@ -44,7 +44,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 12),
+        contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 6),
         hintText: hintText,
         border: const OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(30))),
         hintStyle: hintTextStyle ?? kTSTextField,
