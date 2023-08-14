@@ -4,7 +4,6 @@ import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/utils/const/url.dart';
 import 'package:bpg_erp/views/card_scan_screen.dart';
-import 'package:bpg_erp/views/hanger_scan_screen.dart';
 import 'package:bpg_erp/views/login_screen.dart';
 import 'package:bpg_erp/views/widgets/custom_appbar.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';

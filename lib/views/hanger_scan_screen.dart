@@ -6,7 +6,6 @@ import 'package:bpg_erp/views/widgets/common_tapable_panel.dart';
 import 'package:bpg_erp/views/widgets/custom_appbar.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/custom_item_content.dart';
-import 'package:bpg_erp/views/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -109,7 +108,7 @@ class HangerScanScreen extends StatelessWidget {
                 () => Column(
                   children: [
                     if (globalController.isScanning.value)
-                      Container(
+                      SizedBox(
                         height: 280,
                         child: QRView(
                           key: globalController.qrKey,

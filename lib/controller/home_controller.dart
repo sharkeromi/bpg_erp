@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:bpg_erp/controller/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
@@ -10,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 
 class HomeController extends GetxController {
   XFile? imageFile;
