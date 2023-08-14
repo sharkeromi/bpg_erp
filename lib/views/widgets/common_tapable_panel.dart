@@ -7,22 +7,24 @@ import 'package:get/get.dart';
 
 class CommonTapablePanel extends StatelessWidget {
   CommonTapablePanel({
-    super.key,
+    super.key, this.onTap, this.instruction,
   });
 
   final HomeController homeController = Get.find<HomeController>();
+  final String? instruction;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: onTap??() {
         homeController.showCustomDialog(
             context, homeController.imageList.length);
       },
       child: Column(
-        children: const [
+        children:  [
           kSizedBox20,
-          CustomButton(
+          const CustomButton(
             height: 100,
             width: 100,
             gradient: kGDefaultGradient,
@@ -38,11 +40,11 @@ class CommonTapablePanel extends StatelessWidget {
           ),
           kSizedBox10,
           Text(
-            'Click here to upload image',
-            style: TextStyle(fontSize: 16),
+            instruction??'Click here to upload image',
+            style: const TextStyle(fontSize: 16),
           ),
           kSizedBox10,
-          Divider(
+          const Divider(
             height: 1,
             color: kCBlack,
           ),

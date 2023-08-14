@@ -13,3 +13,8 @@ const kGDefaultGradient = LinearGradient(colors: [
   kCDefaultColor1,
   kCDefaultColor2,
 ], begin: Alignment.topCenter, end: Alignment.bottomCenter);
+
+const kGGreyGradient = LinearGradient(colors: [
+  Colors.grey,
+  Colors.grey,
+], begin: Alignment.topCenter, end: Alignment.bottomCenter);

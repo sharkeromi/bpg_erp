@@ -8,8 +8,8 @@ class CustomTextField extends StatelessWidget {
   final bool? obscureText;
   final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
-
-  final Function(String)? onSubmitted;
+  final TextStyle? hintTextStyle;
+  final Function(String)? onSubmitted, onChanged;
   final FocusNode? focusNode;
 
   final int? maxLine, minLine;
@@ -21,6 +21,8 @@ class CustomTextField extends StatelessWidget {
     this.obscureText,
     this.textInputAction,
     this.onSubmitted,
+    this.onChanged,
+    this.hintTextStyle,
     this.focusNode,
     this.maxLine = 1,
     this.minLine = 1,
@@ -33,18 +35,20 @@ class CustomTextField extends StatelessWidget {
       style: kTSExtractedText,
       focusNode: focusNode,
       onSubmitted: onSubmitted,
+      textAlignVertical: TextAlignVertical.center,
       obscureText: obscureText ?? false,
       minLines: minLine,
       maxLines: maxLine,
-      onChanged: (value) {},
+      onChanged: onChanged,
       textInputAction: textInputAction ?? TextInputAction.next,
       keyboardType: keyboardType,
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 12),
+        contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 6),
         hintText: hintText,
-        hintStyle: kTSTextField,
-        border: InputBorder.none,
+        border: const OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(30))),
+        hintStyle: hintTextStyle ?? kTSTextField,
+        // border: InputBorder.none,
       ),
     );
   }

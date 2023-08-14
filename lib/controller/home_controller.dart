@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:bpg_erp/controller/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
@@ -11,26 +10,73 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+
 class HomeController extends GetxController {
   XFile? imageFile;
   final RxList<RxString> scannedTextList = RxList([''.obs]);
   final RxBool isEmptyLoading = RxBool(false);
   final RxList<TextEditingController> textEditorList = RxList([TextEditingController()]);
+  final TextEditingController nameEditingController = TextEditingController();
+  final TextEditingController emailEditingController = TextEditingController();
+  // final TextEditingController hangerPageNameEditingController = TextEditingController();
+  // final TextEditingController hangerPageEmailEditingController = TextEditingController();
   final RxList<RxBool> isEditingModeList = RxList([false.obs]);
   final RxList imageList = RxList([]);
   final RxList<FocusNode> textFocusNodeList = RxList([FocusNode()]);
+  RxBool isCardPageButtonEnabled = RxBool(false);
+  RxBool isHangerPageButtonEnabled = RxBool(false);
+  RxBool isSaveButtonEnabled = RxBool(false);
 
   final RxString origin = RxString('');
+
+  nameEmailValidation() {
+    if (nameEditingController.text.trim() != '' && emailEditingController.text.trim() != '') {
+      isSaveButtonEnabled.value = true;
+    } else {
+      isSaveButtonEnabled.value = false;
+    }
+  }
+
+  resetNameEmailField() {
+    emailEditingController.clear();
+    nameEditingController.clear();
+  }
 
   resetData() {
     imageFile = null;
     imageList.clear();
     isEmptyLoading.value = false;
+    isSaveButtonEnabled.value = false;
+    // isCardPageButtonEnabled.value = false;
+    // isHangerPageButtonEnabled.value = false;
     //Clear------------------
     scannedTextList.clear();
     textEditorList.clear();
     isEditingModeList.clear();
     textFocusNodeList.clear();
+    emailEditingController.clear();
+    nameEditingController.clear();
+    //Initialize----------------
+    scannedTextList.add(''.obs);
+    textEditorList.add(TextEditingController());
+    isEditingModeList.add(false.obs);
+    textFocusNodeList.add(FocusNode());
+  }
+
+  resetForNewData() {
+    imageFile = null;
+    imageList.clear();
+    // isEmptyLoading.value = false;
+    isSaveButtonEnabled.value = false;
+    isCardPageButtonEnabled.value = false;
+    isHangerPageButtonEnabled.value = false;
+    //Clear------------------
+    scannedTextList.clear();
+    textEditorList.clear();
+    isEditingModeList.clear();
+    textFocusNodeList.clear();
+    emailEditingController.clear();
+    nameEditingController.clear();
     //Initialize----------------
     scannedTextList.add(''.obs);
     textEditorList.add(TextEditingController());
@@ -70,23 +116,39 @@ class HomeController extends GetxController {
     try {
       final XFile? pickedImage = await ImagePicker().pickImage(source: source);
       isEmptyLoading.value = true;
+
       if (pickedImage != null) {
+        resetForNewData();
+        // if (isCardPageButtonEnabled.value == true || isHangerPageButtonEnabled.value == true) {
+        //   isCardPageButtonEnabled.value = false;
+        //   isHangerPageButtonEnabled.value = false;
+        // }
         final List<int> imageBytes = await pickedImage.readAsBytes();
         base64Image.value = 'data:image/png;base64,${base64Encode(imageBytes)}';
         final XFile? croppedImage = await cropImage(pickedImage.path);
         if (croppedImage != null) {
           imageFile = croppedImage;
-          await getRecognizedText(croppedImage, index);
+          await getRecognizedText(croppedImage, 0);
         } else {
+          // if ((isCardPageButtonEnabled.value == false || isHangerPageButtonEnabled.value == false) && isSaveButtonEnabled.value == true) {
+          //   isCardPageButtonEnabled.value = true;
+          //   isHangerPageButtonEnabled.value = true;
+          // }
           isEmptyLoading.value = false;
           imageFile = null;
         }
       } else {
+        resetForNewData();
+        // if ((isCardPageButtonEnabled.value == false || isHangerPageButtonEnabled.value == false) && isSaveButtonEnabled.value == true) {
+        //   isCardPageButtonEnabled.value = true;
+        //   isHangerPageButtonEnabled.value = true;
+        // }
         isEmptyLoading.value = false;
         imageFile = null;
         scannedTextList[index].value = "Error occurred when selecting image";
       }
     } catch (e) {
+      resetForNewData();
       isEmptyLoading.value = false;
       imageFile = null;
       scannedTextList[index].value = "Error occurred when scanning";
@@ -106,6 +168,12 @@ class HomeController extends GetxController {
         } else {
           scanText += line.text;
         }
+        // if (line.text.contains('@') && emailEditingController.text.isEmpty) {
+        //   emailEditingController.text = line.text;
+        // }
+        if (line.text.contains('@')) {
+          emailEditingController.text = line.text;
+        }
         // log("Line : " + line.text);
       }
     }
@@ -113,7 +181,13 @@ class HomeController extends GetxController {
     scannedTextList[index].value = returnData;
     resetEdit();
     isEmptyLoading.value = false;
-    imageList.add({'image': image.path, 'text': scannedTextList[index].value, 'base64Image': base64Image.value.toString()});
+    imageList.add({
+      // 'name': nameEditingController.text.trim(),
+      // 'email': emailEditingController.text.trim(),
+      'image': image.path,
+      'text': scannedTextList[index].value,
+      'base64Image': base64Image.value.toString()
+    });
     scannedTextList.add(''.obs);
     textEditorList.add(TextEditingController());
     textFocusNodeList.add(FocusNode());
@@ -136,14 +210,24 @@ class HomeController extends GetxController {
     textEditorList.removeAt(index);
     isEditingModeList.removeAt(index);
     textFocusNodeList.removeAt(index);
+    // isCardPageButtonEnabled.value = false;
+    // isHangerPageButtonEnabled.value = false;
   }
 
   toggleEditingMode(index) {
     if (isEditingModeList[index].value == true) {
+      // if (isSaveButtonEnabled.value == true) {
+      // isCardPageButtonEnabled.value = true;
+      //   isHangerPageButtonEnabled.value = true;
+      // }
       scannedTextList[index].value = textEditorList[index].text;
       imageList[index]['text'] = textEditorList[index].text;
     } else {
       textEditorList[index].text = scannedTextList[index].value;
+      // if (isSaveButtonEnabled.value == true) {
+      //   isCardPageButtonEnabled.value = false;
+      //   isHangerPageButtonEnabled.value = false;
+      // }
       textFocusNodeList[index].requestFocus();
     }
     isEditingModeList[index].value = !isEditingModeList[index].value;
