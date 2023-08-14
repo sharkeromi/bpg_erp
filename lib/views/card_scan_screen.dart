@@ -36,7 +36,7 @@ class CardScanScreen extends StatelessWidget {
                 ),
                 navigation: homeController.isSaveButtonEnabled.value
                     ? () {
-                        Get.to(QRScanScreen());
+                        Get.to(() => QRScanScreen());
                       }
                     : null,
               ),

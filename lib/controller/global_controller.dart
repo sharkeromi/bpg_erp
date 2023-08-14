@@ -75,7 +75,8 @@ class GlobalController extends GetxController {
     if (type != 'card') {
       text = '';
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
-        text += ("------ QR Result ${k + 1} ------\n\n${globalController.dataList[i]['text']}\n\n");
+        text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['text']}\n---------------------------------------\n");
+        text += ("Hanger Information : \n\nHanger No : \nReference : \nFabrication : \nComposition : \nGSM : \nDIA : \n Technical Info : \n\n");
         k++;
       }
     }

@@ -18,8 +18,6 @@ class HomeController extends GetxController {
   final RxList<TextEditingController> textEditorList = RxList([TextEditingController()]);
   final TextEditingController nameEditingController = TextEditingController();
   final TextEditingController emailEditingController = TextEditingController();
-  // final TextEditingController hangerPageNameEditingController = TextEditingController();
-  // final TextEditingController hangerPageEmailEditingController = TextEditingController();
   final RxList<RxBool> isEditingModeList = RxList([false.obs]);
   final RxList imageList = RxList([]);
   final RxList<FocusNode> textFocusNodeList = RxList([FocusNode()]);
@@ -119,10 +117,6 @@ class HomeController extends GetxController {
 
       if (pickedImage != null) {
         resetForNewData();
-        // if (isCardPageButtonEnabled.value == true || isHangerPageButtonEnabled.value == true) {
-        //   isCardPageButtonEnabled.value = false;
-        //   isHangerPageButtonEnabled.value = false;
-        // }
         final List<int> imageBytes = await pickedImage.readAsBytes();
         base64Image.value = 'data:image/png;base64,${base64Encode(imageBytes)}';
         final XFile? croppedImage = await cropImage(pickedImage.path);
@@ -130,19 +124,11 @@ class HomeController extends GetxController {
           imageFile = croppedImage;
           await getRecognizedText(croppedImage, 0);
         } else {
-          // if ((isCardPageButtonEnabled.value == false || isHangerPageButtonEnabled.value == false) && isSaveButtonEnabled.value == true) {
-          //   isCardPageButtonEnabled.value = true;
-          //   isHangerPageButtonEnabled.value = true;
-          // }
           isEmptyLoading.value = false;
           imageFile = null;
         }
       } else {
         resetForNewData();
-        // if ((isCardPageButtonEnabled.value == false || isHangerPageButtonEnabled.value == false) && isSaveButtonEnabled.value == true) {
-        //   isCardPageButtonEnabled.value = true;
-        //   isHangerPageButtonEnabled.value = true;
-        // }
         isEmptyLoading.value = false;
         imageFile = null;
         scannedTextList[index].value = "Error occurred when selecting image";
@@ -168,9 +154,6 @@ class HomeController extends GetxController {
         } else {
           scanText += line.text;
         }
-        // if (line.text.contains('@') && emailEditingController.text.isEmpty) {
-        //   emailEditingController.text = line.text;
-        // }
         if (line.text.contains('@')) {
           emailEditingController.text = line.text;
         }
@@ -182,8 +165,6 @@ class HomeController extends GetxController {
     resetEdit();
     isEmptyLoading.value = false;
     imageList.add({
-      // 'name': nameEditingController.text.trim(),
-      // 'email': emailEditingController.text.trim(),
       'image': image.path,
       'text': scannedTextList[index].value,
       'base64Image': base64Image.value.toString()
@@ -210,24 +191,14 @@ class HomeController extends GetxController {
     textEditorList.removeAt(index);
     isEditingModeList.removeAt(index);
     textFocusNodeList.removeAt(index);
-    // isCardPageButtonEnabled.value = false;
-    // isHangerPageButtonEnabled.value = false;
   }
 
   toggleEditingMode(index) {
     if (isEditingModeList[index].value == true) {
-      // if (isSaveButtonEnabled.value == true) {
-      // isCardPageButtonEnabled.value = true;
-      //   isHangerPageButtonEnabled.value = true;
-      // }
       scannedTextList[index].value = textEditorList[index].text;
       imageList[index]['text'] = textEditorList[index].text;
     } else {
       textEditorList[index].text = scannedTextList[index].value;
-      // if (isSaveButtonEnabled.value == true) {
-      //   isCardPageButtonEnabled.value = false;
-      //   isHangerPageButtonEnabled.value = false;
-      // }
       textFocusNodeList[index].requestFocus();
     }
     isEditingModeList[index].value = !isEditingModeList[index].value;

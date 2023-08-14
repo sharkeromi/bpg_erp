@@ -67,67 +67,6 @@ class HomeScreen extends StatelessWidget {
               Get.to(() => CardScanScreen());
             },
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Padding(
-          //       padding: const EdgeInsets.only(left: 16, right: 8),
-          //       child: CustomButton(
-          //         height: 180,
-          //         gradient: kGDefaultGradient,
-          //         width: (MediaQuery.of(context).size.width / 2) - 24,
-          //         widget: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: const <Widget>[
-          //             Icon(
-          //               Icons.document_scanner_rounded,
-          //               size: 60,
-          //               color: Colors.white,
-          //             ),
-          //             kSizedBox10,
-          //             Text(
-          //               "Visiting Card Scan",
-          //               style: TextStyle(color: Colors.white, fontSize: 18),
-          //             ),
-          //           ],
-          //         ),
-          //         navigation: () {
-          //           Get.find<HomeController>().resetData();
-          //           Get.find<HomeController>().origin.value = 'card';
-          //           Get.to(() => CardScanScreen());
-          //         },
-          //       ),
-          //     ),
-          //     Padding(
-          //       padding: const EdgeInsets.only(left: 8, right: 16),
-          //       child: CustomButton(
-          //         gradient: kGDefaultGradient,
-          //         height: 180,
-          //         width: (MediaQuery.of(context).size.width / 2) - 24,
-          //         widget: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: const <Widget>[
-          //             Icon(
-          //               Icons.dry_cleaning_rounded,
-          //               size: 60,
-          //               color: Colors.white,
-          //             ),
-          //             kSizedBox10,
-          //             Text(
-          //               "Hangar Scan",
-          //               style: kTSPopUpHeader,
-          //             ),
-          //           ],
-          //         ),
-          //         navigation: () {
-          //           Get.find<HomeController>().resetData();
-          //           Get.find<HomeController>().origin.value = 'hanger';
-          //           Get.to(() => HangerScanScreen());
-          //         },
-          //       ),
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );
