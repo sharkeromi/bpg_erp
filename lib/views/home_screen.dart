@@ -16,11 +16,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: kCBackgroundColor,
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, 50),
         child: CustomAppBar(
+          leading: null,
           title: 'DashBoard Activity',
           prefixWidget: const Icon(
             Icons.logout_rounded,

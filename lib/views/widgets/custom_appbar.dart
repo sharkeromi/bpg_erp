@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget {
     required this.title,
     this.prefixWidget,
     required this.prefixWidgetAction,
+   required this.leading,
   });
 
   final HomeController homeController = Get.find<HomeController>();
@@ -17,16 +18,12 @@ class CustomAppBar extends StatelessWidget {
   final String title;
   final Widget? prefixWidget;
   final VoidCallback prefixWidgetAction;
+  final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-          onPressed: () {
-            Get.back();
-            // homeController.resetData();
-          },
-          icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+      leading: leading,
       elevation: 0.0,
       centerTitle: true,
       backgroundColor: kCDefaultColor2,

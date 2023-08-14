@@ -21,7 +21,6 @@ class QRScanScreen extends StatelessWidget {
       () => Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: kCBackgroundColor,
-        resizeToAvoidBottomInset: false,
         floatingActionButton: homeController.imageList.isEmpty
             ? const SizedBox()
             : Row(
@@ -73,6 +72,12 @@ class QRScanScreen extends StatelessWidget {
           preferredSize: Size(MediaQuery.of(context).size.width, 50),
           child: Obx(
             () => CustomAppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              ),
               title: 'QR Scan',
               prefixWidget: homeController.imageList.isEmpty
                   ? null
@@ -95,7 +100,7 @@ class QRScanScreen extends StatelessWidget {
                   globalController.isScanning.value = false;
                   // await globalController.resetSharedPreference();
                 } else {
-                  globalController.showSnackBar("Warning!", "No data to save.\nPlease scan any QR to save.", const Color.fromARGB(255, 230, 207, 0));
+                  globalController.showSnackBar("Warning!", "No data to save.\nPlease scan any barcode to save.", Colors.amber[400]!);
                 }
               },
             ),
@@ -133,57 +138,23 @@ class QRScanScreen extends StatelessWidget {
                         },
                       ),
                     kSizedBox10,
-                    if (globalController.dataList.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            style: kTextButtonStyleDefault,
-                            onPressed: () {
-                              globalController.resetQRData();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 20.0),
-                              child: Text(
-                                'Reset',
-                                style: kTSPopUpHeader.copyWith(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ],
+                    if (globalController.isScanning.value) kSizedBox10,
+                    if (globalController.isScanning.value)
+                      CustomButton(
+                        color: kCRed,
+                        widget: Text(
+                          "Cancel",
+                          style: kTSDefault1.copyWith(color: kCWhite),
+                        ),
+                        height: 35,
+                        navigation: () {
+                          globalController.isScanning.value = false;
+                        },
+                        width: 120,
                       ),
-                    // Container(
-                    //   height: 40,
-                    //   width: MediaQuery.of(context).size.width - 50,
-                    //   decoration: kTextFieldDecoration.copyWith(color: kCWhite, borderRadius: BorderRadius.circular(15)),
-                    //   child: CustomTextField(
-                    //     hintText: 'Name',
-                    //     onChanged: (v) {
-                    //       homeController.nameEmailValidation();
-                    //     },
-                    //     hintTextStyle: kTSTextField2,
-                    //     controller: homeController.nameEditingController,
-                    //   ),
-                    // ),
-                    // kSizedBox10,
-                    // Container(
-                    //   height: 40,
-                    //   width: MediaQuery.of(context).size.width - 50,
-                    //   decoration: kTextFieldDecoration.copyWith(color: kCWhite, borderRadius: BorderRadius.circular(15)),
-                    //   child: CustomTextField(
-                    //     hintText: 'Email',
-                    //     onChanged: (v) {
-                    //       homeController.nameEmailValidation();
-                    //     },
-                    //     hintTextStyle: kTSTextField2,
-                    //     textInputAction: TextInputAction.done,
-                    //     controller: homeController.emailEditingController,
-                    //   ),
-                    // ),
-                    kSizedBox10,
                     if (globalController.isScanning.value)
                       SizedBox(
-                        height: 150,
+                        height: 50,
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -197,12 +168,40 @@ class QRScanScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                    if (globalController.isScanning.value) kSizedBox10,
+                    if (globalController.isScanning.value)
+                      const Divider(
+                        height: 1,
+                        color: kCBlack,
+                      ),
+                    if (globalController.isScanning.value) kSizedBox10,
+                    if (globalController.dataList.isNotEmpty)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            style: kTextButtonStyleDefault,
+                            onPressed: () {
+                              globalController.showResetDialog(context);
+                              // globalController.resetQRData();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: Text(
+                                'Reset',
+                                style: kTSPopUpHeader.copyWith(color: Colors.black, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    kSizedBox10,
                     if (globalController.dataList.isEmpty)
                       const SizedBox(
                         height: 300,
                         child: Center(
                           child: Text(
-                            "No image uploaded yet",
+                            "No barcode scanned yet",
                             style: kTSDefault1,
                           ),
                         ),
@@ -253,38 +252,95 @@ class QRScanContent extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    globalController.qrTextList[index].value != ''
-                        ? Text(
-                            "$itemType ${index + 1}",
-                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                          )
-                        : const Text(
-                            'No text to show',
-                            style: kTSExtractedText,
-                          ),
-                    if (globalController.qrTextList[index].value != '') const SizedBox(height: 15),
-                    // if (globalController.qrTextList[index].value != '' && globalController.isQREditingModeList[index].value)
-                    //   CustomTextField(
-                    //     controller: globalController.qrTextEditorList[index],
-                    //     onSubmitted: (value) {
-                    //       globalController.qrTextList[index].value = globalController.qrTextEditorList[index].text;
-                    //     },
-                    //     onChanged: (v) {
-                    //       // homeController.isCardPageButtonEnabled.value = false;
-                    //       // homeController.isHangerPageButtonEnabled.value = false;
-                    //     },
-                    //     focusNode: globalController.qrTextFocusNodeList[index],
-                    //     minLine: 1,
-                    //     maxLine: 10,
-                    //     textInputAction: TextInputAction.newline,
-                    //     keyboardType: TextInputType.multiline,
-                    //   ),
-                    if (globalController.qrTextList[index].value != '' && !globalController.isQREditingModeList[index].value)
-                      Text(
-                        globalController.dataList[index]['text'],
-                        style: kTSExtractedText,
-                        textAlign: TextAlign.left,
+                    Text(
+                      "$itemType ${index + 1}",
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Barcode : ${globalController.dataList[index]['text']}",
+                      style: kTSExtractedText.copyWith(fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(height: 15),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Hanger No : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "Reference : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "Fabrication : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "Composition : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "GSM : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "DIA : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "Technical Info : ",
+                                  style: kTSExtractedText.copyWith(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //* Text Styles
 const kTSExtractedText = TextStyle(fontSize: 20);
 const kTSPopUpHeader = TextStyle(fontSize: 18, color: kCWhite);
-const kTSLogInScreenHeader = TextStyle(fontSize: 40, color: Colors.black38, fontWeight: FontWeight.bold);
+const kTSLogInScreenHeader = TextStyle(fontSize: 28, color: Colors.black38, fontWeight: FontWeight.bold);
 const kTSDefault1 = TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black);
 const kTSDefaultBold = TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
 const kTSAppBarPrefix = TextStyle(color: Colors.white, fontSize: 16);

@@ -78,6 +78,12 @@ class HangerScanScreen extends StatelessWidget {
           preferredSize: Size(MediaQuery.of(context).size.width, 50),
           child: Obx(
             () => CustomAppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              ),
               title: 'Hanger Scan',
               prefixWidget: homeController.imageList.isEmpty
                   ? null

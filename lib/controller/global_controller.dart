@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/controller/sp_controller.dart';
+import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/strings.dart';
+import 'package:bpg_erp/utils/const/styles.dart';
+import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,27 +52,32 @@ class GlobalController extends GetxController {
       final String imagePath = homeController.imageList[i]['image'];
       serverList.add(XFile(imagePath));
     }
-    var cardInfo = stringAdder();
+    var cardInfo = stringAdder(type);
     if (type == 'card') {
       final String text = '$cardEmailBody\n$cardInfo';
       await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
     } else {
       final String text = '$buyerEmailBody\n$cardInfo';
-      await Share.shareXFiles(serverList, text: text, subject: kBuyerEmailSubject);
+      await Share.share(text, subject: kBuyerEmailSubject);
     }
   }
 
-  stringAdder() {
+  stringAdder(type) {
     HomeController homeController = Get.find<HomeController>();
     GlobalController globalController = Get.find<GlobalController>();
     String text = 'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
     int k = 0;
-    for (int i = homeController.imageList.length - 1; i >= 0; i--) {
-      text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
+    if (type == 'card') {
+      for (int i = homeController.imageList.length - 1; i >= 0; i--) {
+        text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
+      }
     }
-    for (int i = globalController.dataList.length - 1; i >= 0; i--) {
-      text += ("------ QR Result ${k + 1} ------\n\n${globalController.dataList[i]['text']}\n\n");
-      k++;
+    if (type != 'card') {
+      text = '';
+      for (int i = globalController.dataList.length - 1; i >= 0; i--) {
+        text += ("------ QR Result ${k + 1} ------\n\n${globalController.dataList[i]['text']}\n\n");
+        k++;
+      }
     }
     return text;
   }
@@ -262,6 +270,60 @@ class GlobalController extends GetxController {
               deleteQRData(index);
               Get.back();
             },
+          ),
+        );
+      },
+    );
+  }
+
+  void showResetDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Stack(
+            children: [
+              Container(
+                height: 180,
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
+                      child: Text('Are you sure you want to reset all data?', textAlign: TextAlign.center, style: kTSPopUpMessage),
+                    ),
+                    kSizedBox10,
+                    CustomButton(
+                      color: kCRedAccent,
+                      widget: const Text(
+                        "Confirm",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      height: 35,
+                      width: MediaQuery.of(context).size.width / 4,
+                      navigation: () {
+                        resetQRData();
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 2,
+                right: 2,
+                child: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(Icons.cancel)),
+              )
+            ],
           ),
         );
       },

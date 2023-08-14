@@ -23,7 +23,6 @@ class CardScanScreen extends StatelessWidget {
       () => Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: kCBackgroundColor,
-        resizeToAvoidBottomInset: false,
         floatingActionButton: homeController.imageList.isEmpty
             ? const SizedBox()
             : CustomButton(
@@ -37,70 +36,20 @@ class CardScanScreen extends StatelessWidget {
                 ),
                 navigation: homeController.isSaveButtonEnabled.value
                     ? () {
-                        // var tempMap = {
-                        //   'email': homeController.emailEditingController.text.trim(),
-                        //   'name': homeController.nameEditingController.text.trim(),
-                        //   'imageData': homeController.imageList
-                        // };
-                        // await globalController.saveDataSP(tempMap);
-                        // homeController.isCardPageButtonEnabled.value = true;
                         Get.to(QRScanScreen());
                       }
                     : null,
               ),
-        // Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: [
-        //       Padding(
-        //         padding: const EdgeInsets.only(left: 10.0, right: 5),
-        //         child: CustomButton(
-        //           height: 65,
-        //           width: (MediaQuery.of(context).size.width / 2) - 20,
-        //           gradient: homeController.isSaveButtonEnabled.value ? kGDefaultGradient : kGGreyGradient,
-        //           widget: const Text(
-        //             'Save',
-        //             textAlign: TextAlign.center,
-        //             style: kTSDefaultStyle,
-        //           ),
-        //           navigation: homeController.isSaveButtonEnabled.value
-        //               ? () async {
-        //                   var tempMap = {
-        //                     'email': homeController.emailEditingController.text.trim(),
-        //                     'name': homeController.nameEditingController.text.trim(),
-        //                     'imageData': homeController.imageList
-        //                   };
-        //                   await globalController.saveDataSP(tempMap);
-        //                   homeController.isCardPageButtonEnabled.value = true;
-        //                 }
-        //               : null,
-        //         ),
-        //       ),
-        //       Obx(
-        //         () => Padding(
-        //           padding: const EdgeInsets.only(left: 5.0, right: 10),
-        //           child: CustomButton(
-        //             height: 65,
-        //             width: (MediaQuery.of(context).size.width / 2) - 20,
-        //             gradient: homeController.isCardPageButtonEnabled.value ? kGDefaultGradient : kGGreyGradient,
-        //             widget: const Text(
-        //               'Send to merchandiser',
-        //               textAlign: TextAlign.center,
-        //               style: kTSDefaultStyle,
-        //             ),
-        //             navigation: homeController.isCardPageButtonEnabled.value
-        //                 ? () {
-        //                     globalController.shareImageAndText('card');
-        //                   }
-        //                 : null,
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
         appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 50),
           child: Obx(
             () => CustomAppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              ),
               title: 'Visiting Card Scan',
               prefixWidget: homeController.imageList.isEmpty
                   ? null

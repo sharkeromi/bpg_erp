@@ -1,5 +1,5 @@
 const String kImageDataKey = 'kImageDataKey';
-const String kCardEmailSubject = 'Buyer visiting card information:';
+const String kCardEmailSubject = 'Buyer visiting card information';
 const String cardEmailBody = 'Dear Merchandiser,\nhere is the buyer visiting card information:\n';
 const String kBuyerEmailSubject = 'Thank you for visiting our Blue Planet Group';
 const String buyerEmailBody =

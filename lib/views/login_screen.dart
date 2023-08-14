@@ -16,7 +16,6 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: kCBackgroundColor,
       body: SafeArea(
         top: false,
@@ -27,16 +26,24 @@ class LogInScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 kSizedBox20,
-                Image.asset(
-                  logo,
-                  height: 150,
-                  width: 200,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      logo,
+                      height: 100,
+                      width: 160,
+                      // color: kCDefaultColor2,
+                    ),
+                  ],
                 ),
+                kSizedBox20,
                 const Text(
                   'User Login',
                   style: kTSLogInScreenHeader,
+                  textAlign: TextAlign.center,
                 ),
-                kSizedBox50,
+                kSizedBox20,
                 Container(
                   height: 45,
                   decoration: kTextFieldDecoration,
