@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:bpg_erp/controller/global_controller.dart';
+import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/image_picker_ad.dart';
 import 'package:bpg_erp/views/widgets/reset_confirm_popup.dart';

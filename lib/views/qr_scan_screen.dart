@@ -1,4 +1,4 @@
-import 'package:bpg_erp/controller/global_controller.dart';
+import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';

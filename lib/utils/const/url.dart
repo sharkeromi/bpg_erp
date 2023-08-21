@@ -4,3 +4,5 @@ const homePageLeaves = "assets/images/leaves.png";
 const logo = "assets/images/bgplogo.png";
 const bluePlanetLogoSmall = "assets/images/blue_planet_logo_1x.png";
 const bluePlanetLogoLarge = "assets/images/blue_planet_logo_4x.png";
+
+//* Api Url

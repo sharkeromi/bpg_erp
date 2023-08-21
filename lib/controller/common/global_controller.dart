@@ -2,13 +2,14 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bpg_erp/controller/home_controller.dart';
-import 'package:bpg_erp/controller/sp_controller.dart';
+import 'package:bpg_erp/controller/common/sp_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/strings.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:share_plus/share_plus.dart';
@@ -328,6 +329,40 @@ class GlobalController extends GetxController {
           ),
         );
       },
+    );
+  }
+
+  //* info:: show loading
+  final isLoading = RxBool(false);
+
+  void showLoading() {
+    isLoading.value = true;
+    Get.defaultDialog(
+      radius: 2,
+      backgroundColor: kCWhite,
+      barrierDismissible: false,
+      title: "",
+      onWillPop: () async {
+        return true;
+      },
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SpinKitFadingCircle(
+            color: kCDefaultColor1,
+            size: 70.0,
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              ksLoading.tr,
+              style: const TextStyle(color: kCBlack, fontSize: 14),
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }
