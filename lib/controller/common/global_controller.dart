@@ -79,7 +79,7 @@ class GlobalController extends GetxController {
     if (type != 'card') {
       text = '';
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
-        text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['text']}\n---------------------------------------\n");
+        text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
         text +=
             ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['Hanger No']}\nReference : ${globalController.fetchedQRData[0]['Reference']}\nFabrication : ${globalController.fetchedQRData[0]['Fabrication']}\nComposition : ${globalController.fetchedQRData[0]['Composition']}\nGSM : ${globalController.fetchedQRData[0]['GSM']}\nDIA : ${globalController.fetchedQRData[0]['DIA']}\n Technical Info : ${globalController.fetchedQRData[0]['Technical Info']}\n\n");
         k++;
@@ -236,7 +236,7 @@ class GlobalController extends GetxController {
     qrTextList[index].value = text;
     homeController.isEmptyLoading.value = false;
     dataList.add({
-      'text': qrTextList[index].value,
+      'BARCODE_NO': qrTextList[index].value,
     });
     qrTextList.add(''.obs);
     qrTextEditorList.add(TextEditingController());
@@ -247,7 +247,7 @@ class GlobalController extends GetxController {
   toggleEditingMode(index) {
     if (isQREditingModeList[index].value == true) {
       qrTextList[index].value = qrTextEditorList[index].text;
-      dataList[index]['text'] = qrTextEditorList[index].text;
+      dataList[index]['BARCODE_NO'] = qrTextEditorList[index].text;
     } else {
       qrTextEditorList[index].text = qrTextList[index].value;
       qrTextFocusNodeList[index].requestFocus();
