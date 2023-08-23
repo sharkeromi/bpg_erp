@@ -9,3 +9,4 @@ const bluePlanetLogoLarge = "assets/images/blue_planet_logo_4x.png";
 
 const loginUrl = 'Login/login';
 const qrCodeDataFetch = 'Vcs/vcs_hngr/';
+const saveCardQRData = 'Vcs/vcs_insert';

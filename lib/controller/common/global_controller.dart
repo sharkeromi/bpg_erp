@@ -389,4 +389,18 @@ class GlobalController extends GetxController {
       ll(e.toString());
     }
   }
+
+  Future<void> saveAllData(allData) async {
+    try {
+      final ApiController apiController = ApiController();
+      log("body :$allData");
+      var response = await apiController.commonPostWithBody(url: saveCardQRData, body: allData, showLoading: true);
+      log(response.toString());
+      if (response['status'] == true) {
+        log(response['resultset'].toString());
+      }
+    } catch (e) {
+      ll(e.toString());
+    }
+  }
 }

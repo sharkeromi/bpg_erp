@@ -93,13 +93,14 @@ class QRScanScreen extends StatelessWidget {
                     ),
               prefixWidgetAction: () async {
                 if (globalController.dataList.isNotEmpty) {
-                  var tempMap = {
+                   Map<String, dynamic> tempMap = {
                     'email': homeController.emailEditingController.text.trim(),
-                    'name': homeController.nameEditingController.text.trim(),
-                    'imageData': homeController.imageList,
-                    'qr_data': globalController.dataList,
+                    'NAME': homeController.nameEditingController.text.trim(),
+                    'CARD_INFO': homeController.imageList,
+                    'hanger': globalController.dataList,
                   };
-                  await globalController.saveDataSP(tempMap);
+                  await globalController.saveAllData(tempMap);
+                  // await globalController.saveDataSP(tempMap);
                   homeController.isHangerPageButtonEnabled.value = true;
                   globalController.isMerchandiserButtonEnabled.value = true;
                   globalController.isBuyerButtonEnabled.value = true;
