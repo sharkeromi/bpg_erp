@@ -384,6 +384,10 @@ class GlobalController extends GetxController {
       if (response['status'] == true) {
         log(response['resultset'].toString());
         fetchedQRData.addAll(response['resultset']);
+        showSnackBar("Success", "Barcode scanned successfully", cAcceptColor);
+      } else {
+        log(response.toString());
+        showSnackBar("Error", "Something went wrong", cRedAccentColor);
       }
     } catch (e) {
       ll(e.toString());
@@ -398,6 +402,10 @@ class GlobalController extends GetxController {
       log(response.toString());
       if (response['status'] == true) {
         log(response['resultset'].toString());
+        showSnackBar("Success", response['resultset'][0]['msg'].toString(), cAcceptColor);
+      } else {
+        log(response.toString());
+        showSnackBar("Error", "Something went wrong", cRedAccentColor);
       }
     } catch (e) {
       ll(e.toString());
