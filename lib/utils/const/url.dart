@@ -7,4 +7,5 @@ const bluePlanetLogoLarge = "assets/images/blue_planet_logo_4x.png";
 
 //* Api Url
 
-const loginUrl= 'Login/login';
+const loginUrl = 'Login/login';
+const qrCodeDataFetch = 'Vcs/vcs_hngr/';

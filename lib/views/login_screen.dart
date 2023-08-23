@@ -77,8 +77,8 @@ class LogInScreen extends StatelessWidget {
                   height: 45,
                   width: 200,
                   gradient: kGDefaultGradient,
-                  navigation: () {
-                    Get.offAll(() => const HomeScreen());
+                  navigation: () async {
+                    await authController.userLogin();
                   },
                   widget: const Text(
                     'Log In',
