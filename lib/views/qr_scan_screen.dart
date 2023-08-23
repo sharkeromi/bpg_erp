@@ -278,7 +278,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "Hanger No : ",
+                                  "Hanger No : ${globalController.fetchedQRData[0]['Hanger No']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -287,7 +287,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "Reference : ",
+                                  "Reference : ${globalController.fetchedQRData[0]['Reference']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -296,7 +296,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "Fabrication : ",
+                                  "Fabrication : ${globalController.fetchedQRData[0]['Fabrication']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -305,7 +305,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "Composition : ",
+                                  "Composition : ${globalController.fetchedQRData[0]['Composition']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -314,7 +314,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "GSM : ",
+                                  "GSM : ${globalController.fetchedQRData[0]['GSM']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -323,7 +323,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "DIA : ",
+                                  "DIA : ${globalController.fetchedQRData[0]['DIA']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -332,7 +332,7 @@ class QRScanContent extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "Technical Info : ",
+                                  "Technical Info : ${globalController.fetchedQRData[0]['Technical Info']}",
                                   style: kTSExtractedText.copyWith(fontSize: 16),
                                 ),
                               ],
