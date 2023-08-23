@@ -193,7 +193,7 @@ class ApiController {
       response = await client
           .post(
         uri,
-        body: body,
+        body: json.encode(body),
         // headers: {'app-role': 'user'},
       )
           .timeout(
@@ -270,7 +270,8 @@ class ApiController {
     // dio.options.headers['app-role'] = "user";
     String error = ksAnErrorOccurred.tr;
     try {
-      var response = await dio.post(Environment.baseUrl + url, data: body).timeout(
+      var response =
+          await dio.post(Environment.baseUrl + url, data: body).timeout(
         Duration(seconds: timer ?? 30),
         onTimeout: () {
           error = ksConnectionTimeoutMessage.tr;
