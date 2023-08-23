@@ -6,3 +6,5 @@ const bluePlanetLogoSmall = "assets/images/blue_planet_logo_1x.png";
 const bluePlanetLogoLarge = "assets/images/blue_planet_logo_4x.png";
 
 //* Api Url
+
+const loginUrl= 'Login/login';

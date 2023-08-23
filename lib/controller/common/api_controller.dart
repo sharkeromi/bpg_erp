@@ -39,7 +39,6 @@ class ApiController {
         uri,
         headers: {
           'Authorization': 'Bearer $token',
-          // 'app-role': 'user',
         },
       ).timeout(
         Duration(seconds: timer ?? 30),
@@ -62,8 +61,6 @@ class ApiController {
         }
       }
       ll("response : ${response.body}");
-      // CommonDM cm = _convertToCommonObject(jsonDecode(response.body));
-      // return cm;
       return jsonDecode(response.body);
     } on SocketException {
       error = ksNoInternetConnectionMessage.tr;
