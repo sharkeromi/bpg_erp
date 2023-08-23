@@ -99,7 +99,7 @@ class QRScanScreen extends StatelessWidget {
                   Map<String, dynamic> tempMap = {
                     'vcs': [
                       {
-                        'email':
+                        'EMAIL':
                             homeController.emailEditingController.text.trim(),
                         'NAME':
                             homeController.nameEditingController.text.trim(),
