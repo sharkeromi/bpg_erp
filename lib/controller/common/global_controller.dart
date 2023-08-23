@@ -80,7 +80,8 @@ class GlobalController extends GetxController {
       text = '';
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
         text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['text']}\n---------------------------------------\n");
-        text += ("Hanger Information : \n\nHanger No : \nReference : \nFabrication : \nComposition : \nGSM : \nDIA : \n Technical Info : \n\n");
+        text +=
+            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['Hanger No']}\nReference : ${globalController.fetchedQRData[0]['Reference']}\nFabrication : ${globalController.fetchedQRData[0]['Fabrication']}\nComposition : ${globalController.fetchedQRData[0]['Composition']}\nGSM : ${globalController.fetchedQRData[0]['GSM']}\nDIA : ${globalController.fetchedQRData[0]['DIA']}\n Technical Info : ${globalController.fetchedQRData[0]['Technical Info']}\n\n");
         k++;
       }
     }
