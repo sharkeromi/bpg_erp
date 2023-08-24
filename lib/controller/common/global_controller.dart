@@ -85,7 +85,7 @@ class GlobalController extends GetxController {
         text +=
             ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
         text +=
-            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['Hanger No']}\nReference : ${globalController.fetchedQRData[0]['Reference']}\nFabrication : ${globalController.fetchedQRData[0]['Fabrication']}\nComposition : ${globalController.fetchedQRData[0]['Composition']}\nGSM : ${globalController.fetchedQRData[0]['GSM']}\nDIA : ${globalController.fetchedQRData[0]['DIA']}\n Technical Info : ${globalController.fetchedQRData[0]['Technical Info']}\n\n");
+            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['hanger_no']}\nReference : ${globalController.fetchedQRData[0]['reference']}\nFabrication : ${globalController.fetchedQRData[0]['fabrication']}\nComposition : ${globalController.fetchedQRData[0]['composition']}\nGSM : ${globalController.fetchedQRData[0]['gsm']}\nDIA : ${globalController.fetchedQRData[0]['dia']}\n Technical Info : ${globalController.fetchedQRData[0]['technical_info']}\n\n");
         k++;
       }
     }
