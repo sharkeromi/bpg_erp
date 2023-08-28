@@ -44,15 +44,15 @@ class LogInScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 kSizedBox20,
-                Container(
-                  height: 45,
-                  decoration: kTextFieldDecoration,
-                  child: CustomTextField(
-                    controller: authController.url,
-                    hintText: 'URL (Optional)',
-                  ),
-                ),
-                kSizedBox20,
+                // Container(
+                //   height: 45,
+                //   decoration: kTextFieldDecoration,
+                //   child: CustomTextField(
+                //     controller: authController.url,
+                //     hintText: 'URL (Optional)',
+                //   ),
+                // ),
+                // kSizedBox20,
                 Container(
                   height: 45,
                   decoration: kTextFieldDecoration,
@@ -78,8 +78,8 @@ class LogInScreen extends StatelessWidget {
                   width: 200,
                   gradient: kGDefaultGradient,
                   navigation: () async {
-                    await authController.userLogin();
-                    // Get.to(() => HomeScreen());
+                    // await authController.userLogin();
+                    Get.to(() => HomeScreen());
                   },
                   widget: const Text(
                     'Log In',

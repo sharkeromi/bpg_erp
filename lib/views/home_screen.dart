@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
           ),
           prefixWidgetAction: () {
             Get.offAll(() => LogInScreen());
+            Get.find<GlobalController>().showSnackBar("Success", "Successfully logged out", cAcceptColor);
           },
         ),
       ),

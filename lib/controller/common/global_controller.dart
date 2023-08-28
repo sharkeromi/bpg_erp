@@ -9,6 +9,7 @@ import 'package:bpg_erp/utils/const/strings.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/utils/const/url.dart';
 import 'package:bpg_erp/utils/const/value.dart';
+import 'package:bpg_erp/views/home_screen.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,8 @@ class GlobalController extends GetxController {
     } else {
       final String text = '$buyerEmailBody\n$cardInfo';
       await Share.share(text, subject: kBuyerEmailSubject);
+      resetQRData();
+      Get.offAll(() => const HomeScreen());
     }
   }
 
@@ -193,14 +196,14 @@ class GlobalController extends GetxController {
   final RxList<FocusNode> qrTextFocusNodeList = RxList([FocusNode()]);
   final RxList dataList = RxList([]);
   final RxBool isEmptyLoading = RxBool(false);
-  RxBool isSaveButtonEnabled = RxBool(false);
+  RxBool isSaveButtonEnabled = RxBool(true);
   RxBool isMerchandiserButtonEnabled = RxBool(false);
   RxBool isBuyerButtonEnabled = RxBool(false);
 
   resetQRData() {
     dataList.clear();
     qrTextList.clear();
-    isSaveButtonEnabled.value = false;
+    isSaveButtonEnabled.value = true;
     isMerchandiserButtonEnabled.value = false;
     isBuyerButtonEnabled.value = false;
     qrTextList.add(''.obs);
@@ -402,6 +405,11 @@ class GlobalController extends GetxController {
       log(response.toString());
       if (response['status'] == true) {
         log(response['resultset'].toString());
+        Get.find<HomeController>().isHangerPageButtonEnabled.value = true;
+        isMerchandiserButtonEnabled.value = true;
+        isBuyerButtonEnabled.value = false;
+        isScanning.value = false;
+        isSaveButtonEnabled.value = false;
         showSnackBar("Success", response['resultset'][0]['msg'].toString(), cAcceptColor);
       } else {
         log(response.toString());

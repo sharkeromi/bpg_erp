@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  final GlobalController _globalController = Get.find<GlobalController>();
   TextEditingController url = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -17,15 +18,27 @@ class AuthController extends GetxController {
 
   Future<void> userLogin() async {
     try {
+      if (userName.text.trim() == '') {
+        if (!Get.isSnackbarOpen) {
+          _globalController.showSnackBar("Warning", "User name missing", cWarningColor);
+        }
+
+        return;
+      } else if (password.text.trim() == '') {
+        if (!Get.isSnackbarOpen) {
+          _globalController.showSnackBar("Warning", "password missing", cWarningColor);
+        }
+        return;
+      }
       String suffixUrl = '?user_id=${userName.text}&pwd=${password.text}';
       var response = await _apiController.commonGet(token: null, url: loginUrl + suffixUrl, showLoading: true);
       log(response.toString());
       if (response['status'] == true) {
         Get.offAll(() => const HomeScreen());
-        Get.find<GlobalController>().showSnackBar("Success", "Login Successful", cAcceptColor);
+        _globalController.showSnackBar("Success", "Login Successful", cAcceptColor);
       } else {
         log(response.toString());
-        Get.find<GlobalController>().showSnackBar("Error", "Something went wrong", cRedAccentColor);
+        _globalController.showSnackBar("Error", "Something went wrong", cRedAccentColor);
       }
     } catch (e) {
       log('User login error : $e');

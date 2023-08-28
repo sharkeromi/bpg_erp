@@ -4,7 +4,6 @@ import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
-import 'package:bpg_erp/utils/const/value.dart';
 import 'package:bpg_erp/views/widgets/common_tapable_panel.dart';
 import 'package:bpg_erp/views/widgets/custom_appbar.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
@@ -35,21 +34,19 @@ class QRScanScreen extends StatelessWidget {
                       child: CustomButton(
                         height: 45,
                         width: (MediaQuery.of(context).size.width / 2) - 20,
-                        gradient:
-                            globalController.isMerchandiserButtonEnabled.value
-                                ? kGDefaultGradient
-                                : kGGreyGradient,
+                        gradient: globalController.isMerchandiserButtonEnabled.value ? kGDefaultGradient : kGGreyGradient,
                         widget: Text(
                           'Send to merchandiser',
                           textAlign: TextAlign.center,
                           style: kTSDefaultStyle.copyWith(fontSize: 16),
                         ),
-                        navigation:
-                            globalController.isMerchandiserButtonEnabled.value
-                                ? () async {
-                                    globalController.shareImageAndText('card');
-                                  }
-                                : null,
+                        navigation: globalController.isMerchandiserButtonEnabled.value
+                            ? () async {
+                                globalController.shareImageAndText('card');
+                                globalController.isBuyerButtonEnabled.value = true;
+                                globalController.isScanning.value = false;
+                              }
+                            : null,
                       ),
                     ),
                   ),
@@ -59,9 +56,7 @@ class QRScanScreen extends StatelessWidget {
                       child: CustomButton(
                         height: 45,
                         width: (MediaQuery.of(context).size.width / 2) - 20,
-                        gradient: globalController.isBuyerButtonEnabled.value
-                            ? kGDefaultGradient
-                            : kGGreyGradient,
+                        gradient: globalController.isBuyerButtonEnabled.value ? kGDefaultGradient : kGGreyGradient,
                         widget: Text(
                           'Send to Buyer',
                           textAlign: TextAlign.center,
@@ -88,7 +83,7 @@ class QRScanScreen extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
               title: 'QR Scan',
-              prefixWidget: homeController.imageList.isEmpty
+              prefixWidget: homeController.imageList.isEmpty || !globalController.isSaveButtonEnabled.value
                   ? null
                   : const Text(
                       'Save',
@@ -99,10 +94,8 @@ class QRScanScreen extends StatelessWidget {
                   Map<String, dynamic> tempMap = {
                     'vcs': [
                       {
-                        'email':
-                            homeController.emailEditingController.text.trim(),
-                        'NAME':
-                            homeController.nameEditingController.text.trim(),
+                        'email': homeController.emailEditingController.text.trim(),
+                        'NAME': homeController.nameEditingController.text.trim(),
                         'CARD_INFO': homeController.imageList[0]['text'],
                       }
                     ],
@@ -110,17 +103,15 @@ class QRScanScreen extends StatelessWidget {
                   };
                   log('--- : $tempMap');
                   await globalController.saveAllData(tempMap);
-                  // await globalController.saveDataSP(tempMap);
-                  homeController.isHangerPageButtonEnabled.value = true;
-                  globalController.isMerchandiserButtonEnabled.value = true;
-                  globalController.isBuyerButtonEnabled.value = true;
-                  globalController.isScanning.value = false;
-                  // await globalController.resetSharedPreference();
+                  // Get.find<HomeController>().isHangerPageButtonEnabled.value = true;
+                  // globalController.isMerchandiserButtonEnabled.value = true;
+                  // globalController.isBuyerButtonEnabled.value = false;
+                  // globalController.isScanning.value = false;
+                  // globalController.isSaveButtonEnabled.value = false;
                 } else {
-                  globalController.showSnackBar(
-                      "Warning!",
-                      "No data to save.\nPlease scan any barcode to save.",
-                      Colors.amber[400]!);
+                  if (!Get.isSnackbarOpen) {
+                    globalController.showSnackBar("Warning!", "No data to save.\nPlease scan any barcode to save.", Colors.amber[400]!);
+                  }
                 }
               },
             ),
@@ -147,8 +138,7 @@ class QRScanScreen extends StatelessWidget {
                             borderWidth: 10,
                             cutOutSize: 200,
                           ),
-                          onPermissionSet: (ctrl, p) => globalController
-                              .onPermissionSet(context, ctrl, p),
+                          onPermissionSet: (ctrl, p) => globalController.onPermissionSet(context, ctrl, p),
                         ),
                       ),
                     if (!globalController.isScanning.value)
@@ -210,9 +200,7 @@ class QRScanScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(right: 20.0),
                               child: Text(
                                 'Reset',
-                                style: kTSPopUpHeader.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
+                                style: kTSPopUpHeader.copyWith(color: Colors.black, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -229,9 +217,7 @@ class QRScanScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    for (int i = globalController.dataList.length - 1;
-                        i >= 0;
-                        i--)
+                    for (int i = globalController.dataList.length - 1; i >= 0; i--)
                       QRScanContent(
                         itemType: "QR Data",
                         index: i,
@@ -279,14 +265,12 @@ class QRScanContent extends StatelessWidget {
                   children: [
                     Text(
                       "$itemType ${index + 1}",
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w700),
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(height: 10),
                     Text(
                       "Barcode : ${globalController.dataList[index]['BARCODE_NO']}",
-                      style: kTSExtractedText.copyWith(
-                          fontWeight: FontWeight.w500),
+                      style: kTSExtractedText.copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.left,
                     ),
                     const SizedBox(height: 15),
@@ -307,8 +291,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "Hanger No : ${globalController.fetchedQRData[0]['Hanger No']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
@@ -319,8 +302,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "Reference : ${globalController.fetchedQRData[0]['Reference']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
@@ -331,8 +313,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "Fabrication : ${globalController.fetchedQRData[0]['Fabrication']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
@@ -343,8 +324,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "Composition : ${globalController.fetchedQRData[0]['Composition']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
@@ -355,8 +335,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "GSM : ${globalController.fetchedQRData[0]['GSM']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
@@ -367,8 +346,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "DIA : ${globalController.fetchedQRData[0]['DIA']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
@@ -379,8 +357,7 @@ class QRScanContent extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     "Technical Info : ${globalController.fetchedQRData[0]['Technical Info']}",
-                                    style:
-                                        kTSExtractedText.copyWith(fontSize: 16),
+                                    style: kTSExtractedText.copyWith(fontSize: 16),
                                   ),
                                 ),
                               ],
