@@ -30,7 +30,8 @@ class LogInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      logo,
+                      //logo,
+                      logo1,
                       height: 100,
                       width: 160,
                       // color: kCDefaultColor2,
@@ -78,8 +79,8 @@ class LogInScreen extends StatelessWidget {
                   width: 200,
                   gradient: kGDefaultGradient,
                   navigation: () async {
-                    // await authController.userLogin();
-                    Get.to(() => HomeScreen());
+                    await authController.userLogin();
+                    // Get.to(() => HomeScreen());
                   },
                   widget: const Text(
                     'Log In',
