@@ -60,7 +60,8 @@ class GlobalController extends GetxController {
     var cardInfo = stringAdder(type);
     if (type == 'card') {
       final String text = '$cardEmailBody\n$cardInfo';
-      await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
+      await Share.shareXFiles(serverList,
+          text: text, subject: kCardEmailSubject);
     } else {
       final String text = '$buyerEmailBody\n$cardInfo';
       await Share.share(text, subject: kBuyerEmailSubject);
@@ -72,17 +73,20 @@ class GlobalController extends GetxController {
   stringAdder(type) {
     HomeController homeController = Get.find<HomeController>();
     GlobalController globalController = Get.find<GlobalController>();
-    String text = 'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
+    String text =
+        'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
     int k = 0;
     if (type == 'card') {
       for (int i = homeController.imageList.length - 1; i >= 0; i--) {
-        text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
+        text +=
+            ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
       }
     }
     if (type != 'card') {
       text = '';
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
-        text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
+        text +=
+            ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
         text +=
             ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['hanger_no']}\nReference : ${globalController.fetchedQRData[0]['reference']}\nFabrication : ${globalController.fetchedQRData[0]['fabrication']}\nComposition : ${globalController.fetchedQRData[0]['composition']}\nGSM : ${globalController.fetchedQRData[0]['gsm']}\nDIA : ${globalController.fetchedQRData[0]['dia']}\n Technical Info : ${globalController.fetchedQRData[0]['technical_info']}\n\n");
         k++;
@@ -97,7 +101,9 @@ class GlobalController extends GetxController {
     String temporaryString = '';
     String modifiedValue = '';
     for (int i = 0; i < splitValue.length - 1; i++) {
-      if ((!splitValue[i].toString().contains('Reference') && !splitValue[i].toString().contains('Referençe')) && i == 1) {
+      if ((!splitValue[i].toString().contains('Reference') &&
+              !splitValue[i].toString().contains('Referençe')) &&
+          i == 1) {
         temporaryString += ('${splitValue[i]}Reference #');
       } else {
         temporaryString += ('${splitValue[i]} #');
@@ -177,13 +183,17 @@ class GlobalController extends GetxController {
   }
 
   modifyExtractedText(splitValue, temporaryString) {
-    List<String> splitWithDIA = splitValue[splitValue.length - 1].toString().split('DIA');
+    List<String> splitWithDIA =
+        splitValue[splitValue.length - 1].toString().split('DIA');
     List<String> splitWithNewLine = splitWithDIA[1].toString().split('\n');
     String extractedValue = "DIA${splitWithNewLine[0]}";
     List<String> mainStringSplit = temporaryString.split('Technical Info');
-    temporaryString = "${mainStringSplit[0]}$extractedValue\nTechnical Info${mainStringSplit[1]}";
-    List<String> withoutDuplicate = splitValue[splitValue.length - 1].toString().split(extractedValue);
-    return (temporaryString + (withoutDuplicate[0] + withoutDuplicate[1].substring(1)));
+    temporaryString =
+        "${mainStringSplit[0]}$extractedValue\nTechnical Info${mainStringSplit[1]}";
+    List<String> withoutDuplicate =
+        splitValue[splitValue.length - 1].toString().split(extractedValue);
+    return (temporaryString +
+        (withoutDuplicate[0] + withoutDuplicate[1].substring(1)));
   }
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -192,7 +202,8 @@ class GlobalController extends GetxController {
   RxBool isScanning = RxBool(false);
   final RxList<RxString> qrTextList = RxList([''.obs]);
   final RxList<RxBool> isQREditingModeList = RxList([false.obs]);
-  final RxList<TextEditingController> qrTextEditorList = RxList([TextEditingController()]);
+  final RxList<TextEditingController> qrTextEditorList =
+      RxList([TextEditingController()]);
   final RxList<FocusNode> qrTextFocusNodeList = RxList([FocusNode()]);
   final RxList dataList = RxList([]);
   final RxBool isEmptyLoading = RxBool(false);
@@ -306,8 +317,10 @@ class GlobalController extends GetxController {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
-                      child: Text('Are you sure you want to reset all data?', textAlign: TextAlign.center, style: kTSPopUpMessage),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
+                      child: Text('Are you sure you want to reset all data?',
+                          textAlign: TextAlign.center, style: kTSPopUpMessage),
                     ),
                     kSizedBox10,
                     CustomButton(
@@ -382,9 +395,10 @@ class GlobalController extends GetxController {
   Future<dynamic> fetchQRData([qrCode = '']) async {
     try {
       final ApiController apiController = ApiController();
-      String suffixUrl = '';
-      // String suffixUrl = '$qrCode';
-      var response = await apiController.commonGet(token: null, url: qrCodeDataFetch + suffixUrl, showLoading: true);
+      //String suffixUrl = '';
+      String suffixUrl = '$qrCode';
+      var response = await apiController.commonGet(
+          token: null, url: qrCodeDataFetch + suffixUrl, showLoading: true);
       log(response.toString());
       if (response['status'] == true) {
         log(response['resultset'].toString());
@@ -393,7 +407,8 @@ class GlobalController extends GetxController {
         return true;
       } else {
         log(response.toString());
-        showSnackBar("Error", "Something went wrong", cRedAccentColor);
+        showSnackBar("Error", response['resultset'][0]['msg'].toString(),
+            cRedAccentColor);
         return false;
       }
     } catch (e) {
@@ -406,7 +421,8 @@ class GlobalController extends GetxController {
     try {
       final ApiController apiController = ApiController();
       log("body :$allData");
-      var response = await apiController.commonPostWithBodyDio(token: null, url: saveCardQRData, body: allData, showLoading: true);
+      var response = await apiController.commonPostWithBodyDio(
+          token: null, url: saveCardQRData, body: allData, showLoading: true);
       log(response.toString());
       if (response['status'] == true) {
         log(response['resultset'].toString());
@@ -415,7 +431,8 @@ class GlobalController extends GetxController {
         isBuyerButtonEnabled.value = false;
         isScanning.value = false;
         isSaveButtonEnabled.value = false;
-        showSnackBar("Success", response['resultset'][0]['msg'].toString(), cAcceptColor);
+        showSnackBar("Success", response['resultset'][0]['msg'].toString(),
+            cAcceptColor);
       } else {
         log(response.toString());
         showSnackBar("Error", "Something went wrong", cRedAccentColor);
