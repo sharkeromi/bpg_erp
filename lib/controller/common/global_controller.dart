@@ -217,13 +217,13 @@ class GlobalController extends GetxController {
     }
     gQrController!.scannedDataStream.listen((scanData) async {
       qrResult.value = scanData.code.toString();
+      await gQrController!.pauseCamera();
+      isScanning.value = false;
+      isEmptyLoading.value = false;
       bool status = await fetchQRData(qrResult.value);
       if (status) {
         setQRText(qrResult.value, qrTextList.length - 1);
         log(qrResult.value.toString());
-        await gQrController!.pauseCamera();
-        isScanning.value = false;
-        isEmptyLoading.value = false;
         isSaveButtonEnabled.value = true;
         isMerchandiserButtonEnabled.value = false;
         isBuyerButtonEnabled.value = false;
