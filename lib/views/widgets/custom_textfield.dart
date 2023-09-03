@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
 
   final int? maxLine, minLine;
+  final double? rightContentPadding;
 
   const CustomTextField({
     super.key,
@@ -27,12 +28,13 @@ class CustomTextField extends StatelessWidget {
     this.maxLine = 1,
     this.minLine = 1,
     this.keyboardType,
+    this.rightContentPadding,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: kTSExtractedText,
+      style: kTSExtractedText.copyWith(fontSize: 16),
       focusNode: focusNode,
       onSubmitted: onSubmitted,
       textAlignVertical: TextAlignVertical.center,
@@ -44,7 +46,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(12, 6, 10, 6),
+        contentPadding: EdgeInsets.fromLTRB(12, 6, rightContentPadding ?? 10, 6),
         hintText: hintText,
         border: const OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(30))),
         hintStyle: hintTextStyle ?? kTSTextField,

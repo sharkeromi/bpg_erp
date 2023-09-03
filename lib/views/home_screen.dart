@@ -1,3 +1,4 @@
+import 'package:bpg_erp/controller/auth_controller.dart';
 import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/controller/home_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
           ),
           prefixWidgetAction: () {
             Get.offAll(() => LogInScreen());
+            Get.find<AuthController>().resetAuthFieldValues();
             Get.find<GlobalController>().showSnackBar("Success", "Successfully logged out", cAcceptColor);
           },
         ),

@@ -16,6 +16,14 @@ class AuthController extends GetxController {
 
   final ApiController _apiController = ApiController();
 
+  final RxBool isObscureOn = RxBool(true);
+
+  resetAuthFieldValues() {
+    userName.clear();
+    password.clear();
+    isObscureOn.value = true;
+  }
+
   Future<void> userLogin() async {
     try {
       if (userName.text.trim() == '') {

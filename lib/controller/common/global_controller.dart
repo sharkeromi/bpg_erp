@@ -235,7 +235,7 @@ class GlobalController extends GetxController {
       if (status) {
         setQRText(qrResult.value, qrTextList.length - 1);
         log(qrResult.value.toString());
-        log(qrTextList.toString());
+        // log(qrTextList.toString());
         isSaveButtonEnabled.value = true;
         isMerchandiserButtonEnabled.value = false;
         isBuyerButtonEnabled.value = false;

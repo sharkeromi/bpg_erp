@@ -1,5 +1,4 @@
 import 'package:bpg_erp/utils/const/url.dart';
-import 'package:bpg_erp/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bpg_erp/controller/auth_controller.dart';
@@ -63,14 +62,35 @@ class LogInScreen extends StatelessWidget {
                   ),
                 ),
                 kSizedBox20,
-                Container(
-                  height: 45,
-                  decoration: kTextFieldDecoration,
-                  child: CustomTextField(
-                    controller: authController.password,
-                    hintText: 'Password',
-                    obscureText: true,
-                    textInputAction: TextInputAction.done,
+                Obx(
+                  () => Stack(
+                    children: [
+                      Container(
+                        height: 45,
+                        decoration: kTextFieldDecoration,
+                        child: CustomTextField(
+                          controller: authController.password,
+                          hintText: 'Password',
+                          obscureText: authController.isObscureOn.value,
+                          textInputAction: TextInputAction.done,
+                          rightContentPadding: 35,
+                        ),
+                      ),
+                      Positioned(
+                          top: 12,
+                          bottom: 12,
+                          right: 10,
+                          child: TextButton(
+                            style: kTextButtonStyle,
+                            onPressed: () {
+                              authController.isObscureOn.value = !authController.isObscureOn.value;
+                            },
+                            child: Icon(
+                              !authController.isObscureOn.value ? Icons.visibility : Icons.visibility_off,
+                              size: 20,
+                            ),
+                          ))
+                    ],
                   ),
                 ),
                 kSizedBox40,

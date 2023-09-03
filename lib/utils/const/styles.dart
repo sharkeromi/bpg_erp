@@ -30,6 +30,9 @@ final ButtonStyle kTextButtonStyle = ButtonStyle(
       borderRadius: BorderRadius.circular(12),
     ),
   ),
+  minimumSize: MaterialStateProperty.all(Size.zero),
+  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  splashFactory: InkSplash.splashFactory,
 );
 
 final kTextButtonStyleDefault = TextButton.styleFrom(
