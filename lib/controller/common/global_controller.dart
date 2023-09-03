@@ -407,8 +407,7 @@ class GlobalController extends GetxController {
         return true;
       } else {
         log(response.toString());
-        showSnackBar("Error", response['resultset'][0]['msg'].toString(),
-            cRedAccentColor);
+        showSnackBar("Error", "Barcode not found", cRedAccentColor);
         return false;
       }
     } catch (e) {
