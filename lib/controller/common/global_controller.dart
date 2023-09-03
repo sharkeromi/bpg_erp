@@ -228,6 +228,7 @@ class GlobalController extends GetxController {
         }
       }
       if (isBarCodeExist) {
+        showSnackBar("Warning", "Duplicate barcode scanned", cWarningColor);
         return;
       }
       bool status = await fetchQRData(qrResult.value);
