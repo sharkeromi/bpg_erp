@@ -220,10 +220,22 @@ class GlobalController extends GetxController {
       await gQrController!.pauseCamera();
       isScanning.value = false;
       isEmptyLoading.value = false;
+      bool isBarCodeExist = false;
+      for (int i = 0; i < qrTextList.length; i++) {
+        if (qrTextList[i].value == qrResult.value) {
+          isBarCodeExist = true;
+          break;
+        }
+      }
+      if (isBarCodeExist) {
+        return;
+      }
       bool status = await fetchQRData(qrResult.value);
+      // bool status = true;
       if (status) {
         setQRText(qrResult.value, qrTextList.length - 1);
         log(qrResult.value.toString());
+        log(qrTextList.toString());
         isSaveButtonEnabled.value = true;
         isMerchandiserButtonEnabled.value = false;
         isBuyerButtonEnabled.value = false;

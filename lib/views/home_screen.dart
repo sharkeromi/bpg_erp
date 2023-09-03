@@ -32,43 +32,46 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            homePageSky,
-            fit: BoxFit.cover,
-          ),
-          Image.asset(homePageLeaves),
-          kSizedBox20,
-          CustomButton(
-            height: 180,
-            gradient: kGDefaultGradient,
-            width: (MediaQuery.of(context).size.width / 2) - 24,
-            widget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                Icon(
-                  Icons.document_scanner_rounded,
-                  size: 60,
-                  color: Colors.white,
-                ),
-                kSizedBox10,
-                Text(
-                  "Card & \nHanger Scan",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(
+              homePageSky,
+              fit: BoxFit.cover,
             ),
-            navigation: () {
-              Get.find<HomeController>().resetData();
-              Get.find<GlobalController>().resetQRData();
-              Get.find<HomeController>().origin.value = 'card';
-              Get.to(() => CardScanScreen());
-            },
-          ),
-        ],
+            Image.asset(homePageLeaves),
+            kSizedBox20,
+            CustomButton(
+              height: 180,
+              gradient: kGDefaultGradient,
+              width: (MediaQuery.of(context).size.width / 2) - 24,
+              widget: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.document_scanner_rounded,
+                    size: 60,
+                    color: Colors.white,
+                  ),
+                  kSizedBox10,
+                  Text(
+                    "Card & \nHanger Scan",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ],
+              ),
+              navigation: () {
+                Get.find<HomeController>().resetData();
+                Get.find<GlobalController>().resetQRData();
+                Get.find<HomeController>().origin.value = 'card';
+                Get.to(() => CardScanScreen());
+              },
+            ),
+            kSizedBox20,
+          ],
+        ),
       ),
     );
   }
