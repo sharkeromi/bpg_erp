@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/image_picker_ad.dart';
@@ -9,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class HomeController extends GetxController {
   XFile? imageFile;
@@ -83,24 +81,26 @@ class HomeController extends GetxController {
   }
 
   Future<XFile?> cropImage(String imagePath) async {
-    final File? croppedImage = await ImageCropper().cropImage(
+    final CroppedFile? croppedImage = await ImageCropper().cropImage(
       sourcePath: imagePath,
       maxWidth: 1000,
       maxHeight: 1000,
       compressFormat: ImageCompressFormat.png,
-      androidUiSettings: const AndroidUiSettings(
-        toolbarTitle: 'Crop Image',
-        toolbarColor: Colors.black,
-        toolbarWidgetColor: Colors.white,
-        initAspectRatio: CropAspectRatioPreset.original,
-        lockAspectRatio: false,
-        cropGridRowCount: 2,
-        cropGridColumnCount: 2,
-        cropGridColor: Colors.grey,
-      ),
-      iosUiSettings: const IOSUiSettings(
-        title: 'Crop Image',
-      ),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Colors.black,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+          cropGridRowCount: 2,
+          cropGridColumnCount: 2,
+          cropGridColor: Colors.grey,
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+        )
+      ],
     );
     if (croppedImage != null) {
       return XFile(croppedImage.path);
@@ -164,11 +164,7 @@ class HomeController extends GetxController {
     scannedTextList[index].value = returnData;
     resetEdit();
     isEmptyLoading.value = false;
-    imageList.add({
-      'image': image.path,
-      'text': scannedTextList[index].value,
-      'base64Image': base64Image.value.toString()
-    });
+    imageList.add({'image': image.path, 'text': scannedTextList[index].value, 'base64Image': base64Image.value.toString()});
     scannedTextList.add(''.obs);
     textEditorList.add(TextEditingController());
     textFocusNodeList.add(FocusNode());
