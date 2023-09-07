@@ -125,67 +125,73 @@ class QRScanScreen extends StatelessWidget {
               child: Obx(
                 () => Column(
                   children: [
-                    if (globalController.isScanning.value)
-                      SizedBox(
-                        height: 280,
-                        child: QRView(
-                          key: globalController.qrKey,
-                          onQRViewCreated: globalController.onQRViewCreated,
-                          overlay: QrScannerOverlayShape(
-                            borderColor: kCBackgroundColor,
-                            borderRadius: 10,
-                            borderLength: 30,
-                            borderWidth: 10,
-                            cutOutSize: 200,
-                          ),
-                          onPermissionSet: (ctrl, p) => globalController.onPermissionSet(context, ctrl, p),
-                        ),
-                      ),
-                    if (!globalController.isScanning.value)
-                      CommonTapablePanel(
-                        instruction: "Click here to scan barcode",
-                        onTap: () {
-                          globalController.isScanning.value = true;
-                        },
-                      ),
-                    kSizedBox10,
-                    if (globalController.isScanning.value) kSizedBox10,
-                    if (globalController.isScanning.value)
-                      CustomButton(
-                        color: kCRed,
-                        widget: Text(
-                          "Cancel",
-                          style: kTSDefault1.copyWith(color: kCWhite),
-                        ),
-                        height: 35,
-                        navigation: () {
-                          globalController.isScanning.value = false;
-                        },
-                        width: 120,
-                      ),
-                    if (globalController.isScanning.value)
-                      SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                'Waiting for image to scan  ',
-                                style: kTSDefault1,
+                    if (globalController.isSaveButtonEnabled.value != false)
+                      Column(
+                        children: [
+                          if (globalController.isScanning.value)
+                            SizedBox(
+                              height: 280,
+                              child: QRView(
+                                key: globalController.qrKey,
+                                onQRViewCreated: globalController.onQRViewCreated,
+                                overlay: QrScannerOverlayShape(
+                                  borderColor: kCBackgroundColor,
+                                  borderRadius: 10,
+                                  borderLength: 30,
+                                  borderWidth: 10,
+                                  cutOutSize: 200,
+                                ),
+                                onPermissionSet: (ctrl, p) => globalController.onPermissionSet(context, ctrl, p),
                               ),
-                              CircularProgressIndicator(),
-                            ],
-                          ),
-                        ),
+                            ),
+                          if (!globalController.isScanning.value)
+                            CommonTapablePanel(
+                              instruction: "Click here to scan barcode",
+                              onTap: () {
+                                globalController.isScanning.value = true;
+                              },
+                            ),
+                          kSizedBox10,
+                          if (globalController.isScanning.value) kSizedBox10,
+                          if (globalController.isScanning.value)
+                            CustomButton(
+                              color: kCRed,
+                              widget: Text(
+                                "Cancel",
+                                style: kTSDefault1.copyWith(color: kCWhite),
+                              ),
+                              height: 35,
+                              navigation: () {
+                                globalController.isScanning.value = false;
+                              },
+                              width: 120,
+                            ),
+                          if (globalController.isScanning.value)
+                            const SizedBox(
+                              height: 50,
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Waiting for image to scan  ',
+                                      style: kTSDefault1,
+                                    ),
+                                    CircularProgressIndicator(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          if (globalController.isScanning.value) kSizedBox10,
+                          if (globalController.isScanning.value)
+                            const Divider(
+                              height: 1,
+                              color: kCBlack,
+                            ),
+                          if (globalController.isScanning.value) kSizedBox10,
+                        ],
                       ),
-                    if (globalController.isScanning.value) kSizedBox10,
-                    if (globalController.isScanning.value)
-                      const Divider(
-                        height: 1,
-                        color: kCBlack,
-                      ),
-                    if (globalController.isScanning.value) kSizedBox10,
+                    if (globalController.isSaveButtonEnabled.value == false) kSizedBox10,
                     if (globalController.dataList.isNotEmpty)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -371,21 +377,21 @@ class QRScanContent extends StatelessWidget {
               ),
             ),
           ),
-          //const SizedBox(),
-          Positioned(
-            top: 20,
-            right: 10,
-            child: IconButton(
-              icon: const Icon(
-                Icons.delete,
-                size: 35,
-                color: Colors.red,
+          if (globalController.isSaveButtonEnabled.value != false)
+            Positioned(
+              top: 20,
+              right: 10,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.delete,
+                  size: 35,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  globalController.showDeleteDialog(context, index);
+                },
               ),
-              onPressed: () {
-                globalController.showDeleteDialog(context, index);
-              },
-            ),
-          )
+            )
         ],
       ),
     );

@@ -78,6 +78,12 @@ class GlobalController extends GetxController {
       for (int i = homeController.imageList.length - 1; i >= 0; i--) {
         text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
       }
+      for (int i = globalController.dataList.length - 1; i >= 0; i--) {
+        text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
+        text +=
+            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['hanger_no']}\nReference : ${globalController.fetchedQRData[0]['reference']}\nFabrication : ${globalController.fetchedQRData[0]['fabrication']}\nComposition : ${globalController.fetchedQRData[0]['composition']}\nGSM : ${globalController.fetchedQRData[0]['gsm']}\nDIA : ${globalController.fetchedQRData[0]['dia']}\n Technical Info : ${globalController.fetchedQRData[0]['technical_info']}\n\n");
+        k++;
+      }
     }
     if (type != 'card') {
       text = '';
