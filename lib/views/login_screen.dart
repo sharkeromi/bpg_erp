@@ -83,10 +83,13 @@ class LogInScreen extends StatelessWidget {
                           child: TextButton(
                             style: kTextButtonStyle,
                             onPressed: () {
-                              authController.isObscureOn.value = !authController.isObscureOn.value;
+                              authController.isObscureOn.value =
+                                  !authController.isObscureOn.value;
                             },
                             child: Icon(
-                              !authController.isObscureOn.value ? Icons.visibility : Icons.visibility_off,
+                              !authController.isObscureOn.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               size: 20,
                             ),
                           ))
@@ -100,7 +103,7 @@ class LogInScreen extends StatelessWidget {
                   gradient: kGDefaultGradient,
                   navigation: () async {
                     await authController.userLogin();
-                    // Get.to(() => const HomeScreen());
+                    //Get.to(() => const HomeScreen());
                   },
                   widget: const Text(
                     'Log In',
