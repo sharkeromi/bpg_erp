@@ -83,13 +83,10 @@ class LogInScreen extends StatelessWidget {
                           child: TextButton(
                             style: kTextButtonStyle,
                             onPressed: () {
-                              authController.isObscureOn.value =
-                                  !authController.isObscureOn.value;
+                              authController.isObscureOn.value = !authController.isObscureOn.value;
                             },
                             child: Icon(
-                              !authController.isObscureOn.value
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              !authController.isObscureOn.value ? Icons.visibility : Icons.visibility_off,
                               size: 20,
                             ),
                           ))
