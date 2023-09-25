@@ -34,7 +34,7 @@ class CustomItemContent extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
-                      itemType + (index + 1).toString(),
+                      itemType,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                   ),
@@ -82,6 +82,10 @@ class CustomItemContent extends StatelessWidget {
                                 onSubmitted: (value) {
                                   homeController.scannedTextList[index].value = homeController.textEditorList[index].text;
                                 },
+                                // onChanged: (v) {
+                                // homeController.isCardPageButtonEnabled.value = false;
+                                // homeController.isHangerPageButtonEnabled.value = false;
+                                // },
                                 focusNode: homeController.textFocusNodeList[index],
                                 minLine: 1,
                                 maxLine: 10,
@@ -89,7 +93,7 @@ class CustomItemContent extends StatelessWidget {
                                 keyboardType: TextInputType.multiline,
                               ),
                             if (homeController.scannedTextList[index].value != '' && !homeController.isEditingModeList[index].value)
-                              Text(
+                              SelectableText(
                                 homeController.imageList[index]['text'],
                                 style: kTSExtractedText,
                                 textAlign: TextAlign.left,
@@ -144,18 +148,18 @@ class CustomItemContent extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 12),
-                child: InkWell(
-                  onTap: () {
-                    homeController.showDeleteDialog(context, index);
-                  },
-                  child: Text(
-                    'Delete',
-                    style: kTSDefault1.copyWith(color: Colors.red, fontSize: 20),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 20.0, bottom: 12),
+              //   child: InkWell(
+              //     onTap: () {
+              //       homeController.showDeleteDialog(context, index);
+              //     },
+              //     child: Text(
+              //       'Delete',
+              //       style: kTSDefault1.copyWith(color: Colors.red, fontSize: 20),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

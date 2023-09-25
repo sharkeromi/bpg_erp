@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:bpg_erp/controller/auth_controller.dart';
 import 'package:bpg_erp/utils/const/color.dart';
 import 'package:bpg_erp/utils/const/styles.dart';
-import 'package:bpg_erp/views/home_screen.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/custom_textfield.dart';
 
@@ -16,7 +15,6 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: kCBackgroundColor,
       body: SafeArea(
         top: false,
@@ -27,25 +25,34 @@ class LogInScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 kSizedBox20,
-                Image.asset(
-                  logo,
-                  height: 150,
-                  width: 200,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      //logo,
+                      logo1,
+                      height: 100,
+                      width: 160,
+                      // color: kCDefaultColor2,
+                    ),
+                  ],
                 ),
+                kSizedBox20,
                 const Text(
                   'User Login',
                   style: kTSLogInScreenHeader,
-                ),
-                kSizedBox50,
-                Container(
-                  height: 45,
-                  decoration: kTextFieldDecoration,
-                  child: CustomTextField(
-                    controller: authController.url,
-                    hintText: 'URL (Optional)',
-                  ),
+                  textAlign: TextAlign.center,
                 ),
                 kSizedBox20,
+                // Container(
+                //   height: 45,
+                //   decoration: kTextFieldDecoration,
+                //   child: CustomTextField(
+                //     controller: authController.url,
+                //     hintText: 'URL (Optional)',
+                //   ),
+                // ),
+                // kSizedBox20,
                 Container(
                   height: 45,
                   decoration: kTextFieldDecoration,
@@ -55,14 +62,35 @@ class LogInScreen extends StatelessWidget {
                   ),
                 ),
                 kSizedBox20,
-                Container(
-                  height: 45,
-                  decoration: kTextFieldDecoration,
-                  child: CustomTextField(
-                    controller: authController.password,
-                    hintText: 'Password',
-                    obscureText: true,
-                    textInputAction: TextInputAction.done,
+                Obx(
+                  () => Stack(
+                    children: [
+                      Container(
+                        height: 45,
+                        decoration: kTextFieldDecoration,
+                        child: CustomTextField(
+                          controller: authController.password,
+                          hintText: 'Password',
+                          obscureText: authController.isObscureOn.value,
+                          textInputAction: TextInputAction.done,
+                          rightContentPadding: 35,
+                        ),
+                      ),
+                      Positioned(
+                          top: 12,
+                          bottom: 12,
+                          right: 10,
+                          child: TextButton(
+                            style: kTextButtonStyle,
+                            onPressed: () {
+                              authController.isObscureOn.value = !authController.isObscureOn.value;
+                            },
+                            child: Icon(
+                              !authController.isObscureOn.value ? Icons.visibility : Icons.visibility_off,
+                              size: 20,
+                            ),
+                          ))
+                    ],
                   ),
                 ),
                 kSizedBox40,
@@ -70,8 +98,9 @@ class LogInScreen extends StatelessWidget {
                   height: 45,
                   width: 200,
                   gradient: kGDefaultGradient,
-                  navigation: () {
-                    Get.offAll(() => const HomeScreen());
+                  navigation: () async {
+                    await authController.userLogin();
+                    //Get.to(() => const HomeScreen());
                   },
                   widget: const Text(
                     'Log In',

@@ -31,6 +31,9 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+.vscode/
+.env
+.env.dev
 
 # Symbolication related
 app.*.symbols

@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-import 'package:bpg_erp/controller/global_controller.dart';
+import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/image_picker_ad.dart';
 import 'package:bpg_erp/views/widgets/reset_confirm_popup.dart';
@@ -16,21 +14,65 @@ class HomeController extends GetxController {
   final RxList<RxString> scannedTextList = RxList([''.obs]);
   final RxBool isEmptyLoading = RxBool(false);
   final RxList<TextEditingController> textEditorList = RxList([TextEditingController()]);
+  final TextEditingController nameEditingController = TextEditingController();
+  final TextEditingController emailEditingController = TextEditingController();
   final RxList<RxBool> isEditingModeList = RxList([false.obs]);
   final RxList imageList = RxList([]);
   final RxList<FocusNode> textFocusNodeList = RxList([FocusNode()]);
+  RxBool isCardPageButtonEnabled = RxBool(false);
+  RxBool isHangerPageButtonEnabled = RxBool(false);
+  RxBool isSaveButtonEnabled = RxBool(false);
 
   final RxString origin = RxString('');
+
+  nameEmailValidation() {
+    if (nameEditingController.text.trim() != '' && emailEditingController.text.trim() != '') {
+      isSaveButtonEnabled.value = true;
+    } else {
+      isSaveButtonEnabled.value = false;
+    }
+  }
+
+  resetNameEmailField() {
+    emailEditingController.clear();
+    nameEditingController.clear();
+  }
 
   resetData() {
     imageFile = null;
     imageList.clear();
     isEmptyLoading.value = false;
+    isSaveButtonEnabled.value = false;
+    // isCardPageButtonEnabled.value = false;
+    // isHangerPageButtonEnabled.value = false;
     //Clear------------------
     scannedTextList.clear();
     textEditorList.clear();
     isEditingModeList.clear();
     textFocusNodeList.clear();
+    emailEditingController.clear();
+    nameEditingController.clear();
+    //Initialize----------------
+    scannedTextList.add(''.obs);
+    textEditorList.add(TextEditingController());
+    isEditingModeList.add(false.obs);
+    textFocusNodeList.add(FocusNode());
+  }
+
+  resetForNewData() {
+    imageFile = null;
+    imageList.clear();
+    // isEmptyLoading.value = false;
+    isSaveButtonEnabled.value = false;
+    isCardPageButtonEnabled.value = false;
+    isHangerPageButtonEnabled.value = false;
+    //Clear------------------
+    scannedTextList.clear();
+    textEditorList.clear();
+    isEditingModeList.clear();
+    textFocusNodeList.clear();
+    emailEditingController.clear();
+    nameEditingController.clear();
     //Initialize----------------
     scannedTextList.add(''.obs);
     textEditorList.add(TextEditingController());
@@ -39,24 +81,26 @@ class HomeController extends GetxController {
   }
 
   Future<XFile?> cropImage(String imagePath) async {
-    final File? croppedImage = await ImageCropper().cropImage(
+    final CroppedFile? croppedImage = await ImageCropper().cropImage(
       sourcePath: imagePath,
       maxWidth: 1000,
       maxHeight: 1000,
       compressFormat: ImageCompressFormat.png,
-      androidUiSettings: const AndroidUiSettings(
-        toolbarTitle: 'Crop Image',
-        toolbarColor: Colors.black,
-        toolbarWidgetColor: Colors.white,
-        initAspectRatio: CropAspectRatioPreset.original,
-        lockAspectRatio: false,
-        cropGridRowCount: 2,
-        cropGridColumnCount: 2,
-        cropGridColor: Colors.grey,
-      ),
-      iosUiSettings: const IOSUiSettings(
-        title: 'Crop Image',
-      ),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Colors.black,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+          cropGridRowCount: 2,
+          cropGridColumnCount: 2,
+          cropGridColor: Colors.grey,
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+        )
+      ],
     );
     if (croppedImage != null) {
       return XFile(croppedImage.path);
@@ -70,23 +114,27 @@ class HomeController extends GetxController {
     try {
       final XFile? pickedImage = await ImagePicker().pickImage(source: source);
       isEmptyLoading.value = true;
+
       if (pickedImage != null) {
+        resetForNewData();
         final List<int> imageBytes = await pickedImage.readAsBytes();
         base64Image.value = 'data:image/png;base64,${base64Encode(imageBytes)}';
         final XFile? croppedImage = await cropImage(pickedImage.path);
         if (croppedImage != null) {
           imageFile = croppedImage;
-          await getRecognizedText(croppedImage, index);
+          await getRecognizedText(croppedImage, 0);
         } else {
           isEmptyLoading.value = false;
           imageFile = null;
         }
       } else {
+        resetForNewData();
         isEmptyLoading.value = false;
         imageFile = null;
         scannedTextList[index].value = "Error occurred when selecting image";
       }
     } catch (e) {
+      resetForNewData();
       isEmptyLoading.value = false;
       imageFile = null;
       scannedTextList[index].value = "Error occurred when scanning";
@@ -105,6 +153,9 @@ class HomeController extends GetxController {
           scanText += '${line.text}\n';
         } else {
           scanText += line.text;
+        }
+        if (line.text.contains('@')) {
+          emailEditingController.text = line.text;
         }
         // log("Line : " + line.text);
       }
