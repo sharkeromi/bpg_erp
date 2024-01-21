@@ -378,6 +378,18 @@ class QRScanContent extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
+                                    "Color : ${globalController.fetchedQRData[index]['color']}",
+                                    style:
+                                        kTSExtractedText.copyWith(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
                                     "DIA : ${globalController.fetchedQRData[index]['dia']}",
                                     style:
                                         kTSExtractedText.copyWith(fontSize: 16),

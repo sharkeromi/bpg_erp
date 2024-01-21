@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bpg_erp/controller/common/global_controller.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:bpg_erp/views/widgets/image_picker_ad.dart';
@@ -157,7 +158,7 @@ class HomeController extends GetxController {
         if (line.text.contains('@')) {
           emailEditingController.text = line.text;
         }
-        // log("Line : " + line.text);
+        log("Line : " + line.text);
       }
     }
     var returnData = Get.find<GlobalController>().stringManipulation(scanText);
