@@ -72,17 +72,18 @@ class GlobalController extends GetxController {
   stringAdder(type) {
     HomeController homeController = Get.find<HomeController>();
     GlobalController globalController = Get.find<GlobalController>();
-    String text = 'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
+    // String text = 'Name : ${homeController.nameEditingController.text.trim()}\n Email : ${homeController.emailEditingController.text.trim()}\n\n';
+    String text = "";
     int k = 0;
     if (type == 'card') {
-      for (int i = homeController.imageList.length - 1; i >= 0; i--) {
-        text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
-      }
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
         text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
         text +=
             ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['hanger_no']}\nReference : ${globalController.fetchedQRData[0]['reference']}\nFabrication : ${globalController.fetchedQRData[0]['fabrication']}\nComposition : ${globalController.fetchedQRData[0]['composition']}\nColor : ${globalController.fetchedQRData[0]['color']}\nGSM : ${globalController.fetchedQRData[0]['gsm']}\nDIA : ${globalController.fetchedQRData[0]['dia']}\n Technical Info : ${globalController.fetchedQRData[0]['technical_info']}\n\n");
         k++;
+      }
+      for (int i = homeController.imageList.length - 1; i >= 0; i--) {
+        text += ("------ Card Info ------\n\n${homeController.imageList[i]['text']}\n\n");
       }
     }
     if (type != 'card') {

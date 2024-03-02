@@ -4,10 +4,13 @@ import 'package:bpg_erp/utils/const/styles.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CommonTapablePanel extends StatelessWidget {
   CommonTapablePanel({
-    super.key, this.onTap, this.instruction,
+    super.key,
+    this.onTap,
+    this.instruction,
   });
 
   final HomeController homeController = Get.find<HomeController>();
@@ -17,12 +20,12 @@ class CommonTapablePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap??() {
-        homeController.showCustomDialog(
-            context, homeController.imageList.length);
-      },
+      onTap: onTap ??
+          () async {
+            await homeController.getImage(ImageSource.camera, homeController.imageList.length);
+          },
       child: Column(
-        children:  [
+        children: [
           kSizedBox20,
           const CustomButton(
             height: 100,
@@ -40,7 +43,7 @@ class CommonTapablePanel extends StatelessWidget {
           ),
           kSizedBox10,
           Text(
-            instruction??'Click here to upload image',
+            instruction ?? 'Click here to upload image',
             style: const TextStyle(fontSize: 16),
           ),
           kSizedBox10,

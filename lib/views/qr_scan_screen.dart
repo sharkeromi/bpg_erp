@@ -55,28 +55,28 @@ class QRScanScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Obx(
-                    () => Padding(
-                      padding: const EdgeInsets.only(left: 5.0, right: 10),
-                      child: CustomButton(
-                        height: 45,
-                        width: (MediaQuery.of(context).size.width / 2) - 20,
-                        gradient: globalController.isBuyerButtonEnabled.value
-                            ? kGDefaultGradient
-                            : kGGreyGradient,
-                        widget: Text(
-                          'Send to Buyer',
-                          textAlign: TextAlign.center,
-                          style: kTSDefaultStyle.copyWith(fontSize: 16),
-                        ),
-                        navigation: globalController.isBuyerButtonEnabled.value
-                            ? () {
-                                globalController.shareImageAndText('hanger');
-                              }
-                            : null,
-                      ),
-                    ),
-                  ),
+                  // Obx(
+                  //   () => Padding(
+                  //     padding: const EdgeInsets.only(left: 5.0, right: 10),
+                  //     child: CustomButton(
+                  //       height: 45,
+                  //       width: (MediaQuery.of(context).size.width / 2) - 20,
+                  //       gradient: globalController.isBuyerButtonEnabled.value
+                  //           ? kGDefaultGradient
+                  //           : kGGreyGradient,
+                  //       widget: Text(
+                  //         'Send to Buyer',
+                  //         textAlign: TextAlign.center,
+                  //         style: kTSDefaultStyle.copyWith(fontSize: 16),
+                  //       ),
+                  //       navigation: globalController.isBuyerButtonEnabled.value
+                  //           ? () {
+                  //               globalController.shareImageAndText('hanger');
+                  //             }
+                  //           : null,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
         appBar: PreferredSize(
