@@ -61,6 +61,8 @@ class GlobalController extends GetxController {
     if (type == 'card') {
       final String text = '$cardEmailBody\n$cardInfo';
       await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
+      resetQRData();
+      Get.offAll(() => const HomeScreen());
     } else {
       final String text = '$buyerEmailBody\n$cardInfo';
       await Share.share(text, subject: kBuyerEmailSubject);

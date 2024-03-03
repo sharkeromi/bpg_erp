@@ -39,7 +39,7 @@ class QRScanScreen extends StatelessWidget {
                                 ? kGDefaultGradient
                                 : kGGreyGradient,
                         widget: Text(
-                          'Send to merchandiser',
+                          'Send to buyer',
                           textAlign: TextAlign.center,
                           style: kTSDefaultStyle.copyWith(fontSize: 16),
                         ),
