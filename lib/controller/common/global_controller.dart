@@ -54,6 +54,7 @@ class GlobalController extends GetxController {
   shareImageAndText(type) async {
     HomeController homeController = Get.find<HomeController>();
     // List<XFile> serverList = [];
+    //* Attachment List
     List<String> imageList = [];
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
       final String imagePath = homeController.imageList[i]['image'];
@@ -64,10 +65,11 @@ class GlobalController extends GetxController {
     if (type == 'card') {
       final String text = '$cardEmailBody\n$cardInfo';
       // await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
+      //* Send email function
       final Email email = Email(
         body: '$cardEmailBody\n$cardInfo',
         subject: kCardEmailSubject,
-        recipients: [homeController.emailEditingController.text.trim()],
+        recipients: [homeController.emailEditingController.text.trim()], //* For empty recipient set ['']
         cc: ['salam@blueplanetgroup.com','babu@bpkw.net','rahim@blueplanetgroup.com','sales@blueplanet-fabric.com','fabric-inquiry@bpcomposite.com'],
         attachmentPaths: imageList,
         isHTML: false,

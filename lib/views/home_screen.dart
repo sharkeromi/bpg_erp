@@ -71,7 +71,10 @@ class HomeScreen extends StatelessWidget {
                 Get.find<GlobalController>().resetQRData();
                 Get.find<HomeController>().origin.value = 'card';
                 Get.to(() => CardScanScreen());
+                //* Open camera function
                 await homeController.getImage(ImageSource.camera, homeController.imageList.length);
+                //* Open pop up for camera and gallery
+                // homeController.showCustomDialog( context, homeController.imageList.length);
               },
             ),
             kSizedBox20,
