@@ -10,9 +10,11 @@ import 'package:bpg_erp/views/widgets/custom_appbar.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
+   final HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +66,12 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              navigation: () {
+              navigation: () async{
                 Get.find<HomeController>().resetData();
                 Get.find<GlobalController>().resetQRData();
                 Get.find<HomeController>().origin.value = 'card';
                 Get.to(() => CardScanScreen());
+                await homeController.getImage(ImageSource.camera, homeController.imageList.length);
               },
             ),
             kSizedBox20,

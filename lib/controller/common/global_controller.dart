@@ -13,6 +13,7 @@ import 'package:bpg_erp/views/home_screen.dart';
 import 'package:bpg_erp/views/widgets/custom_button.dart';
 import 'package:bpg_erp/views/widgets/delete_confirm_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -52,22 +53,33 @@ class GlobalController extends GetxController {
 
   shareImageAndText(type) async {
     HomeController homeController = Get.find<HomeController>();
-    List<XFile> serverList = [];
+    // List<XFile> serverList = [];
+    List<String> imageList = [];
     for (int i = homeController.imageList.length - 1; i >= 0; i--) {
       final String imagePath = homeController.imageList[i]['image'];
-      serverList.add(XFile(imagePath));
+      // serverList.add(XFile(imagePath));
+      imageList.add(imagePath);
     }
     var cardInfo = stringAdder(type);
     if (type == 'card') {
       final String text = '$cardEmailBody\n$cardInfo';
-      await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
+      // await Share.shareXFiles(serverList, text: text, subject: kCardEmailSubject);
+      final Email email = Email(
+        body: '$cardEmailBody\n$cardInfo',
+        subject: kCardEmailSubject,
+        recipients: [homeController.emailEditingController.text.trim()],
+        cc: ['salam@blueplanetgroup.com','babu@bpkw.net','rahim@blueplanetgroup.com','sales@blueplanet-fabric.com','fabric-inquiry@bpcomposite.com'],
+        attachmentPaths: imageList,
+        isHTML: false,
+      );
+      await FlutterEmailSender.send(email);
       resetQRData();
-      Get.offAll(() => const HomeScreen());
+      Get.offAll(() =>  HomeScreen());
     } else {
       final String text = '$buyerEmailBody\n$cardInfo';
       await Share.share(text, subject: kBuyerEmailSubject);
       resetQRData();
-      Get.offAll(() => const HomeScreen());
+      Get.offAll(() =>  HomeScreen());
     }
   }
 

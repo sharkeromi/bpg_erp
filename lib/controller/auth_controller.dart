@@ -42,7 +42,7 @@ class AuthController extends GetxController {
       var response = await _apiController.commonGet(token: null, url: loginUrl + suffixUrl, showLoading: true);
       log(response.toString());
       if (response['status'] == true) {
-        Get.offAll(() => const HomeScreen());
+        Get.offAll(() =>  HomeScreen());
         _globalController.showSnackBar("Success", "Login Successful", cAcceptColor);
       } else {
         log(response.toString());
