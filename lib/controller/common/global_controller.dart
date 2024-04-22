@@ -69,7 +69,7 @@ class GlobalController extends GetxController {
       final Email email = Email(
         body: '$cardEmailBody\n$cardInfo',
         subject: kCardEmailSubject,
-        recipients: [homeController.emailEditingController.text.trim()], //* For empty recipient set ['']
+        recipients: [homeController.emailEditingController.text.trim()], //* For empty recipient set [''] // TO mail send
         cc: ['salam@blueplanetgroup.com','babu@bpkw.net','rahim@blueplanetgroup.com','sales@blueplanet-fabric.com','fabric-inquiry@bpcomposite.com'],
         attachmentPaths: imageList,
         isHTML: false,
@@ -77,6 +77,7 @@ class GlobalController extends GetxController {
       await FlutterEmailSender.send(email);
       resetQRData();
       Get.offAll(() =>  HomeScreen());
+      showSnackBar("Success", "Email sent", cAcceptColor); // email Sent Message
     } else {
       final String text = '$buyerEmailBody\n$cardInfo';
       await Share.share(text, subject: kBuyerEmailSubject);
@@ -255,6 +256,7 @@ class GlobalController extends GetxController {
     isMerchandiserButtonEnabled.value = false;
     isBuyerButtonEnabled.value = false;
     qrTextList.add(''.obs);
+    fetchedQRData.clear();
   }
 
   void onQRViewCreated(QRViewController qrController) async {
@@ -446,10 +448,11 @@ class GlobalController extends GetxController {
       //String suffixUrl = '';
       String suffixUrl = '$qrCode';
       var response = await apiController.commonGet(token: null, url: qrCodeDataFetch + suffixUrl, showLoading: true);
-      log(response.toString());
+      // log("CARD SCAN RESULT: $response");
       if (response['status'] == true) {
         log(response['resultset'].toString());
         fetchedQRData.addAll(response['resultset']);
+        log(fetchedQRData.length.toString());
         showSnackBar("Success", "Barcode scanned successfully", cAcceptColor);
         return true;
       } else {
