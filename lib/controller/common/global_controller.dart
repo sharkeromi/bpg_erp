@@ -96,7 +96,7 @@ class GlobalController extends GetxController {
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
         text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
         text +=
-            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['hanger_no']}\nReference : ${globalController.fetchedQRData[0]['reference']}\nFabrication : ${globalController.fetchedQRData[0]['fabrication']}\nComposition : ${globalController.fetchedQRData[0]['composition']}\nColor : ${globalController.fetchedQRData[0]['color']}\nGSM : ${globalController.fetchedQRData[0]['gsm']}\nDIA : ${globalController.fetchedQRData[0]['dia']}\n Technical Info : ${globalController.fetchedQRData[0]['technical_info']}\n\n");
+            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[i]['hanger_no']}\nReference : ${globalController.fetchedQRData[i]['reference']}\nFabrication : ${globalController.fetchedQRData[i]['fabrication']}\nComposition : ${globalController.fetchedQRData[i]['composition']}\nColor : ${globalController.fetchedQRData[i]['color']}\nGSM : ${globalController.fetchedQRData[i]['gsm']}\nDIA : ${globalController.fetchedQRData[i]['dia']}\n Technical Info : ${globalController.fetchedQRData[i]['technical_info']}\n\n");
         k++;
       }
       for (int i = homeController.imageList.length - 1; i >= 0; i--) {
@@ -108,7 +108,7 @@ class GlobalController extends GetxController {
       for (int i = globalController.dataList.length - 1; i >= 0; i--) {
         text += ("------ QR Result ${k + 1} ------\n\nBarcode : ${globalController.dataList[i]['BARCODE_NO']}\n---------------------------------------\n");
         text +=
-            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[0]['hanger_no']}\nReference : ${globalController.fetchedQRData[0]['reference']}\nFabrication : ${globalController.fetchedQRData[0]['fabrication']}\nComposition : ${globalController.fetchedQRData[0]['composition']}\nColor : ${globalController.fetchedQRData[0]['color']}\nGSM : ${globalController.fetchedQRData[0]['gsm']}\nDIA : ${globalController.fetchedQRData[0]['dia']}\n Technical Info : ${globalController.fetchedQRData[0]['technical_info']}\n\n");
+            ("Hanger Information : \n\nHanger No : ${globalController.fetchedQRData[i]['hanger_no']}\nReference : ${globalController.fetchedQRData[i]['reference']}\nFabrication : ${globalController.fetchedQRData[i]['fabrication']}\nComposition : ${globalController.fetchedQRData[i]['composition']}\nColor : ${globalController.fetchedQRData[i]['color']}\nGSM : ${globalController.fetchedQRData[i]['gsm']}\nDIA : ${globalController.fetchedQRData[i]['dia']}\n Technical Info : ${globalController.fetchedQRData[i]['technical_info']}\n\n");
         k++;
       }
     }
@@ -256,7 +256,7 @@ class GlobalController extends GetxController {
     isMerchandiserButtonEnabled.value = false;
     isBuyerButtonEnabled.value = false;
     qrTextList.add(''.obs);
-    fetchedQRData.clear();
+    fetchedQRData.clear();  //Data  save then clear
   }
 
   void onQRViewCreated(QRViewController qrController) async {
